@@ -1,6 +1,6 @@
 import React from 'react'
 import { Toaster } from "react-hot-toast";
-export const ToasterWrapper = () => {
+export const ToastWrapper = () => {
     return (
       <Toaster
         position="top-right"

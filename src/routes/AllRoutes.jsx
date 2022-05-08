@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Mockman from "mockman-js";
 import { Home,Login,Signup} from "../pages/index";
-const AllRoutes = () => {
+export const AllRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -33,8 +33,7 @@ const AllRoutes = () => {
         <ProtectedRoutes>
           <Archive />
         </ProtectedRoutes>} /> */}
-      <Route path="/*" element={<NotFound />} />
+      {/* <Route path="/*" element={<NotFound />} /> */}
     </Routes>
   )
 }
-export default AllRoutes;
