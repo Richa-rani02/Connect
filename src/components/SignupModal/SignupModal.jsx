@@ -1,5 +1,3 @@
-// import "./SignupModal.scss";
-import { Link } from 'react-router-dom';
 import "../../pages/auth/auth.scss";
 import {Modal,InputBox} from "../../components/index";
 export const SignupModal=({isOpen,onClose})=>{
