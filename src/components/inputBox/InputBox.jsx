@@ -1,11 +1,11 @@
 import "./inputBox.scss";
-export const InputBox=()=>{
+export const InputBox=({labelName,placeholder,type,value,name,...other})=>{
     return(
         <div className="input-group mb-1">
-            <label className="input-group__label" for="email"><span className="label__content">
-              Email
+            <label className="input-group__label" htmlFor={name}><span className="label__content">
+              {labelName}
             </span></label>
-            <input className="input-group__input p-0-75" required />
+            <input type={type} placeholder={placeholder} name={name} value={value} className="input-group__input p-0-75" {...other} />
             
           </div>
     )

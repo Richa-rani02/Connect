@@ -1,1 +1,1 @@
-export {MdEmail} from "react-icons/md";
+export {MdOutlineClose} from "react-icons/md";
