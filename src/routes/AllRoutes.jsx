@@ -1,13 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import Mockman from "mockman-js";
-import { Home,Login,Signup} from "../pages/index";
+import {Login} from "../pages/index";
 export const AllRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Login />} />
       <Route path="/mock" element={<Mockman />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+      {/* <Route path="/signup" element={<Signup />} /> */}
       {/* <Route path="/label" element={
         <ProtectedRoutes>
           <Label />
