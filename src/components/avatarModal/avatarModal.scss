@@ -22,6 +22,11 @@
         img{
             border-radius: 50%;
         }
+
+        @include smMinBreakPoint {
+          width:4.5rem;
+          height: 4.5rem;
+      } 
   }
 
 .line{
