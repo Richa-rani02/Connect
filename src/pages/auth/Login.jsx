@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import "./auth.scss";
-import { InputBox } from "../../components/index";
-import { SignupModal } from '../../components/index';
+import { InputBox,AvatarModal,SignupModal } from "../../components/index";
 export default function Login() {
 
   const [signupActive, setSignupActive] = useState(false);
@@ -34,7 +33,8 @@ export default function Login() {
           </form>
         </div>
       </div>
-      {signupActive ? <SignupModal isOpen={signupActive} onClose={handleSignupToogle} /> : null}
+      {signupActive ? <AvatarModal isOpen={signupActive} onClose={handleSignupToogle} /> : null}
+      {/* {signupActive ? <SignupModal isOpen={signupActive} onClose={handleSignupToogle} /> : null} */}
     </>
   )
 }
