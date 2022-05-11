@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "./auth.scss";
 import { InputBox,AvatarModal,SignupModal } from "../../components/index";
-export default function Login() {
+export const Login=()=> {
 
   const [signupActive, setSignupActive] = useState(false);
   const handleSignupToogle = () => setSignupActive((prev) => !prev);
