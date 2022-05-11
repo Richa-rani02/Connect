@@ -1,8 +1,30 @@
-.sidebar{
+@import "../../sassStyles/global";
+
+.sidebar {
     width: 23%;
-    height:80%;
+    height: 80%;
     background-color: white;
     position: fixed;
     left: 1rem;
     border-radius: 7px;
+
+    .navlink {
+        gap: 1rem;
+        text-decoration: none;
+        
+        &__icon {
+            // color:$textLight1Color;
+
+            color: $blue-5;
+        }
+
+        &__title {
+            font-size: 1.1rem;
+            color:black;
+            // color:$textColor;
+        }
+    }
+    // .navlink-active {
+    //    color:yellow
+    // }
 }
