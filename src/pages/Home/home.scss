@@ -3,7 +3,13 @@
     height: 100%;
     background-color:#f1edf6;
 }
-.main-section{
-    min-height: calc(100vh - 9rem);
+.main-container{
+  min-height: calc(100vh - 9rem);
   position: relative;
+  margin: 2rem 2rem 0 0;
+}
+.main-section{
+  width: 46%;
+  background-color: pink;
+  border-radius: 6px;
 }

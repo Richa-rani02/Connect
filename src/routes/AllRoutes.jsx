@@ -8,7 +8,7 @@ export const AllRoutes = () => {
       <Route path="/mock" element={<Mockman />} />
       <Route path="/home" element={<Home/>}/>
       <Route path="/feed" element={<Feed/>}/>
-      <Route path="/bookmark" element={<Bookmark/>}/>
+      <Route path="/bookmark" element={<Home/>}/>
       <Route path="/liked" element={<LikedPosts/>}/>
       {/* <Route path="/*" element={<NotFound />} /> */}
     </Routes>
