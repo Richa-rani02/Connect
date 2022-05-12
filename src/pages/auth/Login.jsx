@@ -14,7 +14,7 @@ export const Login=()=> {
           </div>
           <img src="../Assets/stars.svg" className="star"></img>
         </div>
-        <div className="grid-item2 px-0-75 mt-1-5 flex-col flex-center">
+        <div className="grid-item2 px-0-75 pt-1 flex-col flex-center">
           <div className="logo">
             <img src="../Assets/logosm.png" />
           </div>

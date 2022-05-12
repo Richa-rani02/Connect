@@ -2,7 +2,7 @@ import "./postcard.scss";
 import { BsThreeDots, AiOutlineHeart, BsShareFill, BsBookmark, FaRegCommentDots, BsEmojiSmile } from "../../utils/icons";
 export const Postcard = () => {
     return (
-        <div className="postcard mt-1-5 p-0-25">
+        <div className="postcard mb-1-5 p-0-25">
             <div className="postcard__header flex flex-align-center">
                 <div className="leftspan flex px-0-75">
                     <span className="profile">
@@ -30,7 +30,7 @@ export const Postcard = () => {
                     <BsBookmark size={21} />
                 </span>
             </div>
-             <div className="postcard__comments flex flex-align-center p-0-75">
+             {/* <div className="postcard__comments flex flex-align-center p-0-75">
                 <span>
                     <BsEmojiSmile size={21} />
                 </span>
@@ -39,7 +39,7 @@ export const Postcard = () => {
                 <button className="comment-btn">
                     Post
                 </button>
-            </div>
+            </div> */}
         </div>
     )
 }

@@ -8,7 +8,7 @@ export const navItems=[
     {
         icons:BsSearch,
         title:'Search',
-        path:'/home'
+        path:'/feed'
     },
     {
         icons:FiHash,
@@ -17,7 +17,7 @@ export const navItems=[
     },
     {
         icons:BsBookmarkFill,
-        title:'Bookamarks',
+        title:'Bookmarks',
         path:'/bookmark'
     },
     {
