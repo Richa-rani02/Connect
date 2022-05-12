@@ -1,6 +1,8 @@
 import "./navbar.scss";
+import {useNavigate} from "react-router-dom";
 import {FaUserCircle,BsSearch,MdNotifications,BsFillChatLeftDotsFill} from "../../utils/icons";
 export const Navbar=()=>{
+    let navigate=useNavigate();
     return(
         <header className="header flex flex-align-center flex-justify-between w-100 py-0-75 px-2">
          <div className="app-title flex flex-align-center">
@@ -14,7 +16,7 @@ export const Navbar=()=>{
         <input type="search" className="search-form__input" value=""placeholder="search here..."/>
       </form>
     
-         <div className="profile-container">
+         <div className="profile-container" onClick={()=>navigate('/profile')}>
          <img src="../Assets/avatar3.png" className="responsive-img"></img>
          </div>
         </header>

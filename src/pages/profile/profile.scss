@@ -1,0 +1,38 @@
+@import "../../sassStyles/global";
+.profile {
+    flex-wrap: wrap;
+
+    &__section {
+        width: 70%;
+        height: 100%;
+        border-bottom: 1px solid grey;
+    }
+}
+.profile-details{
+    width: 70%;
+    height: 10rem;
+    .image{
+        border-radius: 50%;
+        width: 7rem;
+        height: 7rem;
+        img{
+            border-radius: 50%;
+        }
+    }
+    .title{
+        gap: 1rem;
+
+        button{
+            border: none;
+            background-color: $blue-3;
+            background-image:$primaryGradient;
+            color: white;
+            border-radius: 2px;
+            font-size: 1rem;
+
+        }
+    }
+    .post-count{
+        gap: 1.5rem;
+    }
+}
