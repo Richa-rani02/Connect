@@ -11,7 +11,6 @@
 }
 .main-section{
   width: 46%;
-  background-color: pink;
   border-radius: 6px;
 }
 .create-form{
@@ -42,7 +41,8 @@
     border-radius: 3rem;
     color: white;
     font-size: 1rem;
-    background-color:$blue-4;
+    background-color: $blue-7;
+    background-image:$primaryGradient;
   }
 }
 .profile-img{
@@ -54,7 +54,7 @@
 }
 
 .footer-icons{
-  border-top: 1px solid grey;
+  border-top: 1px solid $borderColor;
  
 &__left{
   width: 90%;
@@ -74,4 +74,15 @@ span{
 }
 .emoji{
   font-size: 1.2rem;
+}
+.post-header{
+
+  h3{
+    color: $textColor;
+    font-size: 1.2rem;
+  }
+  .icon{
+    margin-left: auto;
+    color: $blue-5;
+  }
 }
