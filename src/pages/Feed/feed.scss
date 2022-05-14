@@ -1,87 +1,119 @@
 @import "../../sassStyles/global";
-.main{
-    width: 100%;
-    height: 100%;
+
+.main {
+  width: 100%;
+  height: 100%;
 
 }
-.main-container{
+
+.main-container {
   min-height: calc(100vh - 9rem);
   position: relative;
-  margin: 2rem 2rem 0 0;
+  margin: 2rem 0 0 0;
+
+  @include mdMinBreakPoint {
+    margin: 0;
+  }
 }
-.main-section{
+
+.main-section {
   width: 46%;
   border-radius: 6px;
+
+  @include mdMinBreakPoint {
+    width: 95%;
+    padding: 0.75rem;
+  }
 }
-.create-form{
+
+.create-form {
   background-color: white;
   border-radius: 10px;
   width: 100%;
   height: auto;
-  min-height:4rem;
+  min-height: 4rem;
 
-  &__container{
+  &__container {
     gap: 1rem;
-     max-height:auto;
+    max-height: auto;
   }
-  textarea{
+
+  textarea {
     width: 90%;
     height: auto;
     border: none;
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
-    background-color:transparent;
-    &:focus{
+    background-color: transparent;
+
+    &:focus {
       outline: none;
+    }
   }
-  }
-  .post-btn{
+
+  .post-btn {
     text-align: center;
     border: none;
     border-radius: 3rem;
     color: white;
     font-size: 1rem;
     background-color: $blue-7;
-    background-image:$primaryGradient;
+    background-image: $primaryGradient;
   }
 }
-.profile-img{
-  height:3rem;
+
+.profile-img {
+  height: 3rem;
   width: 3rem;
-  img{
+
+  img {
     border-radius: 50%;
   }
 }
 
-.footer-icons{
+.footer-icons {
   border-top: 1px solid $borderColor;
- 
-&__left{
-  width: 90%;
-gap: 1rem;
 
-span{
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color:$textColor
-}
-}
+  &__left {
+    width: 90%;
+    gap: 1rem;
 
-  &__right{
+    span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: $textColor;
+
+      .icon-title {
+
+        @include smMinBreakPoint {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &__right {
     margin-left: auto;
   }
+
+  @include smMinBreakPoint {
+    flex-direction: column;
+  }
 }
-.emoji{
+
+.emoji {
   font-size: 1.2rem;
 }
-.post-header{
 
-  h3{
+.post-header {
+
+  h3 {
     color: $textColor;
     font-size: 1.2rem;
   }
-  .icon{
+
+  .icon {
     margin-left: auto;
     color: $blue-5;
   }

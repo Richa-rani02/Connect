@@ -16,4 +16,8 @@
         background-color: #f1edf6;
         border-radius: 5px;
     }
+
+    @include mdMinBreakPoint {
+       display: none;
+    }
 }

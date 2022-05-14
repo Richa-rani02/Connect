@@ -9,12 +9,12 @@ export const Navbar=()=>{
              <img src="../Assets/logosm.png" className="app-title__logo">
              </img>
          </div>
-         <form action="" className="search-form flex">
+         {/* <form action="" className="search-form flex">
              <span className="search-form__icon px-1 flex flex-align-center">
              <BsSearch />
              </span>
         <input type="search" className="search-form__input" value=""placeholder="search here..."/>
-      </form>
+      </form> */}
     
          <div className="profile-container" onClick={()=>navigate('/profile')}>
          <img src="../Assets/avatar3.png" className="responsive-img"></img>
