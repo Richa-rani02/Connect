@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "./auth.scss";
 import { InputBox,AvatarModal,SignupModal } from "../../components/index";
-export default function Login() {
+export const Login=()=> {
 
   const [signupActive, setSignupActive] = useState(false);
   const handleSignupToogle = () => setSignupActive((prev) => !prev);
@@ -14,7 +14,7 @@ export default function Login() {
           </div>
           <img src="../Assets/stars.svg" className="star"></img>
         </div>
-        <div className="grid-item2 px-0-75 mt-1-5 flex-col flex-center">
+        <div className="grid-item2 px-0-75 pt-1 flex-col flex-center">
           <div className="logo">
             <img src="../Assets/logosm.png" />
           </div>
