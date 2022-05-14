@@ -6,10 +6,12 @@ export const Sidebar=()=>{
     const getActiveNavStyle = ({ isActive }) =>
     isActive
         ? {
-            background: '#ebefff',
+             background: '#ebefff',
+            color:"#4f46e5",
         }
         : {
-            background: '#ffffff'
+            background: '#ffffff',
+            color:'#42474c'
         } 
           
     return(

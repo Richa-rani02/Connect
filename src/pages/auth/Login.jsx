@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import "./auth.scss";
 import { InputBox,AvatarModal,SignupModal } from "../../components/index";
+import {ImSpinner3} from "../../utils/icons";
 export const Login=()=> {
 
   const [signupActive, setSignupActive] = useState(false);
@@ -26,7 +27,8 @@ export const Login=()=> {
             <InputBox labelName="Email" type="email" name="email" required />
             <InputBox labelName="Password" type="password" name="password" required />
             <div className="mt-1 signup-link" onClick={() => setSignupActive(true)}>New user ? SignUp here</div>
-            <button className="auth-btn-group auth-btn py-0-75 mt-2">
+            <button className="auth-btn-group auth-btn py-0-75 mt-2 flex-center">
+            <ImSpinner3 size={20} className="spinner mr-0-5"/>
               Login
             </button>
             <div className="m-1 test-login">Load test credential</div>
