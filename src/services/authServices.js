@@ -3,7 +3,7 @@ import { loginUrl,signupUrl } from '../utils/apiUrl';
 
 export const loginService=(userDetails)=>{
     return axios.post(loginUrl,{
-        email:userDetails.email,
+        username:userDetails.email,
         password:userDetails.password,
     });
 }

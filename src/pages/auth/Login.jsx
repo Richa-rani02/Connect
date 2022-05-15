@@ -1,10 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import "./auth.scss";
+import {loginUser} from "./authSlice";
+import {useDispatch,useSelector} from "react-redux";
 import { InputBox,AvatarModal,SignupModal } from "../../components/index";
 export const Login=()=> {
+   
+  const [formValues,setFormValues]=useState({
+    email:"",
+    password:"",
+  });
+ 
+  const dispatch=useDispatch();
+  const auth=useSelector((state)=>state.auth);
+  // console.log(auth);
 
   const [signupActive, setSignupActive] = useState(false);
   const handleSignupToogle = () => setSignupActive((prev) => !prev);
+
+  const changeHandler=(e)=>{
+      setFormValues({...formValues,[e.target.name]:e.target.value})
+  }
+
+const loginHandler=()=>{
+  if(formValues.email && formValues.password!==''){
+    dispatch(loginUser(formValues));
+  }
+ 
+}
+
+const loadtestData=()=>{
+  setFormValues({
+    email:"test@gmail.com",
+    password:"Test123@",
+})
+}
+
   return (
     <>
       <div className="login-page">
@@ -22,14 +52,14 @@ export const Login=()=> {
           <div className="error-msg mt-1 px-0-75 py-0-5">
             Error in login
           </div>
-          <form className="auth-form mt-1">
-            <InputBox labelName="Email" type="email" name="email" required />
-            <InputBox labelName="Password" type="password" name="password" required />
+          <form className="auth-form mt-1" onSubmit={e=>e.preventDefault()}>
+            <InputBox labelName="Email" type="email" name="email" value={formValues.email} onChange={changeHandler} required />
+            <InputBox labelName="Password" type="password" name="password" value={formValues.password} onChange={changeHandler} required />
             <div className="mt-1 signup-link" onClick={() => setSignupActive(true)}>New user ? SignUp here</div>
-            <button className="auth-btn-group auth-btn py-0-75 mt-2">
+            <button className="auth-btn-group auth-btn py-0-75 mt-2"onClick={loginHandler}>
               Login
             </button>
-            <div className="m-1 test-login">Load test credential</div>
+            <div className="m-1 test-login" onClick={loadtestData}>Load test credential</div>
           </form>
         </div>
       </div>
