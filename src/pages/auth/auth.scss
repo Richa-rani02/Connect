@@ -87,6 +87,9 @@
     &:focus {
         background-color: $blue-6;
     }
+    &:disabled{
+        opacity: 0.5;
+    }
 }
 
 .test-login {
@@ -103,4 +106,8 @@
 
 .signup-form {
     width: 90%;
+}
+
+.spinner{
+    animation: spin infinite 5s linear;
 }

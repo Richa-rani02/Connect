@@ -28,7 +28,7 @@ export const SignupUser = createAsyncThunk(
             localStorage.setItem("connect-user", data.createdUser);
             return data;
         } catch (error) {
-            return rejectWithValue(error.message);
+            return rejectWithValue(error.response);
         }
     }
 )

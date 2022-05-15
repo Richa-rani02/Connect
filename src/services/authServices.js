@@ -10,9 +10,9 @@ export const loginService=(userDetails)=>{
 
 export const signupService=(userDetails)=>{
     return axios.post(signupUrl,{
-        firstName:userDetails.firstName,
+           firstName:userDetails.firstName,
             lastName:userDetails.lastName,
-            email: userDetails.email,
+            username: userDetails.email,
             password: userDetails.password
     });
 }

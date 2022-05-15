@@ -6,14 +6,16 @@ export const Sidebar=()=>{
     const getActiveNavStyle = ({ isActive }) =>
     isActive
         ? {
-            background: '#ebefff',
+             background: '#ebefff',
+            color:"#4f46e5",
         }
         : {
-            background: '#ffffff'
+            background: '#ffffff',
+            color:'#42474c'
         } 
           
     return(
-        <div className="sidebar p-1-5">
+        <div className="sidebar p-1-5 flex flex-col">
          {navItems.map((item,index)=>(
             <NavLink key={index} to={`${item.path}`} className="navlink flex flex-align-center p-1 my-1" style={( getActiveNavStyle)}>
            <item.icons size={22} className="navlink__icon"/>
