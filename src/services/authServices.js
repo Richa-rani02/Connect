@@ -1,16 +1,15 @@
 import axios from 'axios';
-import toast from "react-hot-toast";
 import { loginUrl,signupUrl } from '../utils/apiUrl';
 
-export const loginService=async(userDetails)=>{
-    return await axios.post(loginUrl,{
+export const loginService=(userDetails)=>{
+    return axios.post(loginUrl,{
         email:userDetails.email,
         password:userDetails.password,
     });
 }
 
-export const signupService=async(userDetails)=>{
-    return await axios.post(signupUrl,{
+export const signupService=(userDetails)=>{
+    return axios.post(signupUrl,{
         firstName:userDetails.firstName,
             lastName:userDetails.lastName,
             email: userDetails.email,
