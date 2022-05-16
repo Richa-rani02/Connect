@@ -6,7 +6,7 @@ const initialState = {
     isLoading: false,
     error: "",
     token: localStorage.getItem("connect-token") ?? "",
-    userDetails: localStorage.getItem("connect-user") || "",
+    userDetails: JSON.parse(localStorage.getItem("connect-user")) || "",
 };
 
 export const loginUser = createAsyncThunk(

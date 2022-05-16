@@ -1,6 +1,7 @@
 import "./postcard.scss";
 import { BsThreeDots, AiOutlineHeart, BsShareFill, BsBookmark, FaRegCommentDots, BsEmojiSmile } from "../../utils/icons";
-export const Postcard = () => {
+export const Postcard = ({post}) => {
+    console.log(post);
     return (
         <div className="postcard mb-1-5 p-0-25">
             <div className="postcard__header flex flex-align-center">
@@ -9,7 +10,7 @@ export const Postcard = () => {
                         <img src="../Assets/avatar3.png" className="responsive-img"></img>
                     </span>
                     <span className="flex flex-align-center">
-                        <h4>Richa</h4>
+                        <h4>{post.firstName}</h4>
                         <p>@richa02</p>
                     </span>
                 </div>
@@ -18,7 +19,7 @@ export const Postcard = () => {
                 </span>
             </div>
             <div className="postcard__content p-0-25">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt ducimus consectetur sequi.</p>
+                <p>{post.content}</p>
             </div>
             <div className="postcard__footer my-0-75 flex px-0-25">
                 <span className="footer-left flex flex-align-center">

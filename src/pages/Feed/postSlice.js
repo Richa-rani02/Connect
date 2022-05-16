@@ -11,16 +11,18 @@ const initialState = {
 export const getAllPost = createAsyncThunk(
     "post/getAllPost", async (_, { rejectWithValue }) => {
         try {
-            const data = await getAllPostService();
+            const {data} = await getAllPostService();
             return data;
         } catch (error) {
             return rejectWithValue(error.message);
         }
     })
 
-export const getUserPost = createAsyncThunk("post/getUserPost", async (userName, { rejectWithValue }) => {
+export const getUserPost = createAsyncThunk("post/getUserPost",
+ async (username, { rejectWithValue }) =>
+ {
     try {
-        const data = await getUserPostService(userName);
+        const {data} = await getUserPostService(username);
         return data.posts;
 
     } catch (error) {

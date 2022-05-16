@@ -1,9 +1,19 @@
-import { Navbar, Footer, Sidebar, Highlights,Postcard } from "../../components";
-import { Routes, Route } from "react-router-dom";
+import { Navbar,Sidebar, Highlights,Postcard } from "../../components";
 import "./feed.scss";
-import { Bookmark } from "../index";
+import {getUserPost} from "./postSlice";
+import { useEffect } from "react";
+import { useDispatch,useSelector } from "react-redux";
 import { MdLocationPin, FcPicture,BsFilterLeft } from "../../utils/icons";
 export const Feed = () => {
+    const dispatch=useDispatch();
+    const {userPosts,isLoading}=useSelector((state)=>state.post);
+    const {userDetails}=useSelector((state)=>state.auth);
+
+useEffect(()=>{
+    dispatch(getUserPost(userDetails.username))
+},[]);
+console.log(userDetails);
+
     return (
         <div className="feed">
             <Navbar />
@@ -13,7 +23,7 @@ export const Feed = () => {
                     <form className="create-form flex-col px-1 py-0-25">
                         <div className="flex create-form__container">
                             <div className="profile-img">
-                                <img src="../Assets/avatar3.png" className="responsive-img"></img>
+                                <img src={userDetails.profileImg} className="responsive-img"></img>
                             </div>
                             <textarea
                                 value=""
@@ -39,13 +49,12 @@ export const Feed = () => {
                         <h3>Latest Posts</h3>
                         <BsFilterLeft size={26} className="icon"/>
                     </div>
-                    <Postcard/>
-                    <Postcard/>
-                    <Postcard/>
+                    {userPosts?.map((posts)=>(
+                        <Postcard key={posts.id} post={posts}/>
+                    ))}
                 </section>
                 <Highlights />
             </div>
-            {/* <Footer/> */}
         </div>
     )
 }
