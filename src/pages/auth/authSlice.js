@@ -5,7 +5,7 @@ const initialState = {
     authStatus: '',
     isLoading: false,
     error: "",
-    token: localStorage.getItem("connect-token") ?? '',
+    token: localStorage.getItem("connect-token") ?? "",
     userDetails: localStorage.getItem("connect-user") || "",
 };
 
@@ -37,9 +37,9 @@ const authSlice = createSlice({
     reducers: {
         logoutUser: (state) => {
             state.isLoading = false;
-            state.error = null;
-            state.token = null;
-            state.userDetails = null;
+            state.error = "";
+            state.token = "";
+            state.userDetails = "";
             localStorage.removeItem("connect-token");
             localStorage.removeItem("connect-user");
 

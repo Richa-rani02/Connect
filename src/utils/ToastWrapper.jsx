@@ -9,9 +9,21 @@ export const ToastWrapper = () => {
           style: {
             minWidth: "260px",
           },
+          duration:2000,
           success: {
-            duration: 2000,
+            style:{
+              background: '#86efac',
+            },
+            iconTheme: {
+              primary: 'white',
+            },
+          //  duration: 2000,
           },
+          error:{
+            style:{
+              background: '#fecaca',
+            },
+          }
         }}
       />
     );
