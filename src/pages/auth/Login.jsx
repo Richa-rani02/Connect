@@ -2,9 +2,10 @@ import React, { useState,useEffect } from 'react';
 import "./auth.scss";
 import {loginUser} from "./authSlice";
 import {useDispatch,useSelector} from "react-redux";
-import { InputBox,AvatarModal,SignupModal } from "../../components/index";
+import { InputBox} from "../../components/index";
 import {ImSpinner3} from "../../utils/icons";
 import { useNavigate } from 'react-router-dom';
+import { SignupModal } from './SignupModal/SignupModal';
 export const Login=()=> {
    
   const [formValues,setFormValues]=useState({
@@ -26,7 +27,7 @@ const loginHandler=()=>{
   }
  
 }
-
+console.log(formValues);
 const loadtestData=()=>{
   setFormValues({
     email:"test@gmail.com",
@@ -40,7 +41,7 @@ const errorMsg =
             : error.includes('404')
             ? "User not found"
             : "login failed!"
-            //  useEffect(() => token && navigate("/feed"), [token]);
+              useEffect(() => token && navigate("/feed"), [token]);
   return (
     <>
       <div className="login-page">
@@ -72,8 +73,7 @@ const errorMsg =
           </form>
         </div>
       </div>
-      {signupActive ? <AvatarModal isOpen={signupActive} onClose={handleSignupToogle} /> : null}
-      {/* {signupActive ? <SignupModal isOpen={signupActive} onClose={handleSignupToogle} /> : null} */}
+      {signupActive ? <SignupModal isOpen={signupActive} onClose={handleSignupToogle} /> : null}
     </>
   )
 }

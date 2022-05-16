@@ -24,11 +24,9 @@ export const SignupUser = createAsyncThunk(
     "auth/signupUser", async (userDetails, { rejectWithValue }) => {
         try {
             const { data } = await signupService(userDetails);
-            localStorage.setItem("connect-token", data.encodedToken);
-            localStorage.setItem("connect-user", data.createdUser);
             return data;
         } catch (error) {
-            return rejectWithValue(error.response);
+            return rejectWithValue(error.message);
         }
     }
 )
@@ -72,6 +70,30 @@ const authSlice = createSlice({
                 state.isLoading=false;
                 state.error=action.payload;
                 toast.error("Some error occured in login. Try Again:( ", {
+                    id: toastId,
+                });
+            })
+            .addCase(SignupUser.pending,(state)=>{
+                state.authStatus='pending';
+                state.isLoading=true;
+                state.error="",
+                toastId = toast.loading("Creating new Account...");
+            })
+            .addCase(SignupUser.fulfilled,(state,action)=>{
+                state.isLoading=false,
+                state.error="",
+                state.token=action.payload.encodedToken;
+                state.userDetails=action.payload.createdUser;
+                localStorage.setItem("connect-token", state.token);
+                localStorage.setItem("connect-user",JSON.stringify(state.userDetails) );
+                toast.success("Account created Successfully", {
+                    id: toastId,
+                });
+            })
+            .addCase(SignupUser.rejected,(state,action)=>{
+                state.isLoading=false;
+                state.error=action.payload;
+                toast.error("Some error occured in signup. Try Again:( ", {
                     id: toastId,
                 });
             })

@@ -9,9 +9,10 @@ export const loginService=(userDetails)=>{
 }
 
 export const signupService=(userDetails)=>{
+    const [firstName, lastName] = userDetails.fullName.split(' ');
     return axios.post(signupUrl,{
-           firstName:userDetails.firstName,
-            lastName:userDetails.lastName,
+            firstName:firstName,
+            lastName:lastName,
             username: userDetails.email,
             password: userDetails.password
     });
