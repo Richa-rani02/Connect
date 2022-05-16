@@ -1,4 +1,4 @@
-import { Navbar,Sidebar, Highlights,Postcard } from "../../components";
+import { Navbar,Sidebar, Highlights,Postcard,Loader } from "../../components";
 import "./feed.scss";
 import {getUserPost} from "./postSlice";
 import { useEffect } from "react";
@@ -49,9 +49,12 @@ console.log(userDetails);
                         <h3>Latest Posts</h3>
                         <BsFilterLeft size={26} className="icon"/>
                     </div>
+                    {isLoading?
+                    <Loader/>:<>
                     {userPosts?.map((posts)=>(
                         <Postcard key={posts.id} post={posts}/>
                     ))}
+                     </>}
                 </section>
                 <Highlights />
             </div>
