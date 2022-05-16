@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Mockman from "mockman-js";
-import { Login, Bookmark, LikedPosts, Feed, Profile } from "../pages/index";
+import { Login, Bookmark, LikedPosts, Feed, Profile,Explore } from "../pages/index";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 export const AllRoutes = () => {
   return (
@@ -12,7 +12,11 @@ export const AllRoutes = () => {
           <Feed />
         </ProtectedRoutes>
       } />
-      {/* <Route path="/discover" element={<Feed/>}/> */}
+      <Route path="/explore" element={
+        <ProtectedRoutes>
+          <Explore />
+        </ProtectedRoutes>
+      } />
       <Route path="/bookmark" element={
         <ProtectedRoutes>
           <Bookmark />

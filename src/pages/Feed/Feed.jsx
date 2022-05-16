@@ -1,7 +1,6 @@
 import { Navbar, Sidebar, Highlights, Postcard, Loader } from "../../components";
 import "./feed.scss";
 import { getUserPost } from "./postSlice";
-import { getAllUsers } from "../profile/userSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdLocationPin, FcPicture, BsFilterLeft } from "../../utils/icons";
@@ -12,7 +11,6 @@ export const Feed = () => {
 
     useEffect(() => {
         dispatch(getUserPost(userDetails.username));
-        dispatch(getAllUsers());
     }, []);
 
     return (

@@ -1,10 +1,18 @@
 import "./postcard.scss";
-import {useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllUsers } from "../../pages/profile/userSlice";
+import { useEffect } from "react";
 import { BsThreeDots, AiOutlineHeart, BsShareFill, BsBookmark, FaRegCommentDots, BsEmojiSmile } from "../../utils/icons";
 export const Postcard = ({ post }) => {
-    
+
+    const dispatch = useDispatch();
     const { allUsers } = useSelector((state) => state.user);
-     const userInfo = allUsers && allUsers?.find((user) => user.username === post.username);
+    const userInfo = allUsers && allUsers?.find((user) => user.username === post.username);
+
+    useEffect(() => {
+        dispatch(getAllUsers());
+    }, [])
+
     return (
         <div className="postcard mb-1-5 p-0-25">
             <div className="postcard__header flex flex-align-center">
@@ -13,7 +21,7 @@ export const Postcard = ({ post }) => {
                         <img src={userInfo?.profileImg} className="responsive-img"></img>
                     </span>
                     <span className="flex flex-align-center">
-                        <h4>{userInfo?.firstName.concat(" ",userInfo?.lastName)}</h4>
+                        <h4>{userInfo?.firstName.concat(" ", userInfo?.lastName)}</h4>
                         <p>@{userInfo?.userHandler}</p>
                     </span>
                 </div>
