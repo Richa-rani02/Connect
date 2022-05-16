@@ -1,17 +1,20 @@
 import "./postcard.scss";
+import {useSelector } from "react-redux";
 import { BsThreeDots, AiOutlineHeart, BsShareFill, BsBookmark, FaRegCommentDots, BsEmojiSmile } from "../../utils/icons";
-export const Postcard = ({post}) => {
-    console.log(post);
+export const Postcard = ({ post }) => {
+    
+    const { allUsers } = useSelector((state) => state.user);
+     const userInfo = allUsers && allUsers?.find((user) => user.username === post.username);
     return (
         <div className="postcard mb-1-5 p-0-25">
             <div className="postcard__header flex flex-align-center">
                 <div className="leftspan flex px-0-75">
                     <span className="profile">
-                        <img src="../Assets/avatar3.png" className="responsive-img"></img>
+                        <img src={userInfo?.profileImg} className="responsive-img"></img>
                     </span>
                     <span className="flex flex-align-center">
-                        <h4>{post.firstName}</h4>
-                        <p>@richa02</p>
+                        <h4>{userInfo?.firstName.concat(" ",userInfo?.lastName)}</h4>
+                        <p>@{userInfo?.userHandler}</p>
                     </span>
                 </div>
                 <span className="rightspan px-0-5">
@@ -31,7 +34,7 @@ export const Postcard = ({post}) => {
                     <BsBookmark size={21} />
                 </span>
             </div>
-             {/* <div className="postcard__comments flex flex-align-center p-0-75">
+            {/* <div className="postcard__comments flex flex-align-center p-0-75">
                 <span>
                     <BsEmojiSmile size={21} />
                 </span>

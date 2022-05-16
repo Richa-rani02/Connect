@@ -2,6 +2,7 @@ import { Navbar } from "../../components/index";
 import "./profile.scss";
 import { useSelector,useDispatch } from "react-redux";
 import {logoutUser} from "../auth/authSlice";
+import { useEffect } from "react";
 export const Profile = () => {
     const dispatch=useDispatch();
     const auth=useSelector((state)=>state.auth);

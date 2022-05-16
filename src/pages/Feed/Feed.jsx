@@ -1,18 +1,19 @@
-import { Navbar,Sidebar, Highlights,Postcard,Loader } from "../../components";
+import { Navbar, Sidebar, Highlights, Postcard, Loader } from "../../components";
 import "./feed.scss";
-import {getUserPost} from "./postSlice";
+import { getUserPost } from "./postSlice";
+import { getAllUsers } from "../profile/userSlice";
 import { useEffect } from "react";
-import { useDispatch,useSelector } from "react-redux";
-import { MdLocationPin, FcPicture,BsFilterLeft } from "../../utils/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { MdLocationPin, FcPicture, BsFilterLeft } from "../../utils/icons";
 export const Feed = () => {
-    const dispatch=useDispatch();
-    const {userPosts,isLoading}=useSelector((state)=>state.post);
-    const {userDetails}=useSelector((state)=>state.auth);
+    const dispatch = useDispatch();
+    const { userPosts, isLoading } = useSelector((state) => state.post);
+    const { userDetails } = useSelector((state) => state.auth);
 
-useEffect(()=>{
-    dispatch(getUserPost(userDetails.username))
-},[]);
-console.log(userDetails);
+    useEffect(() => {
+        dispatch(getUserPost(userDetails.username));
+        dispatch(getAllUsers());
+    }, []);
 
     return (
         <div className="feed">
@@ -47,14 +48,14 @@ console.log(userDetails);
                     </form>
                     <div className="post-header flex my-2 flex-align-center px-1">
                         <h3>Latest Posts</h3>
-                        <BsFilterLeft size={26} className="icon"/>
+                        <BsFilterLeft size={26} className="icon" />
                     </div>
-                    {isLoading?
-                    <Loader/>:<>
-                    {userPosts?.map((posts)=>(
-                        <Postcard key={posts.id} post={posts}/>
-                    ))}
-                     </>}
+                    {isLoading ?
+                        <Loader /> : <>
+                            {userPosts?.map((posts) => (
+                                <Postcard key={posts.id} post={posts} />
+                            ))}
+                        </>}
                 </section>
                 <Highlights />
             </div>
