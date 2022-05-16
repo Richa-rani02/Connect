@@ -1,6 +1,10 @@
 import { Navbar } from "../../components/index";
 import "./profile.scss";
+import { useSelector,useDispatch } from "react-redux";
+import {logoutUser} from "../auth/authSlice";
 export const Profile = () => {
+    const dispatch=useDispatch();
+    const auth=useSelector((state)=>state.auth);
     return (
         <>
             <Navbar />
@@ -13,7 +17,7 @@ export const Profile = () => {
                         <div className="ml-2">
                             <div className="flex title">
                             <p>Richa</p>
-                            <button className="px-0-75 py-0-5">logout</button>
+                            <button className="px-0-75 py-0-5"onClick={()=>dispatch(logoutUser(auth))}>logout</button>
                             </div>
                        
                         <div className="post-count mt-2 flex">
