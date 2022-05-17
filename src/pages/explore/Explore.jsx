@@ -7,12 +7,6 @@ export const Explore=()=>{
 
     const dispatch=useDispatch();
     const {allPosts,isLoading}=useSelector((state)=>state.post);
-
-    useEffect(()=>{
-        dispatch(getAllPost());
-    },[])
-
-    console.log(allPosts);
     return(
         <div className="explore">
         <Navbar />

@@ -1,6 +1,6 @@
 import { Navbar, Sidebar, Highlights, Postcard, Loader,EmojisPicker } from "../../components";
 import "./feed.scss";
-import { getUserPost } from "./postSlice";
+import { getUserPost,getAllPost,addPost } from "./postSlice";
 import { useEffect,useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdLocationPin, FcPicture, BsFilterLeft } from "../../utils/icons";
@@ -8,12 +8,28 @@ export const Feed = () => {
 
     const [emojiPickerActive,setEmojiPickerActive]=useState(false);
     const dispatch = useDispatch();
-    const { userPosts, isLoading } = useSelector((state) => state.post);
+    const {allPosts,isLoading,postStatus } = useSelector((state) => state.post);
     const { userDetails } = useSelector((state) => state.auth);
+    const [feedPost,setFeedPost]=useState([]);
+    const [postContent,setPostContent]=useState("");
 
-    useEffect(() => {
-        dispatch(getUserPost(userDetails.username));
-    }, []);
+    useEffect(()=>{
+        if(postStatus=='idle'){
+            dispatch(getAllPost());
+        }
+    },[]);
+
+    useEffect(()=>{
+        if(allPosts){
+            setFeedPost(allPosts?.filter((post)=>post.username===userDetails.username))
+        }
+    },[userDetails,allPosts])
+
+    const postHandler=(e)=>{
+        e.preventDefault();
+        dispatch(addPost({content:postContent}));
+        setPostContent("");
+    }
 
     return (
         <div className="feed">
@@ -27,12 +43,12 @@ export const Feed = () => {
                                 <img src={userDetails.profileImg} className="responsive-img"></img>
                             </div>
                             <textarea
-                                value=""
+                                value={postContent}
                                 type="text"
                                 placeholder="What's on your mind ?"
                                 name=""
                                 rows="3"
-                                onChange="{handleChange}"
+                                onChange={(e)=>setPostContent(e.target.value)}
                             />
                         </div>
                         <div className="footer-icons py-0-75 flex">
@@ -40,10 +56,10 @@ export const Feed = () => {
                                 <span ><FcPicture size={24} /><span className="icon-title">Images</span></span>
                                 <span onClick={()=>setEmojiPickerActive((prev)=>!prev)}><span className="emoji">🙂</span><span className="icon-title">Feelings</span></span>
                                 <span><MdLocationPin color="blue" size={24} /><span className="icon-title">Location</span></span>
-                                <EmojisPicker emojiActive={emojiPickerActive}/>
+                                <EmojisPicker emojiActive={emojiPickerActive} setPostContent={setPostContent} postContent={postContent}/>
                             </div>
                             <div className="footer-icons__right">
-                                <button className="post-btn px-1-5 py-0-5">Post</button>
+                                <button className="post-btn px-1-5 py-0-5" onClick={postHandler}>Post</button>
                             </div>
                         </div>
                     </form>
@@ -54,7 +70,7 @@ export const Feed = () => {
                     </div>
                     {isLoading ?
                         <Loader /> : <>
-                            {userPosts?.map((posts) => (
+                            {feedPost?.map((posts) => (
                                 <Postcard key={posts.id} post={posts} />
                             ))}
                         </>}

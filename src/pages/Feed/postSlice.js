@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getAllPostService, getUserPostService, addPostService, deletePostService } from "../../services";
-
+import toast from "react-hot-toast";
 const initialState = {
     postStatus:'idle',
     isLoading:false,
@@ -33,7 +33,8 @@ export const getUserPost = createAsyncThunk("post/getUserPost",
 export const addPost = createAsyncThunk("post/addPost", async (postData, { rejectWithValue }) => {
     try {
         const token = localStorage.getItem("connect-token");
-        const data = await addPostService(postData, token);
+        const {data} = await addPostService(postData, token);
+        console.log(data);
         return data.posts;
     } catch (error) {
         return rejectWithValue(error.message);
@@ -42,8 +43,9 @@ export const addPost = createAsyncThunk("post/addPost", async (postData, { rejec
 export const deletePost = createAsyncThunk("post/deletePost", async (postId, { rejectWithValue }) => {
     try {
         const token = localStorage.getItem("connect-token");
-        const data = await deletePostService(postId, token);
-        return data;
+        const {data} = await deletePostService(postId, token);
+        console.log(data.posts);
+        return data.posts;
     } catch (error) {
         return rejectWithValue(error.message);
     }
@@ -54,6 +56,7 @@ const postSlice=createSlice({
     initialState,
     reducers:{},
     extraReducers:(builder)=>{
+        let toastId;
         builder
         .addCase(getAllPost.pending,(state)=>{
            state.postStatus="pending";
@@ -92,6 +95,10 @@ const postSlice=createSlice({
            state.postStatus="fulfilled";
            state.isLoading=false;
            state.allPosts=action.payload;
+           console.log(action.payload);
+           toast.success("Post added !!", {
+            id: toastId,
+        });
         })
         .addCase(addPost.rejected,(state,action)=>{
             state.postStatus="rejected";
@@ -106,11 +113,17 @@ const postSlice=createSlice({
            state.postStatus="fulfilled";
            state.isLoading=false;
            state.allPosts=action.payload;
+           toast.success("Post deleted !!", {
+            id: toastId,
+        });
         })
         .addCase(deletePost.rejected,(state,action)=>{
             state.postStatus="rejected";
             state.isLoading=false;
             state.allPosts=action.payload;
+            toast.error("Some error occured in login. Try Again:( ", {
+                id: toastId,
+            });
          })
     }
     })
