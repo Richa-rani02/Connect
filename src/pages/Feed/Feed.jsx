@@ -1,10 +1,12 @@
-import { Navbar, Sidebar, Highlights, Postcard, Loader } from "../../components";
+import { Navbar, Sidebar, Highlights, Postcard, Loader,EmojisPicker } from "../../components";
 import "./feed.scss";
 import { getUserPost } from "./postSlice";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdLocationPin, FcPicture, BsFilterLeft } from "../../utils/icons";
 export const Feed = () => {
+
+    const [emojiPickerActive,setEmojiPickerActive]=useState(false);
     const dispatch = useDispatch();
     const { userPosts, isLoading } = useSelector((state) => state.post);
     const { userDetails } = useSelector((state) => state.auth);
@@ -36,14 +38,16 @@ export const Feed = () => {
                         <div className="footer-icons py-0-75 flex">
                             <div className="footer-icons__left flex px-1">
                                 <span ><FcPicture size={24} /><span className="icon-title">Images</span></span>
-                                <span><span className="emoji">🙂</span><span className="icon-title">Feelings</span></span>
+                                <span onClick={()=>setEmojiPickerActive((prev)=>!prev)}><span className="emoji">🙂</span><span className="icon-title">Feelings</span></span>
                                 <span><MdLocationPin color="blue" size={24} /><span className="icon-title">Location</span></span>
+                                <EmojisPicker emojiActive={emojiPickerActive}/>
                             </div>
                             <div className="footer-icons__right">
                                 <button className="post-btn px-1-5 py-0-5">Post</button>
                             </div>
                         </div>
                     </form>
+                    
                     <div className="post-header flex my-2 flex-align-center px-1">
                         <h3>Latest Posts</h3>
                         <BsFilterLeft size={26} className="icon" />

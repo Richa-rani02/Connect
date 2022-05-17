@@ -25,10 +25,6 @@ export const Explore=()=>{
                                 <Postcard key={posts.id} post={posts} />
                             ))}
                         </>}
-                {/* <Postcard/>
-                <Postcard/>
-                <Postcard/> */}
-
             </section>
             <Highlights />
         </div>

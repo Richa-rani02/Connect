@@ -73,16 +73,19 @@
 
 .footer-icons {
   border-top: 1px solid $borderColor;
+  position: relative;
 
   &__left {
     width: 90%;
     gap: 1rem;
+   
 
     span {
       display: flex;
       align-items: center;
       gap: 4px;
       color: $textColor;
+      cursor: pointer;
 
       .icon-title {
 

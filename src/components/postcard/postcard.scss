@@ -36,6 +36,38 @@
 
         .rightspan {
             margin-left: auto;
+            position: relative;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            transition: 0.2s;
+             
+            &:hover,
+            &:focus {
+                background-color: $blue-1;
+            }
+
+            &__items {
+                width: max-content;
+                height: fit-content;
+                position: absolute;
+                border: 1px solid $blue-4;
+                border-radius: 3px;
+                right: 50%;
+                top: 2rem;
+                opacity: 0;
+                visibility: hidden;
+                transition: 0.4s;
+                background-color: $blue-1;
+                gap: 5px;
+                cursor: pointer;
+
+            }
+            &__items.active{
+                visibility: visible;
+                opacity: 1;
+                transition: 0.4s;
+            }
         }
     }
 
@@ -56,26 +88,28 @@
         }
     }
 
-    &__comments{
+    &__comments {
         border-top: 1px solid $borderColor;
         gap: 10px;
-        input{
+
+        input {
             width: 100%;
             padding: 10px;
             font-size: 0.9rem;
             font-family: 'Poppins', sans-serif;
-            border:none;
+            border: none;
 
-            &:focus{
+            &:focus {
                 outline: none;
             }
         }
-        .comment-btn{
-          border:none;
-          background-color: transparent;
-          font-size: 1.1rem;
-          color: $blue-5;
-          font-family: 'Poppins', sans-serif;
+
+        .comment-btn {
+            border: none;
+            background-color: transparent;
+            font-size: 1.1rem;
+            color: $blue-5;
+            font-family: 'Poppins', sans-serif;
         }
     }
 

@@ -1,10 +1,11 @@
 import "./postcard.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers } from "../../pages/profile/userSlice";
-import { useEffect } from "react";
-import { BsThreeDots, AiOutlineHeart, BsShareFill, BsBookmark, FaRegCommentDots, BsEmojiSmile } from "../../utils/icons";
+import { useEffect,useState } from "react";
+import { BsThreeDots, AiOutlineHeart, BsShareFill, BsBookmark, FaRegCommentDots, BsEmojiSmile,MdDeleteOutline } from "../../utils/icons";
 export const Postcard = ({ post }) => {
-
+   
+    const [openOption,setOpenOption]=useState(false);
     const dispatch = useDispatch();
     const { allUsers } = useSelector((state) => state.user);
     const userInfo = allUsers && allUsers?.find((user) => user.username === post.username);
@@ -25,8 +26,12 @@ export const Postcard = ({ post }) => {
                         <p>@{userInfo?.userHandler}</p>
                     </span>
                 </div>
-                <span className="rightspan px-0-5">
-                    <BsThreeDots size={22} />
+                <span className="rightspan px-0-5 flex-center">
+                    <BsThreeDots size={22} onClick={()=>setOpenOption((val)=>!val)}/>
+                    <div className={`rightspan__items px-2 py-0-5 flex flex-align-center${openOption?' active ':''}`}>
+                        <MdDeleteOutline size={20} style={{color:'#4f46e5'}}/>
+                        <p>Delete</p>
+                    </div>
                 </span>
             </div>
             <div className="postcard__content p-0-25">

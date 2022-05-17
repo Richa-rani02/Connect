@@ -1,0 +1,20 @@
+@import "../../sassStyles/global";
+
+.emojipicker{
+    position: absolute;
+    left: -0.75rem;
+    display: block;
+    visibility: hidden;
+    transition: 0.4s;
+    top: 3rem;
+    opacity: 0;
+    @include smMinBreakPoint {
+        top: 5rem;
+      }
+
+}
+.active{
+  visibility: visible;
+  opacity: 1;
+  transition: 0.4s;
+}
