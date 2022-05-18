@@ -1,6 +1,6 @@
 import { Navbar, Sidebar, Highlights, Postcard, Loader,EmojisPicker } from "../../components";
 import "./feed.scss";
-import { getUserPost,getAllPost,addPost } from "./postSlice";
+import { getUserPost,getAllPost,addPost } from "../../redux/postSlice";
 import { useEffect,useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdLocationPin, FcPicture, BsFilterLeft } from "../../utils/icons";

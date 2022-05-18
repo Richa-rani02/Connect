@@ -7,13 +7,10 @@ export const Bookmark=()=>{
         <div className="main-container flex flex-justify-center">
              <Sidebar />
             <section className="main-section p-1 ">
-                <Postcard/>
-                 <Postcard/>
-                <Postcard/>
+                
              </section> 
             <Highlights />
         </div>
-        {/* <Footer/> */}
     </div>
     )
 }

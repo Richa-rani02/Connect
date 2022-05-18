@@ -1,7 +1,7 @@
 import "./postcard.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers } from "../../pages/profile/userSlice";
-import { deletePost } from "../../pages/Feed/postSlice";
+import { deletePost } from "../../redux/postSlice";
 import { useEffect, useState } from "react";
 import { BsThreeDots, AiOutlineHeart, BsShareFill, BsBookmark, FaRegCommentDots, BsEmojiSmile, MdDeleteOutline } from "../../utils/icons";
 export const Postcard = ({ post }) => {
@@ -45,6 +45,9 @@ export const Postcard = ({ post }) => {
             </div>
             <div className="postcard__content p-0-25">
                 <p>{post.content}</p>
+                {/* <div className="image_content">
+                <img  className="responsive-img" src="https://res.cloudinary.com/dgomw715r/image/upload/v1650565396/ProjectImages/heroimg2_fha3p9.jpg"/>
+                </div> */}
             </div>
             <div className="postcard__footer my-0-75 flex px-0-25">
                 <span className="footer-left flex flex-align-center">

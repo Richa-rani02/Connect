@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllPostService, getUserPostService, addPostService, deletePostService } from "../../services";
+import { getAllPostService, getUserPostService, addPostService, deletePostService,addBookmarkServices,removeBookmarkServices,addLikedServices,dislikeServices} from "../services";
 import toast from "react-hot-toast";
 const initialState = {
     postStatus:'idle',
@@ -47,6 +47,32 @@ export const deletePost = createAsyncThunk("post/deletePost", async (postId, { r
         console.log(data.posts);
         return data.posts;
     } catch (error) {
+        return rejectWithValue(error.message);
+    }
+})
+
+export const addRemoveBookmark=createAsyncThunk("post/addRemoveBookmark",async({postId,doBookmark},{rejectWithValue})=>{
+    try{
+        const token=localStorage.getItem("connect-token");
+        const {data}=doBookmark
+        ? await addBookmarkServices(token,postId)
+        :await removeBookmarkServices(token,postId)
+
+        return data.posts;
+    }catch(error){
+        return rejectWithValue(error.message);
+    }
+})
+
+export const LikeDislike=createAsyncThunk("post/likeDislike",async({postId,doLike},{rejectWithValue})=>{
+    try{
+        const token=localStorage.getItem("connect-token");
+        const {data}=doLike
+        ?await addLikedServices(token,postId)
+        :await dislikeServices(token,postId)
+
+       return data.posts; 
+    }catch(error){
         return rejectWithValue(error.message);
     }
 })
@@ -118,6 +144,48 @@ const postSlice=createSlice({
         });
         })
         .addCase(deletePost.rejected,(state,action)=>{
+            state.postStatus="rejected";
+            state.isLoading=false;
+            state.allPosts=action.payload;
+            toast.error("Some error occured in login. Try Again:( ", {
+                id: toastId,
+            });
+         })
+  //bookmark
+         .addCase(addRemoveBookmark.pending,(state)=>{
+            state.postStatus="pending";
+            state.isLoading=true;
+        })
+        .addCase(addRemoveBookmark.fulfilled,(state,action)=>{
+           state.postStatus="fulfilled";
+           state.isLoading=false;
+           state.allPosts=action.payload;
+           toast.success("Post Bookmarked !!", {
+            id: toastId,
+        });
+        })
+        .addCase(addRemoveBookmark.rejected,(state,action)=>{
+            state.postStatus="rejected";
+            state.isLoading=false;
+            state.allPosts=action.payload;
+            toast.error("Some error occured in login. Try Again:( ", {
+                id: toastId,
+            });
+         })
+//likes
+         .addCase(LikeDislike.pending,(state)=>{
+            state.postStatus="pending";
+            state.isLoading=true;
+        })
+        .addCase(LikeDislike.fulfilled,(state,action)=>{
+           state.postStatus="fulfilled";
+           state.isLoading=false;
+           state.allPosts=action.payload;
+           toast.success("Post deleted !!", {
+            id: toastId,
+        });
+        })
+        .addCase(LikeDislike.rejected,(state,action)=>{
             state.postStatus="rejected";
             state.isLoading=false;
             state.allPosts=action.payload;
