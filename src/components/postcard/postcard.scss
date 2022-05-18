@@ -86,6 +86,15 @@
 
         .footer-left {
             gap: 1rem;
+
+            span{
+                cursor: pointer;
+            }
+
+            .count{
+                color:$blue-7;
+                font-size: 0.9rem;
+            }
         }
 
         .footer-right {

@@ -8,7 +8,6 @@ export const EmojisPicker=({emojiActive,setPostContent,postContent})=>{
    // setChosenEmoji(emojiObject);
     setPostContent(postContent.concat(emojiObject?.emoji));
   };
-  console.log(postContent);
 return(
     <div className={`emojipicker ${emojiActive?'active':''}`}>
     <EmojiPicker

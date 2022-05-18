@@ -21,7 +21,7 @@ export const Feed = () => {
 
     useEffect(()=>{
         if(allPosts){
-            setFeedPost(allPosts?.filter((post)=>post.username===userDetails.username))
+             setFeedPost(allPosts?.filter((post)=>post.username===userDetails.username))
         }
     },[userDetails,allPosts])
 
@@ -30,6 +30,7 @@ export const Feed = () => {
         dispatch(addPost({content:postContent}));
         setPostContent("");
     }
+    
 
     return (
         <div className="feed">
@@ -53,9 +54,8 @@ export const Feed = () => {
                         </div>
                         <div className="footer-icons py-0-75 flex">
                             <div className="footer-icons__left flex px-1">
-                                <span ><FcPicture size={24} /><span className="icon-title">Images</span></span>
-                                <span onClick={()=>setEmojiPickerActive((prev)=>!prev)}><span className="emoji">🙂</span><span className="icon-title">Feelings</span></span>
-                                <span><MdLocationPin color="blue" size={24} /><span className="icon-title">Location</span></span>
+                                <span><FcPicture size={24} /><span className="icon-title">Images</span></span>
+                                <span onClick={()=>setEmojiPickerActive((prev)=>!prev)}><span className="emoji">🙂</span><span className="icon-title">Emojis</span></span>
                                 <EmojisPicker emojiActive={emojiPickerActive} setPostContent={setPostContent} postContent={postContent}/>
                             </div>
                             <div className="footer-icons__right">

@@ -34,7 +34,6 @@ export const addPost = createAsyncThunk("post/addPost", async (postData, { rejec
     try {
         const token = localStorage.getItem("connect-token");
         const {data} = await addPostService(postData, token);
-        console.log(data);
         return data.posts;
     } catch (error) {
         return rejectWithValue(error.message);
@@ -44,7 +43,6 @@ export const deletePost = createAsyncThunk("post/deletePost", async (postId, { r
     try {
         const token = localStorage.getItem("connect-token");
         const {data} = await deletePostService(postId, token);
-        console.log(data.posts);
         return data.posts;
     } catch (error) {
         return rejectWithValue(error.message);
@@ -71,7 +69,7 @@ export const LikeDislike=createAsyncThunk("post/likeDislike",async({postId,doLik
         ?await addLikedServices(token,postId)
         :await dislikeServices(token,postId)
 
-       return data.posts; 
+       return data; 
     }catch(error){
         return rejectWithValue(error.message);
     }
@@ -115,13 +113,11 @@ const postSlice=createSlice({
 
         .addCase(addPost.pending,(state)=>{
             state.postStatus="pending";
-            state.isLoading=true;
         })
         .addCase(addPost.fulfilled,(state,action)=>{
            state.postStatus="fulfilled";
            state.isLoading=false;
            state.allPosts=action.payload;
-           console.log(action.payload);
            toast.success("Post added !!", {
             id: toastId,
         });
@@ -133,7 +129,6 @@ const postSlice=createSlice({
          })
          .addCase(deletePost.pending,(state)=>{
             state.postStatus="pending";
-            state.isLoading=true;
         })
         .addCase(deletePost.fulfilled,(state,action)=>{
            state.postStatus="fulfilled";
@@ -152,43 +147,43 @@ const postSlice=createSlice({
             });
          })
   //bookmark
-         .addCase(addRemoveBookmark.pending,(state)=>{
-            state.postStatus="pending";
-            state.isLoading=true;
-        })
-        .addCase(addRemoveBookmark.fulfilled,(state,action)=>{
-           state.postStatus="fulfilled";
-           state.isLoading=false;
-           state.allPosts=action.payload;
-           toast.success("Post Bookmarked !!", {
-            id: toastId,
-        });
-        })
-        .addCase(addRemoveBookmark.rejected,(state,action)=>{
-            state.postStatus="rejected";
-            state.isLoading=false;
-            state.allPosts=action.payload;
-            toast.error("Some error occured in login. Try Again:( ", {
-                id: toastId,
-            });
-         })
+        //  .addCase(addRemoveBookmark.pending,(state)=>{
+        //     state.postStatus="pending";
+        //     state.isLoading=true;
+        // })
+        // .addCase(addRemoveBookmark.fulfilled,(state,action)=>{
+        //    state.postStatus="fulfilled";
+        //    state.isLoading=false;
+        //    state.allPosts=action.payload;
+        //    toast.success("Post Bookmarked !!", {
+        //     id: toastId,
+        // });
+        // })
+        // .addCase(addRemoveBookmark.rejected,(state,action)=>{
+        //     state.postStatus="rejected";
+        //     state.isLoading=false;
+        //     state.allPosts=action.payload;
+        //     toast.error("Some error occured in login. Try Again:( ", {
+        //         id: toastId,
+        //     });
+        //  })
 //likes
          .addCase(LikeDislike.pending,(state)=>{
             state.postStatus="pending";
-            state.isLoading=true;
+            // state.isLoading=true;
         })
         .addCase(LikeDislike.fulfilled,(state,action)=>{
            state.postStatus="fulfilled";
            state.isLoading=false;
-           state.allPosts=action.payload;
-           toast.success("Post deleted !!", {
+          state.allPosts=action.payload.posts;
+           toast.success("Post liked !!", {
             id: toastId,
         });
         })
         .addCase(LikeDislike.rejected,(state,action)=>{
             state.postStatus="rejected";
             state.isLoading=false;
-            state.allPosts=action.payload;
+           state.allPosts=action.payload.posts;
             toast.error("Some error occured in login. Try Again:( ", {
                 id: toastId,
             });
