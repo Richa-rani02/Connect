@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllPostService, getUserPostService, addPostService, deletePostService,addBookmarkServices,removeBookmarkServices,addLikedServices,dislikeServices} from "../services";
+import { getAllPostService, getUserPostService, addPostService, deletePostService,addBookmarkServices,
+    removeBookmarkServices,addLikedServices,dislikeServices,editPostService} from "../services";
 import toast from "react-hot-toast";
 const initialState = {
     postStatus:'idle',
@@ -44,6 +45,16 @@ export const deletePost = createAsyncThunk("post/deletePost", async (postId, { r
     try {
         const token = localStorage.getItem("connect-token");
         const {data} = await deletePostService(postId, token);
+        return data.posts;
+    } catch (error) {
+        return rejectWithValue(error.message);
+    }
+})
+
+export const editPost = createAsyncThunk("post/editPost", async ({postData,postId}, { rejectWithValue }) => {
+    try {
+        const token = localStorage.getItem("connect-token");
+        const {data} = await editPostService(postData,token,postId);
         return data.posts;
     } catch (error) {
         return rejectWithValue(error.message);
@@ -146,6 +157,26 @@ const postSlice=createSlice({
                 id: toastId,
             });
          })
+         .addCase(editPost.pending,(state)=>{
+            state.postStatus="pending";
+        })
+        .addCase(editPost.fulfilled,(state,action)=>{
+           state.postStatus="fulfilled";
+           state.isLoading=false;
+           state.allPosts=action.payload;
+           toast.success("Post deleted !!", {
+            id: toastId,
+        });
+        })
+        .addCase(editPost.rejected,(state,action)=>{
+            state.postStatus="rejected";
+            state.isLoading=false;
+            state.allPosts=action.payload;
+            toast.error("Some error occured in login. Try Again:( ", {
+                id: toastId,
+            });
+         })
+
          .addCase(addRemoveBookmark.pending,(state)=>{
             state.postStatus="pending";
         })
