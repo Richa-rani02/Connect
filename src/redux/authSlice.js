@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { loginService, signupService } from "../../services/index";
+import { loginService, signupService} from "../services";
 import toast from "react-hot-toast";
 const initialState = {
     authStatus: '',
@@ -97,6 +97,7 @@ const authSlice = createSlice({
                     id: toastId,
                 });
             })
+    
     }
 
 })

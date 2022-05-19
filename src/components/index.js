@@ -6,3 +6,6 @@ export {Footer} from "./footer/Footer";
 export {Sidebar} from "./sidebar/Sidebar";
 export {Highlights} from "./highlights/Highlights";
 export {Postcard} from "./postcard/Postcard";
+export {Loader} from "./loader/Loader";
+export {EmojisPicker} from "./emojiPicker/EmojiPicker";
+export {EditPostModal} from "./editPostModal/EditPostModal";

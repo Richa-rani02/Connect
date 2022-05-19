@@ -36,12 +36,60 @@
 
         .rightspan {
             margin-left: auto;
+            position: relative;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            transition: 0.2s;
+            color:$textColor;
+             
+            &:hover,
+            &:focus {
+                background-color: $blue-1;
+            }
+
+            &__items {
+                width: max-content;
+                height: fit-content;
+                position: absolute;
+                border-radius: 3rem;
+                right: 1px;
+                top: 1.6rem;
+                opacity: 0;
+                visibility: hidden;
+                transition: 0.4s;
+                background-color: $blue-1;
+                gap: 7px;
+                cursor: pointer;
+
+                li{
+                    gap: 7px;
+                }
+
+            }
+            &__items.active{
+                visibility: visible;
+                opacity: 1;
+                transition: 0.4s;
+            }
         }
     }
 
     &__content {
         min-height: 4rem;
         margin-left: 4rem;
+
+        .image_content{
+            width: 80%;
+            height: 15rem;
+
+            @include smMinBreakPoint {
+                width: 100%;
+              }
+        }
+        @include smMinBreakPoint {
+            margin-left: 10px;
+        }
     }
 
     &__footer {
@@ -49,33 +97,47 @@
 
         .footer-left {
             gap: 1rem;
+
+            span{
+                cursor: pointer;
+            }
+
+            .count{
+                color:$blue-7;
+                font-size: 0.9rem;
+            }
         }
 
         .footer-right {
             margin-left: auto;
         }
+        @include smMinBreakPoint {
+            margin-left: 10px;
+        }
     }
 
-    &__comments{
+    &__comments {
         border-top: 1px solid $borderColor;
         gap: 10px;
-        input{
+
+        input {
             width: 100%;
             padding: 10px;
             font-size: 0.9rem;
             font-family: 'Poppins', sans-serif;
-            border:none;
+            border: none;
 
-            &:focus{
+            &:focus {
                 outline: none;
             }
         }
-        .comment-btn{
-          border:none;
-          background-color: transparent;
-          font-size: 1.1rem;
-          color: $blue-5;
-          font-family: 'Poppins', sans-serif;
+
+        .comment-btn {
+            border: none;
+            background-color: transparent;
+            font-size: 1.1rem;
+            color: $blue-5;
+            font-family: 'Poppins', sans-serif;
         }
     }
 
