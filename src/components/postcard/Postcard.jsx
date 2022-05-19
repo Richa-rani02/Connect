@@ -5,10 +5,11 @@ import { deletePost,LikeDislike, addRemoveBookmark } from "../../redux/postSlice
 import { useEffect, useState } from "react";
 import { BsThreeDots,AiFillHeart, AiOutlineHeart,BsFillChatLeftDotsFill, BsBookmark, FaRegCommentDots, BsEmojiSmile, MdDeleteOutline, BsBookmarkFill } from "../../utils/icons";
 export const Postcard = ({ post }) => {
-
+console.log(post);
     const {
         _id,
         content,
+        pic,
         username,
         likes: { likeCount, likedBy, dislikedBy },
     } = post;
@@ -63,10 +64,13 @@ export const Postcard = ({ post }) => {
 
             </div>
             <div className="postcard__content p-0-25">
-                <p>{content.text}</p>
-                {/* <div className="image_content">
-                <img  className="responsive-img" src="https://res.cloudinary.com/dgomw715r/image/upload/v1650565396/ProjectImages/heroimg2_fha3p9.jpg"/>
-                </div> */}
+                <p>{content}</p>
+                {
+               pic && 
+                    <div className="image_content">
+                <img  className="responsive-img mt-0-25" src={pic}/>
+                </div>
+                }
             </div>
             <div className="postcard__footer my-0-75 flex px-0-25">
                 <div className="footer-left flex flex-align-center">

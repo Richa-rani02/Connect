@@ -6,8 +6,9 @@ export const getUserPostService = (username) =>
     axios.get(`/api/posts/user/${username}`);
 
 export const addPostService = (postData, token) => {
+    console.log(postData);
     return axios.post(PostUrl, {
-      postData,
+        postData
     }, {
         headers: {
             authorization: token,

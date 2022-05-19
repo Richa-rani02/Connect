@@ -75,10 +75,17 @@
         min-height: 4rem;
         margin-left: 4rem;
 
-        // .image_content{
-        //     width: 100%;
-        //     height: 10rem;
-        // }
+        .image_content{
+            width: 80%;
+            height: 15rem;
+
+            @include smMinBreakPoint {
+                width: 100%;
+              }
+        }
+        @include smMinBreakPoint {
+            margin-left: 10px;
+        }
     }
 
     &__footer {
@@ -99,6 +106,9 @@
 
         .footer-right {
             margin-left: auto;
+        }
+        @include smMinBreakPoint {
+            margin-left: 10px;
         }
     }
 

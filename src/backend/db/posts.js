@@ -9,10 +9,8 @@ import { formatDate } from "../utils/authUtils";
 export const posts = [
   {
     _id: uuid(),
-    content:{
-      text: "Success comes to those who will and dare !!",
-      pic:"https://res.cloudinary.com/dgomw715r/image/upload/v1650565396/ProjectImages/heroimg2_fha3p9.jpg"
-    },
+    content: "Success comes to those who will and dare !!",
+    pic: "https://res.cloudinary.com/dgomw715r/image/upload/v1650565396/ProjectImages/heroimg2_fha3p9.jpg",
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -24,10 +22,8 @@ export const posts = [
   },
   {
     _id: uuid(),
-    content:{
-      text:  "On a mission to become better everyday !!",
-      pic:"https://res.cloudinary.com/dgomw715r/image/upload/v1650565396/ProjectImages/heroimg2_fha3p9.jpg"
-    },
+    content: "On a mission to become better everyday !!",
+    pic: "https://res.cloudinary.com/dgomw715r/image/upload/v1650565396/ProjectImages/heroimg2_fha3p9.jpg",
     likes: {
       likeCount: 0,
       likedBy: [],
