@@ -8,7 +8,6 @@ return axios.post(`/api/posts/like/${postId}`,{},{
 });
 }
 export const dislikeServices=(token,postId)=>{
-    console.log(postId);
 return axios.post(`/api/posts/dislike/${postId}`,{},{
     headers:{
         authorization:token

@@ -30,7 +30,7 @@ export const Feed = () => {
         dispatch(addPost({content:postContent}));
         setPostContent("");
     }
-    
+
 
     return (
         <div className="feed">

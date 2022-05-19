@@ -1,7 +1,7 @@
 import "./postcard.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllUsers, addRemoveBookmark } from "../../pages/profile/userSlice";
-import { deletePost,LikeDislike } from "../../redux/postSlice";
+import { getAllUsers } from "../../pages/profile/userSlice";
+import { deletePost,LikeDislike, addRemoveBookmark } from "../../redux/postSlice";
 import { useEffect, useState } from "react";
 import { BsThreeDots,AiFillHeart, AiOutlineHeart,BsFillChatLeftDotsFill, BsBookmark, FaRegCommentDots, BsEmojiSmile, MdDeleteOutline, BsBookmarkFill } from "../../utils/icons";
 export const Postcard = ({ post }) => {
@@ -13,34 +13,31 @@ export const Postcard = ({ post }) => {
         likes: { likeCount, likedBy, dislikedBy },
     } = post;
 
-
     const [openOption, setOpenOption] = useState(false);
     const dispatch = useDispatch();
     const [commentblock,setCommentBlock]=useState(false);
     const { allUsers } = useSelector((state) => state.user);
     const { token, userDetails } = useSelector((state) => state.auth);
-    const userInfo = allUsers && allUsers?.find((user) => user.username === post.username);
+    const {bookmark}=useSelector((state)=>state.post)
+    const userInfo = allUsers && allUsers?.find((user) => user.username === username);
     const isLiked=likedBy?.some((like)=>like.username===userDetails.username);
-    const isBookmarked = userDetails.bookmarks?.some((bookmarkpost) => bookmarkpost._id === post._id);
+    const isBookmarked = bookmark?.some((bookmarkpost) => bookmarkpost._id ===_id);
+    
     useEffect(() => {
         dispatch(getAllUsers());
     }, [])
-
     const deletePostHandler = (e) => {
         e.preventDefault();
-        dispatch(deletePost(post._id, token));
+        dispatch(deletePost(_id, token));
     }
     const bookmarkHandler = () => {
-        console.log("test");
-        //    dispatch(addRemoveBookmark({postId:post._id,doBookmark:isBookmarked?false:true}))
+        dispatch(addRemoveBookmark({postId:_id,doBookmark:isBookmarked?false:true}))
     }
-
     const commentHandler=()=>{
      setCommentBlock((val)=>!val);
     }
-
     const likeHandler=()=>{
-        dispatch(LikeDislike({postId:post._id,doLike:isLiked?false:true}));
+         dispatch(LikeDislike({postId:_id,doLike:isLiked?false:true}))
     }
     return (
         <div className="postcard mb-1-5 p-0-25">
@@ -66,7 +63,7 @@ export const Postcard = ({ post }) => {
 
             </div>
             <div className="postcard__content p-0-25">
-                <p>{post.content}</p>
+                <p>{content.text}</p>
                 {/* <div className="image_content">
                 <img  className="responsive-img" src="https://res.cloudinary.com/dgomw715r/image/upload/v1650565396/ProjectImages/heroimg2_fha3p9.jpg"/>
                 </div> */}

@@ -6,6 +6,7 @@ const initialState = {
     isLoading:false,
     allPosts: [],
     userPosts: [],
+    bookmark:[],
 }
 
 export const getAllPost = createAsyncThunk(
@@ -56,7 +57,7 @@ export const addRemoveBookmark=createAsyncThunk("post/addRemoveBookmark",async({
         ? await addBookmarkServices(token,postId)
         :await removeBookmarkServices(token,postId)
 
-        return data.posts;
+        return data.bookmarks;
     }catch(error){
         return rejectWithValue(error.message);
     }
@@ -68,7 +69,6 @@ export const LikeDislike=createAsyncThunk("post/likeDislike",async({postId,doLik
         const {data}=doLike
         ?await addLikedServices(token,postId)
         :await dislikeServices(token,postId)
-
        return data; 
     }catch(error){
         return rejectWithValue(error.message);
@@ -146,31 +146,27 @@ const postSlice=createSlice({
                 id: toastId,
             });
          })
-  //bookmark
-        //  .addCase(addRemoveBookmark.pending,(state)=>{
-        //     state.postStatus="pending";
-        //     state.isLoading=true;
-        // })
-        // .addCase(addRemoveBookmark.fulfilled,(state,action)=>{
-        //    state.postStatus="fulfilled";
-        //    state.isLoading=false;
-        //    state.allPosts=action.payload;
-        //    toast.success("Post Bookmarked !!", {
-        //     id: toastId,
-        // });
-        // })
-        // .addCase(addRemoveBookmark.rejected,(state,action)=>{
-        //     state.postStatus="rejected";
-        //     state.isLoading=false;
-        //     state.allPosts=action.payload;
-        //     toast.error("Some error occured in login. Try Again:( ", {
-        //         id: toastId,
-        //     });
-        //  })
-//likes
+         .addCase(addRemoveBookmark.pending,(state)=>{
+            state.postStatus="pending";
+        })
+        .addCase(addRemoveBookmark.fulfilled,(state,action)=>{
+           state.postStatus="fulfilled";
+           state.isLoading=false;
+           state.bookmark=action.payload;
+           toast.success("Post Bookmarked !!", {
+            id: toastId,
+        });
+        })
+        .addCase(addRemoveBookmark.rejected,(state,action)=>{
+            state.postStatus="rejected";
+            state.isLoading=false;
+             state.bookmark=action.payload;
+            toast.error(`${action.payload}`, {
+                id: toastId,
+            });
+         })
          .addCase(LikeDislike.pending,(state)=>{
             state.postStatus="pending";
-            // state.isLoading=true;
         })
         .addCase(LikeDislike.fulfilled,(state,action)=>{
            state.postStatus="fulfilled";

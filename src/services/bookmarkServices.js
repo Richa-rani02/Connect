@@ -8,7 +8,6 @@ export const getBookmarkServices=(token)=>axios.get(bookmarkUrl,{
 });
 
 export const addBookmarkServices=(token,postId)=>{
-    console.log(postId);
     return axios.post(`/api/users/bookmark/${postId}`,{},{
        headers:{
            authorization:token
@@ -17,7 +16,7 @@ export const addBookmarkServices=(token,postId)=>{
 }
 
 export const removeBookmarkServices=(token,postId)=>{
-return axios.delete(`/api/users/remove-bookmark/${postId}`,{
+return axios.post(`/api/users/remove-bookmark/${postId}`,{},{
     headers:{
         authorization:token
     }
