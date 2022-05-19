@@ -164,7 +164,7 @@ const postSlice=createSlice({
            state.postStatus="fulfilled";
            state.isLoading=false;
            state.allPosts=action.payload.posts;
-           toast.success("Post deleted !!", {
+           toast.success("Post updated !!", {
             id: toastId,
         });
         })
