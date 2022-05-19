@@ -32,7 +32,7 @@ export const Feed = () => {
     const postHandler = (e) => {
         e.preventDefault();
         dispatch(addPost({ ...postContent }));
-        setPostContent({ text: "", pic: "" });
+        setPostContent({ content: "", pic: "" });
     }
 
 
