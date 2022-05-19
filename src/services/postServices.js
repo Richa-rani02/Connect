@@ -25,7 +25,6 @@ export const editPostService = (postData, token,postId) => {
     })
 }
 export const deletePostService = (postId, token) =>{
-    console.log(postId,token);
     return axios.delete(`api/posts/${postId}`, {
         headers: {
             authorization: token,

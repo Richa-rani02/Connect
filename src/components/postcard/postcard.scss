@@ -37,10 +37,11 @@
         .rightspan {
             margin-left: auto;
             position: relative;
-            width: 2rem;
-            height: 2rem;
+            width: 2.5rem;
+            height: 2.5rem;
             border-radius: 50%;
             transition: 0.2s;
+            color:$textColor;
              
             &:hover,
             &:focus {
@@ -51,16 +52,19 @@
                 width: max-content;
                 height: fit-content;
                 position: absolute;
-                border: 1px solid $blue-4;
-                border-radius: 3px;
-                right: 50%;
-                top: 2rem;
+                border-radius: 3rem;
+                right: 1px;
+                top: 1.6rem;
                 opacity: 0;
                 visibility: hidden;
                 transition: 0.4s;
                 background-color: $blue-1;
-                gap: 5px;
+                gap: 7px;
                 cursor: pointer;
+
+                li{
+                    gap: 7px;
+                }
 
             }
             &__items.active{

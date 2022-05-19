@@ -55,7 +55,7 @@ export const editPost = createAsyncThunk("post/editPost", async ({postData,postI
     try {
         const token = localStorage.getItem("connect-token");
         const {data} = await editPostService(postData,token,postId);
-        return data.posts;
+        return data;
     } catch (error) {
         return rejectWithValue(error.message);
     }
@@ -163,7 +163,7 @@ const postSlice=createSlice({
         .addCase(editPost.fulfilled,(state,action)=>{
            state.postStatus="fulfilled";
            state.isLoading=false;
-           state.allPosts=action.payload;
+           state.allPosts=action.payload.posts;
            toast.success("Post deleted !!", {
             id: toastId,
         });

@@ -1,0 +1,42 @@
+@import "../../sassStyles/global";
+.update-form{
+  width: 100%;
+  height: auto;
+  min-height: 4rem;
+  &__container {
+    gap: 1rem;
+    max-height: auto;
+  }
+
+  textarea {
+    width: 90%;
+    height: auto;
+    border: none;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    background-color:$blue-1;
+
+    &:focus {
+      outline: none;
+    }
+  }
+  .profile-img {
+    height: 3rem;
+    width: 3rem;
+  
+    img {
+      border-radius: 50%;
+    }
+  }
+  .update-btn{
+    text-align: center;
+    border: none;
+    border-radius: 3rem;
+    color: white;
+    font-size: 1rem;
+    width: 6rem;
+    margin-left: auto;
+    background-color: $blue-7;
+    background-image: $primaryGradient;
+  }
+}

@@ -84,7 +84,7 @@ export const Feed = () => {
                     {isLoading ?
                         <Loader /> : <>
                             {feedPost?.map((posts) => (
-                                <Postcard key={posts.id} post={posts} />
+                                <Postcard key={posts.id} post={posts} setPostContent={setPostContent} postContent={postContent} />
                             ))}
                         </>}
                 </section>
