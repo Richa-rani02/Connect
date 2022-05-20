@@ -13,7 +13,6 @@ export const loginUser = createAsyncThunk(
     "auth/loginUser", async (userDetails, { rejectWithValue }) => {
         try {
             const { data } = await loginService(userDetails);
-            console.log(data);
             return data;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -37,7 +36,6 @@ export const updateUser=createAsyncThunk(
        try{
         const token = localStorage.getItem("connect-token");
            const {data}=await updateUserServices(token,userDetails);
-           console.log(data);
            return data;
        }catch(error){
            return rejectWithValue(error.message);
