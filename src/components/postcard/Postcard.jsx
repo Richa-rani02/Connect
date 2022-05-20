@@ -1,7 +1,7 @@
 import "./postcard.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers } from "../../pages/profile/userSlice";
-import { deletePost, LikeDislike, addRemoveBookmark } from "../../redux/postSlice";
+import { deletePost, LikeDislike, addRemoveBookmark,addComment } from "../../redux/postSlice";
 import { useEffect, useState } from "react";
 import { EditPostModal, Comment } from "../index";
 import { BsThreeDots, BiCommentEdit, AiFillHeart, AiOutlineHeart, BsFillChatLeftDotsFill, BsBookmark, FaRegCommentDots, BsEmojiSmile, MdDeleteOutline, BsBookmarkFill } from "../../utils/icons";
@@ -20,11 +20,12 @@ export const Postcard = ({ post }) => {
     const [commentblock, setCommentBlock] = useState(false);
     const { allUsers } = useSelector((state) => state.user);
     const { token, userDetails } = useSelector((state) => state.auth);
-    const { bookmark } = useSelector((state) => state.post)
+    const { bookmark,allPosts } = useSelector((state) => state.post)
     const userInfo = allUsers && allUsers?.find((user) => user.username === username);
     const isLiked = likedBy?.some((like) => like.username === userDetails.username);
     const isBookmarked = bookmark?.some((bookmarkpost) => bookmarkpost._id === _id);
     const [editModalActive, setEditModalActive] = useState(false);
+    const [commentData,setCommentData]=useState("");
 
     useEffect(() => {
         dispatch(getAllUsers());
@@ -34,7 +35,6 @@ export const Postcard = ({ post }) => {
         dispatch(deletePost(_id, token));
 
     }
-
     const editModalToogle = () => {
         setEditModalActive(prev => !prev);
         setOpenOption(val => !val);
@@ -47,6 +47,10 @@ export const Postcard = ({ post }) => {
     }
     const likeHandler = () => {
         dispatch(LikeDislike({ postId: _id, doLike: isLiked ? false : true }))
+    }
+
+    const addCommentHandler=()=>{
+      dispatch(addComment({postId:_id,commentData:commentData}));
     }
     return (
         <>
@@ -110,9 +114,9 @@ export const Postcard = ({ post }) => {
                         <span className="comment-img">
                             <img src={userInfo?.profileImg} className="responsive-img" />
                         </span>
-                        <input type="text" placeholder="Add a comment..." >
-                        </input>
-                        <button className="comment-btn">
+                        <input type="text" placeholder="Add a comment..." onChange={(e)=>setCommentData(e.target.value)} />
+
+                        <button className="comment-btn" onClick={addCommentHandler}>
                             Post
                         </button>
                     </div>
