@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers } from "../../pages/profile/userSlice";
 import { deletePost, LikeDislike, addRemoveBookmark } from "../../redux/postSlice";
 import { useEffect, useState } from "react";
-import { EditPostModal } from "../index";
+import { EditPostModal,Comment } from "../index";
 import { BsThreeDots,BiCommentEdit, AiFillHeart, AiOutlineHeart, BsFillChatLeftDotsFill, BsBookmark, FaRegCommentDots, BsEmojiSmile, MdDeleteOutline, BsBookmarkFill } from "../../utils/icons";
 export const Postcard = ({ post}) => {
     const {
@@ -105,16 +105,17 @@ export const Postcard = ({ post}) => {
                     </span>
                 </div>
                 {commentblock &&
-                    <div className="postcard__comments flex flex-align-center p-0-75">
-                        <span>
-                            <BsEmojiSmile size={21} />
-                        </span>
-                        <input type="text" placeholder="Add a comment..." >
-                        </input>
-                        <button className="comment-btn">
-                            Post
-                        </button>
-                    </div>
+                    // <div className="postcard__comments flex flex-align-center p-0-75">
+                    //     <span>
+                    //         <BsEmojiSmile size={21} />
+                    //     </span>
+                    //     <input type="text" placeholder="Add a comment..." >
+                    //     </input>
+                    //     <button className="comment-btn">
+                    //         Post
+                    //     </button>
+                    // </div>
+                   <Comment/>
                 }
             </div>
 

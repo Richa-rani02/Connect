@@ -9,3 +9,4 @@ export {Postcard} from "./postcard/Postcard";
 export {Loader} from "./loader/Loader";
 export {EmojisPicker} from "./emojiPicker/EmojiPicker";
 export {EditPostModal} from "./editPostModal/EditPostModal";
+export {Comment} from "./comment/Comment";
