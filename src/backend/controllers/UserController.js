@@ -55,7 +55,7 @@ export const editUserHandler = function (schema, request) {
         }
       );
     }
-    const { userData } = JSON.parse(request.requestBody);
+    const { userData } = request.requestBody;
     user = { ...user, ...userData, updatedAt: formatDate() };
     this.db.users.update({ _id: user._id }, user);
     return new Response(201, {}, { user });

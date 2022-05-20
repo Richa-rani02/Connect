@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllUserServices} from "../../services/index";
+import { getAllUserServices, followUserServices, unfollowUserServices} from "../../services/index";
+import { updateUser } from "../auth/authSlice";
 const initialState = {
     userStatus: "idle",
     allUsers: [],
-    userData:[],
 }
 
 export const getAllUsers = createAsyncThunk("users/getAllUsers", async (_, { rejectWithValue }) => {
@@ -14,9 +14,14 @@ export const getAllUsers = createAsyncThunk("users/getAllUsers", async (_, { rej
         return rejectWithValue(error.message);
     }
 })
-export const getUser = createAsyncThunk("users/getUser", async (userId, { rejectWithValue }) => {
+export const followUnfollowUser = createAsyncThunk("users/followUnfollow", async ({ userId, dispatch, isFollowing }, { rejectWithValue }) => {
     try {
-        const { data } = await getUserServices(userId);
+        const token = localStorage.getItem("connect-token");
+        const {data} = isFollowing
+            ? await (unfollowUserServices(token, userId))
+            : await (followUserServices(token, userId))
+
+       dispatch (updateUser(token,data.user));
         return data;
     } catch (error) {
         return rejectWithValue(error.message);
@@ -40,19 +45,24 @@ const userSlice = createSlice({
                 state.userStatus = "rejected";
                 state.allUsers = action.payload;
             })
-            .addCase(getUser.pending, (state) => {
+            .addCase(followUnfollowUser.pending, (state) => {
                 state.userStatus = "pending"
             })
-            .addCase(getUser.fulfilled, (state, action) => {
+            .addCase(followUnfollowUser.fulfilled, (state, action) => {
                 state.userStatus = "fulfilled";
-                state.userData = action.payload.users;
+                 state.allUsers = [...state.allUsers].map((user)=>{
+                     if(action.payload.followUser.username===user.username){
+                         return action.payload.followUser;
+                     }
+                     return user;
+                 });
             })
-            .addCase(getUser.rejected, (state, action) => {
+            .addCase(followUnfollowUser.rejected, (state, action) => {
                 state.userStatus = "rejected";
-                state.userData = action.payload;
+                 state.allUsers = action.payload;
             })
-            
+
     }
 })
 
-export const userReducer=userSlice.reducer;
+export const userReducer = userSlice.reducer;
