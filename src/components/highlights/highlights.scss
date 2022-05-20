@@ -1,20 +1,58 @@
 @import "../../sassStyles/global";
-.highlights{
+.user-suggested{
     width: 25%;
     height: auto;
     background-color: white;
     position: fixed;
     right: 1rem;
+    font-size: 0.9rem;
     border-radius: 7px;
     text-align: center;
     &__title{
-       color:$textColor 
+       color:$black
     }
-    &__image{
-        width: 100%;
-        height:13rem;
-        background-color: #f1edf6;
-        border-radius: 5px;
+
+    .user_card{
+        width: 90%;
+        min-height: 5rem;
+        justify-content: space-between;
+        border-top: 2px solid $lightBg;
+        border-bottom: 2px solid $lightBg;
+
+        .user-details{
+            gap:0.8rem;
+
+            span{
+
+            h4 {
+                color: $textColor;
+                font-size: 1rem;
+            }
+
+            p {
+                color: $textLight1Color;
+            }
+        }
+        }
+
+        .follow-img{
+            width: 3.3rem;
+            height: 3.3rem;
+            border-radius: 50%;
+            img{
+                border-radius: 50%;
+            }
+        }
+
+        .follow-btn{
+            background-color: $blue-7;
+            background-image: $primaryGradient;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            font-family: inherit;
+            border-radius: 3rem;
+        }
     }
 
     @include mdMinBreakPoint {
