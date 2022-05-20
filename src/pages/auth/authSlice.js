@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { loginService, signupService } from "../../services/index";
+import { loginService, signupService,updateUserServices } from "../../services/index";
 import toast from "react-hot-toast";
 const initialState = {
     authStatus: '',
@@ -24,10 +24,22 @@ export const SignupUser = createAsyncThunk(
     "auth/signupUser", async (userDetails, { rejectWithValue }) => {
         try {
             const { data } = await signupService(userDetails);
+
             return data;
         } catch (error) {
             return rejectWithValue(error.message);
         }
+    }
+)
+export const updateUser=createAsyncThunk(
+    "auth/updateUser",async(userDetails,{rejectWithValue})=>{
+       try{
+        const token = localStorage.getItem("connect-token");
+           const {data}=await updateUserServices(token,userDetails);
+           return data;
+       }catch(error){
+           return rejectWithValue(error.message);
+       }
     }
 )
 
@@ -94,6 +106,20 @@ const authSlice = createSlice({
                 state.isLoading=false;
                 state.error=action.payload;
                 toast.error("Some error occured in signup. Try Again:( ", {
+                    id: toastId,
+                });
+            })
+            .addCase(updateUser.pending,(state)=>{
+                state.authStatus='pending';
+            })
+            .addCase(updateUser.fulfilled,(state,action)=>{
+                state.authStatus='fulfilled';
+                state.userDetails=action.payload.user;
+            })
+            .addCase(updateUser.rejected,(state,action)=>{
+                state.authStatus='rejected';
+                state.error=action.payload;
+                toast.error("Error occured in update. Try Again:( ", {
                     id: toastId,
                 });
             })

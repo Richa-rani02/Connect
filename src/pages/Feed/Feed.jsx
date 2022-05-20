@@ -25,7 +25,8 @@ export const Feed = () => {
 
     useEffect(() => {
         if (allPosts) {
-            setFeedPost(allPosts?.filter((post) => post.username === userDetails.username))
+            setFeedPost(allPosts?.filter((post) => post.username === userDetails.username ||
+            userDetails?.following?.find((ele) => post?.username === ele?.username)))
         }
     }, [userDetails, allPosts])
 
@@ -34,8 +35,6 @@ export const Feed = () => {
         dispatch(addPost({ ...postContent }));
         setPostContent({ content: "", pic: "" });
     }
-
-
     return (
         <div className="feed">
             <Navbar />

@@ -18,6 +18,9 @@ body {
   list-style: none;
   background-color: $lightBg;
 }
+body::-webkit-scrollbar {
+  display: none;
+}
 
 .responsive-img{
   width: 100%;

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllUserServices} from "../../services/index";
-import toast from "react-hot-toast";
+import { getAllUserServices, followUserServices, unfollowUserServices} from "../../services/index";
+import { updateUser } from "../auth/authSlice";
 const initialState = {
     userStatus: "idle",
     allUsers: [],
@@ -14,28 +14,25 @@ export const getAllUsers = createAsyncThunk("users/getAllUsers", async (_, { rej
         return rejectWithValue(error.message);
     }
 })
+export const followUnfollowUser = createAsyncThunk("users/followUnfollow", async ({ userId, dispatch, isFollowing }, { rejectWithValue }) => {
+    try {
+        const token = localStorage.getItem("connect-token");
+        const {data} = isFollowing
+            ? await (unfollowUserServices(token, userId))
+            : await (followUserServices(token, userId))
 
-// export const addRemoveBookmark=createAsyncThunk("post/addRemoveBookmark",async({postId,doBookmark},{rejectWithValue})=>{
-//    console.log(postId,doBookmark);
-//     try{
-//         const token=localStorage.getItem("connect-token");
-//         const {data}=doBookmark
-//         ? await addBookmarkServices(token,postId)
-//         :await removeBookmarkServices(token,postId)
-
-//         console.log(data);
-//         return data.bookmarks;
-//     }catch(error){
-//         return rejectWithValue(error.message);
-//     }
-// })
+       dispatch (updateUser(token,data.user));
+        return data;
+    } catch (error) {
+        return rejectWithValue(error.message);
+    }
+})
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        let toastId;
         builder
             .addCase(getAllUsers.pending, (state) => {
                 state.userStatus = "pending"
@@ -48,26 +45,24 @@ const userSlice = createSlice({
                 state.userStatus = "rejected";
                 state.allUsers = action.payload;
             })
-        //     //bookmark
-        //  .addCase(addRemoveBookmark.pending,(state)=>{
-        //     state.userStatus="pending";
-        // })
-        // .addCase(addRemoveBookmark.fulfilled,(state,action)=>{
-        //    state.userStatus="fulfilled";
-        //    state.allUsers=action.payload;
-        //    toast.success("Post Bookmarked !!", {
-        //     id: toastId,
-        // });
-        // })
-        // .addCase(addRemoveBookmark.rejected,(state,action)=>{
-        //     state.userStatus="rejected";
-        //     state.isLoading=false;
-        //     // /state.allUsers=action.payload;
-        //     toast.error("Some error occured in login. Try Again:( ", {
-        //         id: toastId,
-        //     });
-        //  })
+            .addCase(followUnfollowUser.pending, (state) => {
+                state.userStatus = "pending"
+            })
+            .addCase(followUnfollowUser.fulfilled, (state, action) => {
+                state.userStatus = "fulfilled";
+                 state.allUsers = [...state.allUsers].map((user)=>{
+                     if(action.payload.followUser.username===user.username){
+                         return action.payload.followUser;
+                     }
+                     return user;
+                 });
+            })
+            .addCase(followUnfollowUser.rejected, (state, action) => {
+                state.userStatus = "rejected";
+                 state.allUsers = action.payload;
+            })
+
     }
 })
 
-export const userReducer=userSlice.reducer;
+export const userReducer = userSlice.reducer;
