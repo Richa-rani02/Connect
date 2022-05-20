@@ -1,7 +1,8 @@
 @import "../../sassStyles/global";
 .user-suggested{
     width: 25%;
-    height: 80%;
+    min-height: 20%;
+    max-height: 80%;
     background-color: white;
     position: fixed;
     right: 1rem;

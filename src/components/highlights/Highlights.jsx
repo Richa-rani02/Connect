@@ -9,13 +9,6 @@ export const Highlights=()=>{
     const suggestedUser=allUsers
     .filter((user)=>user.username!=userDetails.username)
     .filter((user)=>!userDetails.following.find((ele)=>ele._id===user._id))
-    // useEffect(()=>{
-    // dispatch(followUnfollowUser(userDetails._id));
-    // },[])
-// const followHandler=()=>{
-//     dispatch(followUnfollowUser(suggestedUser._id));
-// }
-//   console.log(allUsers);
     return(
         <section className="user-suggested  flex flex-col flex-align-center p-0-5 mb-1">
         <h3 className="user-suggested__title mb-0-75">
