@@ -1,36 +1,44 @@
 @import "../../sassStyles/global";
 .user-suggested{
     width: 25%;
-    height: auto;
+    height: 80%;
     background-color: white;
     position: fixed;
     right: 1rem;
     font-size: 0.9rem;
     border-radius: 7px;
-    text-align: center;
+    overflow: scroll;
+
     &__title{
        color:$black
     }
 
+    &::-webkit-scrollbar {
+        display: none;
+      }
+
     .user_card{
         width: 90%;
-        min-height: 5rem;
+        min-height:6rem;
+        max-height: auto;
         justify-content: space-between;
         border-top: 2px solid $lightBg;
-        border-bottom: 2px solid $lightBg;
+        flex-wrap: wrap;
 
         .user-details{
             gap:0.8rem;
 
             span{
 
-            h4 {
+               .user-title {
                 color: $textColor;
-                font-size: 1rem;
+                font-weight: bold;
+                    font-size: 0.8rem;
             }
 
             p {
                 color: $textLight1Color;
+                font-size: 12px;
             }
         }
         }
@@ -52,7 +60,10 @@
             font-size: 1rem;
             font-family: inherit;
             border-radius: 3rem;
+            margin-top: 5px;
+            
         }
+
     }
 
     @include mdMinBreakPoint {
