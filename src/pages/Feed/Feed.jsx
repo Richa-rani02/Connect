@@ -1,9 +1,9 @@
 import { Navbar, Sidebar, Highlights, Postcard, Loader, EmojisPicker } from "../../components";
 import "./feed.scss";
-import { getUserPost, getAllPost, addPost } from "../../redux/postSlice";
+import {getAllPost, addPost } from "../../redux/postSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MdLocationPin, FcPicture, BsFilterLeft } from "../../utils/icons";
+import {FcPicture,BsClockHistory } from "../../utils/icons";
 export const Feed = () => {
 
     const [emojiPickerActive, setEmojiPickerActive] = useState(false);
@@ -76,9 +76,9 @@ export const Feed = () => {
                         </div>
                     </form>
 
-                    <div className="post-header flex my-2 flex-align-center px-1">
-                        <h3>Latest Posts</h3>
-                        <BsFilterLeft size={26} className="icon" />
+                    <div className="post-header flex my-2 flex-align-center px-1 py-0-5">
+                     <h4><span>🔥</span>Trending</h4>
+                     <h4><span><BsClockHistory size={18}/></span> Latest</h4>
                     </div>
                     {isLoading ?
                         <Loader /> : <>

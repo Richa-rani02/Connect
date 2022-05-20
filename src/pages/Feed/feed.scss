@@ -110,10 +110,21 @@
 }
 
 .post-header {
+  background-color: white;
+  border-radius: 7px;
+  justify-content: space-around;
+  gap: 3px;
 
-  h3 {
+  h4 {
     color: $textColor;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 3px;
+    border-radius: 7px;
+    gap: 5px;
   }
 
   .icon {

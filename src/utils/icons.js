@@ -6,4 +6,4 @@ export {FcPicture} from "react-icons/fc";
 export {FaRegCommentDots} from "react-icons/fa";
 export {ImSpinner3} from "react-icons/im";
 export {BiCommentEdit} from "react-icons/bi";
-export {BsSearch,BsFillChatLeftDotsFill,BsGithub,BsLinkedin,BsBookmarkFill,BsEmojiSmile,BsThreeDots,BsShareFill,BsBookmark,BsFilterLeft} from "react-icons/bs";
+export {BsSearch,BsFillChatLeftDotsFill,BsGithub,BsLinkedin,BsBookmarkFill,BsEmojiSmile,BsThreeDots,BsShareFill,BsBookmark,BsFilterLeft,BsClockHistory} from "react-icons/bs";
