@@ -95,8 +95,8 @@ export const Postcard = ({ post }) => {
                 <div className="postcard__footer my-0-75 flex px-0-25">
                     <div className="footer-left flex flex-align-center">
                         <span className="flex-center" onClick={commentHandler}>
-                            {comments.length>0 ? <BsFillChatLeftDotsFill style={{ color: '#818cf8' }} size={22} /> : <FaRegCommentDots style={{ color: '#818cf8' }} size={23} />}
-                            <span className="count ml-0-25">{comments.length > 0 && `${comments.length} ${comments.length === 1 ? "comment" : "comments"}`}</span>
+                            {comments?.length>0 ? <BsFillChatLeftDotsFill style={{ color: '#818cf8' }} size={22} /> : <FaRegCommentDots style={{ color: '#818cf8' }} size={23} />}
+                            <span className="count ml-0-25">{comments?.length > 0 && `${comments?.length} ${comments?.length === 1 ? "comment" : "comments"}`}</span>
                         </span>
                         <span className="flex-center" onClick={() => likeHandler()}>
                             {isLiked ? <AiFillHeart style={{ color: '#818cf8' }} size={23} /> : <AiOutlineHeart style={{ color: '#818cf8' }} size={23} />}
@@ -120,7 +120,7 @@ export const Postcard = ({ post }) => {
                             Post
                         </button>
                     </div>
-                    {comments.map((comment) => (
+                    {comments?.map((comment) => (
                         <Comment key={comment._id} comment={comment} />
                     ))}
 
