@@ -23,7 +23,7 @@ export const Feed = () => {
         if (postStatus == 'idle') {
             dispatch(getAllPost());
         }
-    }, []);
+    }, [allPosts]);
 
     useEffect(() => {
         if (allPosts) {

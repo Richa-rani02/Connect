@@ -89,8 +89,8 @@ export const LikeDislike=createAsyncThunk("post/likeDislike",async({postId,doLik
 export const addComment=createAsyncThunk("post/addComment",async({postId,commentData},{rejectWithValue})=>{
     try{
         const token=localStorage.getItem("connect-token");
-        const {data}=await addCommentServices(postId,commentData,token);
-        return data;
+    const {data}=await addCommentServices(postId,commentData,token);
+       return data;
 
     }catch(error){
         return rejectWithValue(error.message);
@@ -231,7 +231,8 @@ const postSlice=createSlice({
         })
         .addCase(addComment.fulfilled,(state,action)=>{
            state.postStatus="fulfilled";
-           state.allPosts=action.payload.posts
+           state.allPosts=action.payload.posts;
+          
         })
         .addCase(addComment.rejected,(state,action)=>{
             state.postStatus="rejected";

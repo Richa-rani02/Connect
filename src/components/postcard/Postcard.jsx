@@ -27,9 +27,11 @@ export const Postcard = ({ post }) => {
     const [editModalActive, setEditModalActive] = useState(false);
     const [commentData,setCommentData]=useState("");
 
+
     useEffect(() => {
         dispatch(getAllUsers());
     }, [])
+
     const deletePostHandler = (e) => {
         e.preventDefault();
         dispatch(deletePost(_id, token));

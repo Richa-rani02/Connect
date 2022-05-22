@@ -1,6 +1,9 @@
 import axios from "axios";
 
 export const addCommentServices=(postId,commentData,token)=>{
+    // console.log(postId);
+    // console.log(commentData);
+    // console.log(token);
     return axios.post(`/api/comments/add/${postId}`,{
         commentData,
     },
