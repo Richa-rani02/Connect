@@ -15,7 +15,7 @@ export const Sidebar=()=>{
         } 
           
     return(
-        <div className="sidebar p-1-5 flex flex-col">
+        <aside className="sidebar p-1-5 flex flex-col">
          {navItems.map((item,index)=>(
             <NavLink key={index} to={`${item.path}`} className="navlink flex flex-align-center p-1 my-1" style={( getActiveNavStyle)}>
            <item.icons size={22} className="navlink__icon"/>
@@ -24,6 +24,6 @@ export const Sidebar=()=>{
             ))} 
         
     
-        </div>
+        </aside>
     )
 }
