@@ -3,3 +3,4 @@ export {getAllPostService,getUserPostService,addPostService,deletePostService,ed
 export {getAllUserServices,getUserServices,followUserServices,unfollowUserServices,updateUserServices} from "./userServices";
 export {getBookmarkServices,addBookmarkServices,removeBookmarkServices} from "./bookmarkServices";
 export {addLikedServices,dislikeServices} from "./likedServices";
+export {addCommentServices,editCommentServices,deleteCommentService} from "./commentServices";

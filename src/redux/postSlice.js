@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getAllPostService, getUserPostService, addPostService, deletePostService,addBookmarkServices,
-    removeBookmarkServices,addLikedServices,dislikeServices,editPostService} from "../services";
+    removeBookmarkServices,addLikedServices,dislikeServices,editPostService,addCommentServices} from "../services";
 import toast from "react-hot-toast";
 const initialState = {
     postStatus:'idle',
@@ -81,6 +81,17 @@ export const LikeDislike=createAsyncThunk("post/likeDislike",async({postId,doLik
         ?await addLikedServices(token,postId)
         :await dislikeServices(token,postId)
        return data; 
+    }catch(error){
+        return rejectWithValue(error.message);
+    }
+})
+
+export const addComment=createAsyncThunk("post/addComment",async({postId,commentData},{rejectWithValue})=>{
+    try{
+        const token=localStorage.getItem("connect-token");
+    const {data}=await addCommentServices(postId,commentData,token);
+       return data;
+
     }catch(error){
         return rejectWithValue(error.message);
     }
@@ -212,6 +223,21 @@ const postSlice=createSlice({
             state.isLoading=false;
            state.allPosts=action.payload.posts;
             toast.error("Some error occured in login. Try Again:( ", {
+                id: toastId,
+            });
+         })
+         .addCase(addComment.pending,(state)=>{
+            state.postStatus="pending";
+        })
+        .addCase(addComment.fulfilled,(state,action)=>{
+           state.postStatus="fulfilled";
+           state.allPosts=action.payload.posts;
+          
+        })
+        .addCase(addComment.rejected,(state,action)=>{
+            state.postStatus="rejected";
+           state.allPosts=action.payload;
+            toast.error("Some error occured. Try Again:( ", {
                 id: toastId,
             });
          })

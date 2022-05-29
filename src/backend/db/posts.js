@@ -17,13 +17,13 @@ export const posts = [
       dislikedBy: [],
     },
     username: "adarshbalika@gmail.com",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: '2022-02-22T10:11:15+05:30',
+    updatedAt: '2022-04-21T10:10:15+05:30',
     comments: [
       {
         _id: uuid(),
-        username: "shubhamsoni",
-        text: "Interesting",
+        username: "abhishek@gmail.com",
+        text: "testcomment",
         votes: {
           upvotedBy: [],
           downvotedBy: [],
@@ -31,8 +31,8 @@ export const posts = [
       },
       {
         _id: uuid(),
-        username: "sohamshah",
-        text: "Wow!",
+        username: "rishabh@gmail.com",
+        text: "comment check !!!",
         votes: {
           upvotedBy: [],
           downvotedBy: [],
@@ -50,12 +50,12 @@ export const posts = [
       dislikedBy: [],
     },
     username: "test@gmail.com",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: '2022-03-22T10:12:15+05:30',
+    updatedAt: '2022-05-21T10:12:15+05:30',
     comments: [
       {
         _id: uuid(),
-        username: "shubhamsoni",
+        username: "adarshbalika@gmail.com",
         text: "Interesting",
         votes: {
           upvotedBy: [],
@@ -64,7 +64,7 @@ export const posts = [
       },
       {
         _id: uuid(),
-        username: "sohamshah",
+        username: "sarita@gmail.com",
         text: "Wow!",
         votes: {
           upvotedBy: [],

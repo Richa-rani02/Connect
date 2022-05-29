@@ -1,25 +1,42 @@
-@import "../../sassStyles/global";
-.comments {
-    border-top: 1px solid $borderColor;
-    gap: 10px;
+ @import "../../sassStyles/global";
 
-    input {
-        width: 100%;
-        padding: 10px;
-        font-size: 0.9rem;
-        font-family: 'Poppins', sans-serif;
-        border: none;
+ .replies{
+     gap: 10px;
 
-        &:focus {
-            outline: none;
+    &__img{
+        width: 2rem;
+        height: 2rem;
+
+        img{
+            border-radius: 50%;
         }
     }
 
-    &__btn {
-        border: none;
-        background-color: transparent;
-        font-size: 1.1rem;
-        color: $blue-5;
-        font-family: 'Poppins', sans-serif;
+    &__text-container{
+         background-color: $blue-1;
+         width: 90%;
+         border-radius: 7px;
+         gap: 6px;
+         h4 {
+            color: $textColor;
+            font-size: 0.91rem;
+        }
+
+        .comment_edit{
+            margin-left: auto;
+            position: relative;
+            width: 1.7rem;
+            height: 1.7rem;
+            border-radius: 50%;
+            transition: 0.2s;
+            color: $textColor;
+        }
+
+        p {
+            color: $textLight1Color;
+            font-size: 0.9rem;
+        }
+
     }
-}
+
+ }

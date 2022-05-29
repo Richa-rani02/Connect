@@ -1,9 +1,9 @@
 import { Navbar, Sidebar, Highlights, Postcard, Loader, EmojisPicker } from "../../components";
 import "./feed.scss";
-import { getUserPost, getAllPost, addPost } from "../../redux/postSlice";
-import { useEffect, useState } from "react";
+import { getAllPost, addPost } from "../../redux/postSlice";
+import { useEffect, useState,useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MdLocationPin, FcPicture, BsFilterLeft } from "../../utils/icons";
+import { FcPicture, CgSandClock,AiFillClockCircle } from "../../utils/icons";
 export const Feed = () => {
 
     const [emojiPickerActive, setEmojiPickerActive] = useState(false);
@@ -11,6 +11,8 @@ export const Feed = () => {
     const { allPosts, isLoading, postStatus } = useSelector((state) => state.post);
     const { userDetails } = useSelector((state) => state.auth);
     const [feedPost, setFeedPost] = useState([]);
+    const [trendingPost, setTrendingPost] = useState({ isTrending: false, posts: [] });
+    const filterText=useRef(true);
     const [postContent, setPostContent] = useState(
         {
             content: "",
@@ -21,12 +23,14 @@ export const Feed = () => {
         if (postStatus == 'idle') {
             dispatch(getAllPost());
         }
-    }, []);
+    }, [allPosts]);
 
     useEffect(() => {
         if (allPosts) {
             setFeedPost(allPosts?.filter((post) => post.username === userDetails.username ||
-            userDetails?.following?.find((ele) => post?.username === ele?.username)))
+                userDetails?.following?.find((ele) => post?.username === ele?.username))
+                .sort((a,b)=>new Date(b.createdAt) - new Date(a.createdAt))
+            )
         }
     }, [userDetails, allPosts])
 
@@ -34,6 +38,25 @@ export const Feed = () => {
         e.preventDefault();
         dispatch(addPost({ ...postContent }));
         setPostContent({ content: "", pic: "" });
+    }
+
+    const trendHandler = () => {
+        setTrendingPost((prev) => ({
+            ...prev, isTrending: true, posts: [...feedPost]
+                ?.filter((post) => post.likes.likeCount > 0)
+                ?.sort((a, b) => b?.likes?.likeCount+ b?.comments?.length - a?.likes?.likeCount+a?.comments?.length)
+        }))
+    }
+
+    const latestHandler=(e)=>{
+        setTrendingPost((prev)=>({...prev,isTrending:false}));
+        if(filterText.current){
+            setFeedPost(feedPost?.sort((a,b)=>new Date(b.createdAt) - new Date(a.createdAt)));
+            filterText.current=false;
+        }else{
+            setFeedPost(feedPost?.sort((a,b)=>new Date(a.createdAt) - new Date(b.createdAt)));
+            filterText.current=true;
+        }
     }
     return (
         <div className="feed">
@@ -76,16 +99,26 @@ export const Feed = () => {
                         </div>
                     </form>
 
-                    <div className="post-header flex my-2 flex-align-center px-1">
-                        <h3>Latest Posts</h3>
-                        <BsFilterLeft size={26} className="icon" />
+                    <div className="post-header flex my-2 flex-align-center px-1 py-0-5">
+                        <h4 onClick={trendHandler}><span>🔥</span>Trending</h4>
+                        <h4 onClick={latestHandler}><span><CgSandClock size={20} /></span>{filterText.current?'Latest':'Oldest'}</h4>
                     </div>
                     {isLoading ?
-                        <Loader /> : <>
-                            {feedPost?.map((posts) => (
-                                <Postcard key={posts.id} post={posts} setPostContent={setPostContent} postContent={postContent} />
-                            ))}
-                        </>}
+                        <Loader /> : trendingPost.isTrending ? (
+                            <>
+                                {trendingPost.length !== 0 ? (
+                                    [...trendingPost.posts].map((posts) => <Postcard key={posts.id} post={posts} />)
+                                ) : <></>}
+                            </>
+                        ) :
+                            <>
+                                {feedPost.length !== 0 ? (
+                                    feedPost?.map((posts) => (
+                                        <Postcard key={posts.id} post={posts} setPostContent={setPostContent} postContent={postContent} />
+                                    ))
+                                ) : <></>}
+
+                            </>}
                 </section>
                 <Highlights />
             </div>

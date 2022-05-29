@@ -31,7 +31,7 @@
                 width: 3.3rem;
                 height: 3.3rem;
 
-                img{
+                img {
                     border-radius: 50%;
                 }
             }
@@ -45,8 +45,8 @@
             height: 2.5rem;
             border-radius: 50%;
             transition: 0.2s;
-            color:$textColor;
-             
+            color: $textColor;
+
             &:hover,
             &:focus {
                 background-color: $blue-1;
@@ -66,12 +66,13 @@
                 gap: 7px;
                 cursor: pointer;
 
-                li{
+                li {
                     gap: 7px;
                 }
 
             }
-            &__items.active{
+
+            &__items.active {
                 visibility: visible;
                 opacity: 1;
                 transition: 0.4s;
@@ -83,14 +84,15 @@
         min-height: 4rem;
         margin-left: 4rem;
 
-        .image_content{
+        .image_content {
             width: 80%;
             height: 15rem;
 
             @include smMinBreakPoint {
                 width: 100%;
-              }
+            }
         }
+
         @include smMinBreakPoint {
             margin-left: 10px;
         }
@@ -102,12 +104,12 @@
         .footer-left {
             gap: 1rem;
 
-            span{
+            span {
                 cursor: pointer;
             }
 
-            .count{
-                color:$blue-7;
+            .count {
+                color: $blue-7;
                 font-size: 0.9rem;
             }
         }
@@ -115,8 +117,44 @@
         .footer-right {
             margin-left: auto;
         }
+
         @include smMinBreakPoint {
             margin-left: 10px;
         }
     }
+
+    &__comments {
+        gap: 10px;
+
+        .comment-img {
+            width: 2.5rem;
+            height: 2.5rem;
+
+            img {
+                border-radius: 50%;
+            }
+        }
+
+        input {
+            width: 100%;
+            padding: 7px;
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            border: 2px solid $lightBg;
+            border-radius: 3px;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .comment-btn {
+            border: none;
+            background-color: transparent;
+            font-size: 1.1rem;
+            color: $blue-5;
+            font-family: 'Poppins', sans-serif;
+        }
+    }
+
 }
