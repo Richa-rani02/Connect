@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers } from "../../pages/profile/userSlice";
 import { deletePost, LikeDislike, addRemoveBookmark,addComment } from "../../redux/postSlice";
 import { useEffect, useState } from "react";
-import { EditPostModal, Comment } from "../index";
+import { EditPostModal, Comment,Avatar } from "../index";
 import { BsThreeDots, BiCommentEdit, AiFillHeart, AiOutlineHeart, BsFillChatLeftDotsFill, BsBookmark, FaRegCommentDots, BsEmojiSmile, MdDeleteOutline, BsBookmarkFill } from "../../utils/icons";
 export const Postcard = ({ post }) => {
     const {
@@ -59,9 +59,10 @@ export const Postcard = ({ post }) => {
             <div className="postcard mb-1-5 p-0-25">
                 <div className="postcard__header flex flex-align-center">
                     <div className="leftspan flex px-0-75">
-                        <span className="profile">
+                    <Avatar details={userInfo} className="md"/>
+                        {/* <span className="profile">
                             <img src={userInfo?.profileImg} className="responsive-img"></img>
-                        </span>
+                        </span> */}
                         <span className="flex flex-align-center">
                             <h4>{userInfo?.firstName.concat(" ", userInfo?.lastName)}</h4>
                             <p>@{userInfo?.userHandler}</p>
