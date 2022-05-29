@@ -14,14 +14,6 @@ export const Comment = ({ comment }) => {
                     <h4>{userInfo?.firstName.concat(" ", userInfo?.lastName)}</h4>
                     <span className="comment_edit flex-center">
                         <BsThreeDots size={20} onClick="{() => setOpenOption((val) => !val)}" />
-                        {/* <span className={`rightspan__items flex-col py-1 px-0-5${openOption ? ' active ' : ''}`}>
-                            <li className="flex flex-align-center" onClick={editModalToogle} >
-                                <BiCommentEdit size={24} style={{ color: '#4f46e5' }} />
-                            </li>
-                            <li className="flex flex-align-center">
-                                <MdDeleteOutline size={24} style={{ color: '#4f46e5' }} onClick={deletePostHandler} />
-                            </li>
-                        </span> */}
                     </span>
 
                 </div>

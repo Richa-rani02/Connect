@@ -53,6 +53,7 @@ export const Postcard = ({ post }) => {
 
     const addCommentHandler=()=>{
       dispatch(addComment({postId:_id,commentData:commentData}));
+      setCommentData("");
     }
     return (
         <>
@@ -116,7 +117,7 @@ export const Postcard = ({ post }) => {
                         <span className="comment-img">
                             <img src={userInfo?.profileImg} className="responsive-img" />
                         </span>
-                        <input type="text" placeholder="Add a comment..." onChange={(e)=>setCommentData(e.target.value)} />
+                        <input type="text" value={commentData} placeholder="Add a comment..." onChange={(e)=>setCommentData(e.target.value)} />
 
                         <button className="comment-btn" onClick={addCommentHandler}>
                             Post
