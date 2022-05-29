@@ -1,4 +1,4 @@
-import { Navbar, Sidebar, Highlights, Postcard, Loader, EmojisPicker } from "../../components";
+import { Navbar, Sidebar, Highlights, Postcard, Loader, EmojisPicker,Avatar } from "../../components";
 import "./feed.scss";
 import { getAllPost, addPost } from "../../redux/postSlice";
 import { useEffect, useState,useRef } from "react";
@@ -63,12 +63,10 @@ export const Feed = () => {
             <Navbar />
             <div className="main-container flex flex-justify-around">
                 <Sidebar />
-                <section className="main-section p-1">
+                <section className="main-section px-1">
                     <form className="create-form flex-col px-1 py-0-25">
                         <div className="flex create-form__container">
-                            <div className="profile-img">
-                                <img src={userDetails.profileImg} className="responsive-img"></img>
-                            </div>
+                            <Avatar details={userDetails} className="md"/>
                             <textarea
                                 value={postContent.content}
                                 type="text"
@@ -81,9 +79,9 @@ export const Feed = () => {
                         <div className="footer-icons py-0-75 flex">
                             <div className="footer-icons__left flex px-1">
 
-                                {/* for further implementation */}
+                                {/* for further implementation
 
-                                {/* <input
+                                <input
                           className='cursor-pointer absolute w-28 opacity-0'
                           accept='image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/jpg,image/webp'
                           type='file'

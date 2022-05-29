@@ -1,6 +1,7 @@
 import "./navbar.scss";
 import {useNavigate} from "react-router-dom";
 import { useSelector } from "react-redux";
+import {Avatar} from "../index";
 export const Navbar=()=>{
     let navigate=useNavigate();
     const {userDetails}=useSelector((state)=>state.auth);
@@ -10,9 +11,7 @@ export const Navbar=()=>{
              <img src="../Assets/logosm.png" className="app-title__logo">
              </img>
          </div>
-         <div className="profile-container" onClick={()=>navigate('/profile')}>
-         <img src={userDetails.profileImg} className="responsive-img"></img>
-         </div>
+         <Avatar details={userDetails} className="md"/>
         </header>
     )
 }
