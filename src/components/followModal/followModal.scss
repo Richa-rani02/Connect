@@ -1,0 +1,20 @@
+@import "../../sassStyles/global";
+.follow-card{
+    background-color: $blue-1;
+    border-radius: 3px;
+}
+.follow-btn{
+    text-align: center;
+    border: none;
+    border-radius: 3rem;
+    color: white;
+    font-size: 1rem;
+    background-color: $blue-7;
+    background-image: $primaryGradient;
+    margin-left: auto;
+}
+.user-name{
+    color: $textColor;
+                font-weight: bold;
+                    font-size: 1rem;
+}

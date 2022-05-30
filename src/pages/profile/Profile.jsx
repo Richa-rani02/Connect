@@ -1,8 +1,9 @@
-import { Navbar, Avatar, Banner, ProfileTab } from "../../components/index";
+import { Navbar, Avatar, Banner, ProfileTab,FollowModal } from "../../components/index";
 import "./profile.scss";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../auth/authSlice";
+import {useState} from "react";
 
 export const Profile = () => {
     const dispatch = useDispatch();
@@ -10,6 +11,10 @@ export const Profile = () => {
 
     const { state } = useLocation();
     const { userDetails } = state;
+    const [openFollow,setOpenFollow]=useState({modalOpen:false,type:""});
+    const followModalToogle = () => {
+        setOpenFollow({...openFollow,modalOpen:false,type:"follower"});
+    }
     return (
         <>
             <Navbar />
@@ -22,8 +27,8 @@ export const Profile = () => {
                     <div className="profile-details">
                         <p>@{userDetails?.userHandler}</p>
                         <div className="post-count flex mt-1">
-                            <span>{userDetails?.followers.length}<span className="ml-0-25">Followers</span></span>
-                            <span>{userDetails?.following.length}<span className="ml-0-25">Following</span></span>
+                            <span onClick={()=>setOpenFollow({...openFollow,modalOpen:true,type:"follower"})}>{userDetails?.followers.length}<span className="ml-0-25">Followers</span></span>
+                            <span onClick={()=>setOpenFollow({...openFollow,modalOpen:true,type:"following"})}>{userDetails?.following.length}<span className="ml-0-25">Following</span></span>
                         </div>
                     </div>
                     <div className="button-group flex ">
@@ -38,6 +43,7 @@ export const Profile = () => {
                 </section>
 
             </div>
+            {openFollow.modalOpen ? <FollowModal isOpen={openFollow.modalOpen} onClose={followModalToogle} userDetails={userDetails} modalData={openFollow} /> : null}
         </>
     )
 }

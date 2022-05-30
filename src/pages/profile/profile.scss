@@ -15,7 +15,7 @@
     background-color: white;
     gap:1.5rem;
     flex-wrap: wrap;
-    z-index: 3;
+    z-index: 2;
     max-width: fit-content;
 }
 .image{
@@ -32,6 +32,7 @@
     }
     .post-count{
         gap: 1.3rem;
+        cursor: pointer;
     } 
     
  .button-group{
