@@ -61,8 +61,7 @@ export const ProfileTab = ({ userDetails }) => {
   function handleChange(event, newValue) {
     setValue(newValue);
   }
-  const { allPosts } = useSelector((state) => state.post);
-  const { bookmark } = useSelector((state) => state.post);
+  const { allPosts, bookmark } = useSelector((state) => state.post);
   const classes = useStyles();
   const [value, setValue] = useState(0);
   return (
