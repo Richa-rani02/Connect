@@ -1,7 +1,6 @@
 @import "../../sassStyles/global";
 .follow-card{
-    background-color: $blue-1;
-    border-radius: 3px;
+    border-bottom: 1px solid $borderColor;
 }
 .follow-btn{
     text-align: center;

@@ -9,7 +9,7 @@ export const FollowModal = ({ isOpen, onClose, userDetail, modalData }) => {
 
             {modalData.type === "follower" ?
                   userDetail.followers.map((follower) => (
-                    <div className="follow-card flex flex-align-center flex-justify-start mt-1 p-0-5">
+                    <div className="follow-card flex flex-align-center flex-justify-start mt-0-5 p-0-25">
                         <div className="flex flex-center">
                             <Avatar details={follower} className="md" />
                             <span className="ml-0-5">
@@ -20,7 +20,7 @@ export const FollowModal = ({ isOpen, onClose, userDetail, modalData }) => {
                 ))
                 :
                 userDetail.following.map((following) => (
-                <div className="follow-card flex flex-align-center flex-justify-start mt-1 p-0-5">
+                <div className="follow-card flex flex-align-center flex-justify-start mt-0-5 p-0-25">
                     <div className="flex flex-center">
                         <Avatar details={following} className="md" />
                         <span className="ml-0-5">
