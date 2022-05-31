@@ -76,11 +76,6 @@
     cursor: pointer;
 }
 
-.button-group {
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
 .edit-btn {
     border: 1px solid $blue-3;
     background: transparent;
@@ -89,6 +84,7 @@
     font-size: 0.8rem;
 
 }
+
 
 .logout-btn {
     border: none;

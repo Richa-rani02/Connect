@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Tabs from "@material-ui/core/Tabs";
 import Box from "@material-ui/core/Box";
 import Tab from "@material-ui/core/Tab";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { Postcard } from "../index";
 import { useSelector } from "react-redux";
 
@@ -82,7 +82,7 @@ export const ProfileTab = ({ userDetails }) => {
       </Tabs>
       <TabPanel className={classes.tab} value={value} index={0}>
         {
-          [...allPosts.filter((ele) => ele.username === userDetails.username)]?.map((post) => (
+          [...allPosts.filter((ele) => ele.username === userDetails?.username)]?.map((post) => (
             <Postcard key={post.id} post={post} />
           ))
         }
@@ -93,7 +93,7 @@ export const ProfileTab = ({ userDetails }) => {
         ))}
       </TabPanel>
       <TabPanel className={classes.tab} value={value} index={2}>
-        {[...allPosts.filter((post) => post.likes.likedBy.some((ele) => ele.username === userDetails.username))]
+        {[...allPosts.filter((post) => post.likes.likedBy.some((ele) => ele.username === userDetails?.username))]
           ?.map((posts) => (
             <Postcard key={posts._id} post={posts} />
           ))}

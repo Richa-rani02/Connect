@@ -27,7 +27,7 @@ export const AllRoutes = () => {
           <LikedPosts />
         </ProtectedRoutes>
       } />
-      <Route path="/profile" element={
+      <Route path="/profile/:userHandler" element={
         <ProtectedRoutes>
           <Profile />
         </ProtectedRoutes>

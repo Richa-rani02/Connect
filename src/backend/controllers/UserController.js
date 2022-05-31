@@ -16,9 +16,29 @@ export const getAllUsersHandler = function () {
 
 /**
  * This handler handles get a user from userId in the db.
- * send GET Request at /api/users/:userId
+ * send GET Request at /api/users/:userHandler
  * */
 
+ export const getUserByUserHandler = function (schema, request) {
+  const userHandler = request.params.userHandler;
+  try {
+    const user = schema.users.findBy({ userHandler }).attrs;
+    return new Response(200, {}, { user });
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+};
+
+/**
+ * This handler handles get a user from userId in the db.
+ * send GET Request at /api/users/:userId
+ * */
 export const getUserHandler = function (schema, request) {
   const userId = request.params.userId;
   try {
@@ -55,7 +75,7 @@ export const editUserHandler = function (schema, request) {
         }
       );
     }
-    const { userData } = request.requestBody;
+    const { userData } = JSON.parse(request.requestBody);
     user = { ...user, ...userData, updatedAt: formatDate() };
     this.db.users.update({ _id: user._id }, user);
     return new Response(201, {}, { user });
