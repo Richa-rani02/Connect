@@ -27,8 +27,8 @@ export const Profile = () => {
                     <div className="profile-details">
                         <p>@{userDetails?.userHandler}</p>
                         <div className="post-count flex mt-1">
-                            <span onClick={()=>setOpenFollow({...openFollow,modalOpen:true,type:"follower"})}>{userDetails?.followers.length}<span className="ml-0-25">Followers</span></span>
-                            <span onClick={()=>setOpenFollow({...openFollow,modalOpen:true,type:"following"})}>{userDetails?.following.length}<span className="ml-0-25">Following</span></span>
+                            <span onClick={()=>userDetails?.followers.length && setOpenFollow({...openFollow,modalOpen:true,type:"follower"})}>{userDetails?.followers.length}<span className="ml-0-25">Followers</span></span>
+                            <span onClick={()=>userDetails?.following.length && setOpenFollow({...openFollow,modalOpen:true,type:"following"})}>{userDetails?.following.length}<span className="ml-0-25">Following</span></span>
                         </div>
                     </div>
                     <div className="button-group flex ">
@@ -43,7 +43,7 @@ export const Profile = () => {
                 </section>
 
             </div>
-            {openFollow.modalOpen ? <FollowModal isOpen={openFollow.modalOpen} onClose={followModalToogle} userDetails={userDetails} modalData={openFollow} /> : null}
+            {openFollow.modalOpen ? <FollowModal isOpen={openFollow.modalOpen} onClose={followModalToogle} userDetail={userDetails} modalData={openFollow} /> : null}
         </>
     )
 }
