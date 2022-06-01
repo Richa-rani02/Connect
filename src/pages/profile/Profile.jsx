@@ -34,7 +34,7 @@ export const Profile = () => {
                 console.log(error);
             }
         })();
-    }, [userHandler])
+    }, [userHandler,allUsers])
     const isFollowing=allUsers?.find((el)=>el.username===user?.username)?.followers?.some((user)=>user?.username===userDetails?.username);
     return (
         <>
