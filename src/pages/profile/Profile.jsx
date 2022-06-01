@@ -1,16 +1,18 @@
 import { Navbar, Avatar, Banner, ProfileTab, FollowModal, EditProfileModal } from "../../components/index";
 import "./profile.scss";
-import {useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../auth/authSlice";
 import { useState, useEffect } from "react";
+import { followUnfollowUser } from "./userSlice";
 import { getUserHandlerServices } from "../../services/index";
 
 export const Profile = () => {
     const { userHandler } = useParams();
     const dispatch = useDispatch();
-    const auth = useSelector((state) => state.auth);
+    const { userDetails } = useSelector((state) => state.auth);
     const { allPosts } = useSelector((state) => state.post);
+    const {allUsers}=useSelector((state)=>state.user);
     const [openFollow, setOpenFollow] = useState({ modalOpen: false, type: "" });
     const [openProfileModal, setOpenProfileModal] = useState(false);
     const [user, setUser] = useState(null);
@@ -21,19 +23,19 @@ export const Profile = () => {
     const profileModalToogle = () => {
         setOpenProfileModal(prev => !prev);
     }
-console.log(user);
     useEffect(() => {
+        setOpenFollow({ ...openFollow, modalOpen: false, type: "" });
         (async () => {
             try {
                 const response = await getUserHandlerServices(userHandler);
                 setUser(response.data.user);
-                setIsCurrUser(auth.userDetails._id === response.data.user._id);
+                setIsCurrUser(userDetails._id === response.data.user._id);
             } catch (error) {
                 console.log(error);
             }
         })();
     }, [userHandler])
-
+    const isFollowing=allUsers?.find((el)=>el.username===user?.username)?.followers?.some((user)=>user?.username===userDetails?.username);
     return (
         <>
             <Navbar />
@@ -49,12 +51,17 @@ console.log(user);
                     <div className="profile-details px-0-75 py-0-25">
                         <span className="flex flex-align-center profile-heading">
                             <p>{user?.firstName.concat(" ", user?.lastName)}</p>
-                            <button className="p-0-5 edit-btn" onClick={() => setOpenProfileModal(true)}>Edit Profile</button>
+                            {isCurrUser ?
+                                <button className="p-0-5 edit-btn" onClick={() => setOpenProfileModal(true)}>Edit Profile</button>
+                                : isFollowing?<button className="p-0-5 edit-btn" onClick={()=>dispatch(followUnfollowUser({userId:user?._id,dispatch:dispatch,isFollowing:true}))}>Following</button>
+                                              :<button className="p-0-5 edit-btn"  onClick={()=>dispatch(followUnfollowUser({userId:user?._id,dispatch:dispatch,isFollowing:false}))}>Follow</button>
+                            }
                         </span>
+
                         <span className="profile-body">
                             <p>@{user?.userHandler}</p>
-                            <p>{user?.bio}</p>
-                            <a href={user?.portfolioLink}>{user?.portfolioLink}</a>
+                            <p>{isCurrUser ? userDetails?.bio : user?.bio}</p>
+                            <a href={isCurrUser ? userDetails?.portfolioLink : user?.portfolioLink}>{isCurrUser ? userDetails?.portfolioLink : user?.portfolioLink}</a>
                         </span>
 
                         <div className="post-count flex mt-1">
@@ -62,7 +69,7 @@ console.log(user);
                             <span onClick={() => user?.followers.length && setOpenFollow({ ...openFollow, modalOpen: true, type: "follower" })}>{user?.followers.length}<span className="ml-0-25">Followers</span></span>
                             <span onClick={() => user?.following.length && setOpenFollow({ ...openFollow, modalOpen: true, type: "following" })}>{user?.following.length}<span className="ml-0-25">Following</span></span>
                         </div>
-                        <button className="mt-0-75 logout-btn px-0-75 py-0-5" onClick={() => dispatch(logoutUser(auth))}>
+                        <button className="mt-0-75 logout-btn px-0-75 py-0-5" onClick={() => dispatch(logoutUser())}>
                             Logout
                         </button>
                     </div>
@@ -71,9 +78,10 @@ console.log(user);
                     <ProfileTab userDetails={user} />
                 </section>
 
+
             </div>
             {openFollow.modalOpen ? <FollowModal isOpen={openFollow.modalOpen} onClose={followModalToogle} userDetail={user} modalData={openFollow} /> : null}
-            {openProfileModal ? <EditProfileModal isOpen={openProfileModal} onClose={profileModalToogle} userDetails={user} /> : null}
+            {openProfileModal ? <EditProfileModal isOpen={openProfileModal} onClose={profileModalToogle} /> : null}
         </>
     )
 }

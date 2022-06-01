@@ -14,15 +14,6 @@ export const getAllUsers = createAsyncThunk("users/getAllUsers", async (_, { rej
         return rejectWithValue(error.message);
     }
 })
-
-// export const getUserByHandler = createAsyncThunk("users/getUserByHandler", async (userHandler, { rejectWithValue }) => {
-//     try {
-//         const { data } = await getAllUserServices(userHandler);
-//         return data;
-//     } catch (error) {
-//         return rejectWithValue(error.message);
-//     }
-// })
 export const followUnfollowUser = createAsyncThunk("users/followUnfollow", async ({ userId, dispatch, isFollowing }, { rejectWithValue }) => {
     try {
         const token = localStorage.getItem("connect-token");
@@ -54,17 +45,6 @@ const userSlice = createSlice({
                 state.userStatus = "rejected";
                 state.allUsers = action.payload;
             })
-            // .addCase(getUserByHandler.pending, (state) => {
-            //     state.userStatus = "pending"
-            // })
-            // .addCase(getUserByHandler.fulfilled, (state, action) => {
-            //     state.userStatus = "fulfilled";
-            //     state.allUsers = action.payload.users;
-            // })
-            // .addCase(getUserByHandler.rejected, (state, action) => {
-            //     state.userStatus = "rejected";
-            //     state.allUsers = action.payload;
-            // })
             .addCase(followUnfollowUser.pending, (state) => {
                 state.userStatus = "pending"
             })
@@ -79,7 +59,7 @@ const userSlice = createSlice({
             })
             .addCase(followUnfollowUser.rejected, (state, action) => {
                 state.userStatus = "rejected";
-                 state.allUsers = action.payload;
+                state.allUsers = action.payload;
             })
 
     }
