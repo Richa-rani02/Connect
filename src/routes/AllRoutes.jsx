@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Mockman from "mockman-js";
-import { Login, Bookmark, LikedPosts, Feed, Profile,Explore } from "../pages/index";
+import { Login, Bookmark, LikedPosts, Feed, Profile,Explore,Error404 } from "../pages/index";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 export const AllRoutes = () => {
   return (
@@ -32,7 +32,7 @@ export const AllRoutes = () => {
           <Profile />
         </ProtectedRoutes>
       } />
-      {/* <Route path="/*" element={<NotFound />} /> */}
+      <Route path="/*" element={<Error404 />} />
     </Routes>
   )
 }

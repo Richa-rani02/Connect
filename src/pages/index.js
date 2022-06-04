@@ -4,3 +4,5 @@ export {Bookmark} from "./Bookmark/Bookmark";
 export {LikedPosts} from "./likedPosts/LikedPosts";
 export {Profile} from "./profile/Profile";
 export {Explore} from "./explore/Explore";
+export {Error404} from "./error/Error404";
+export {Empty} from "./error/Empty";
