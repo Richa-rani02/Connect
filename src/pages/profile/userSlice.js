@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllUserServices, followUserServices, unfollowUserServices} from "../../services/index";
+import { getAllUserServices,getUserHandlerServices, followUserServices, unfollowUserServices} from "../../services/index";
 import { updateUser } from "../auth/authSlice";
 const initialState = {
     userStatus: "idle",
@@ -59,7 +59,7 @@ const userSlice = createSlice({
             })
             .addCase(followUnfollowUser.rejected, (state, action) => {
                 state.userStatus = "rejected";
-                 state.allUsers = action.payload;
+                state.allUsers = action.payload;
             })
 
     }

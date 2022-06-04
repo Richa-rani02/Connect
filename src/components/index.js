@@ -11,3 +11,7 @@ export {EmojisPicker} from "./emojiPicker/EmojiPicker";
 export {EditPostModal} from "./editPostModal/EditPostModal";
 export {Comment} from "./comment/Comment";
 export {Avatar} from "./avatar/Avatar";
+export {Banner} from "./banner/Banner";
+export {ProfileTab} from "./profiletab/ProfileTab";
+export {FollowModal} from "./followModal/FollowModal";
+export {EditProfileModal} from "./editProfileModal/EditProfileModal";

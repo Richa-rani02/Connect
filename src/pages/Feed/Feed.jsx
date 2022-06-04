@@ -3,7 +3,7 @@ import "./feed.scss";
 import { getAllPost, addPost } from "../../redux/postSlice";
 import { useEffect, useState,useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FcPicture, CgSandClock,AiFillClockCircle } from "../../utils/icons";
+import { FcPicture, CgSandClock} from "../../utils/icons";
 export const Feed = () => {
 
     const [emojiPickerActive, setEmojiPickerActive] = useState(false);
