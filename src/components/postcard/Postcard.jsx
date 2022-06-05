@@ -86,8 +86,6 @@ export const Postcard = ({ post }) => {
                 <div className="postcard__content flex flex-col p-0-25">
                     <p>{content}</p>
 
-                    {/* commented for further implementation */}
-
                     {
                         pic && 
                         <div className="image_content mt-0-5">
