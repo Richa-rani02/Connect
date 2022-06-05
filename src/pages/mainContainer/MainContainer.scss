@@ -25,6 +25,9 @@
     flex: 1;
     display: flex;
     gap: 1.5rem;
+    @include mdMinBreakPoint {
+        padding: 10px;
+     }
 }
 
 .left__wrapper {
@@ -38,6 +41,7 @@
 
 .content__wrapper {
     flex: 1;
+
     @include mdMinBreakPoint {
         width: 100%;
      }
