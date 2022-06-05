@@ -1,3 +1,7 @@
+@import "../../sassStyles/global";
 .tab-container{
     width: 40rem;
+    @include mdMinBreakPoint {
+        width: 100%;
+      }
 }
