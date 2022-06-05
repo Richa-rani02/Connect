@@ -1,10 +1,10 @@
 import "./postcard.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers } from "../../pages/profile/userSlice";
-import { deletePost, LikeDislike, addRemoveBookmark,addComment } from "../../redux/postSlice";
+import { deletePost, LikeDislike, addRemoveBookmark, addComment } from "../../redux/postSlice";
 import { useEffect, useState } from "react";
-import { EditPostModal, Comment,Avatar } from "../index";
-import { BsThreeDots, BiCommentEdit, AiFillHeart, AiOutlineHeart, BsFillChatLeftDotsFill, BsBookmark, FaRegCommentDots, BsEmojiSmile, MdDeleteOutline, BsBookmarkFill } from "../../utils/icons";
+import { EditPostModal, Comment, Avatar } from "../index";
+import { BsThreeDots, MdAddComment, BiCommentEdit, AiFillHeart, AiOutlineHeart, BsFillChatLeftDotsFill, BsBookmark, FaRegCommentDots, BsEmojiSmile, MdDeleteOutline, BsBookmarkFill } from "../../utils/icons";
 export const Postcard = ({ post }) => {
     const {
         _id,
@@ -20,12 +20,12 @@ export const Postcard = ({ post }) => {
     const [commentblock, setCommentBlock] = useState(false);
     const { allUsers } = useSelector((state) => state.user);
     const { token, userDetails } = useSelector((state) => state.auth);
-    const { bookmark,allPosts } = useSelector((state) => state.post)
+    const { bookmark, allPosts } = useSelector((state) => state.post)
     const userInfo = allUsers && allUsers?.find((user) => user.username === username);
     const isLiked = likedBy?.some((like) => like.username === userDetails.username);
     const isBookmarked = bookmark?.some((bookmarkpost) => bookmarkpost._id === _id);
     const [editModalActive, setEditModalActive] = useState(false);
-    const [commentData,setCommentData]=useState("");
+    const [commentData, setCommentData] = useState("");
 
 
     useEffect(() => {
@@ -51,20 +51,17 @@ export const Postcard = ({ post }) => {
         dispatch(LikeDislike({ postId: _id, doLike: isLiked ? false : true }))
     }
 
-    const addCommentHandler=()=>{
-      dispatch(addComment({postId:_id,commentData:commentData}));
-      setCommentData("");
+    const addCommentHandler = () => {
+        dispatch(addComment({ postId: _id, commentData: commentData }));
+        setCommentData("");
     }
     return (
         <>
             <div className="postcard mb-1-5 p-0-25">
                 <div className="postcard__header flex flex-align-center">
                     <div className="leftspan flex px-0-75">
-                    <Avatar details={userInfo} className="md"/>
-                        {/* <span className="profile">
-                            <img src={userInfo?.profileImg} className="responsive-img"></img>
-                        </span> */}
-                        <span className="flex flex-align-center">
+                        <Avatar details={userInfo} className="md"/>
+                        <span className="flex flex-align-center flex-col">
                             <h4>{userInfo?.firstName.concat(" ", userInfo?.lastName)}</h4>
                             <p>@{userInfo?.userHandler}</p>
                         </span>
@@ -75,9 +72,11 @@ export const Postcard = ({ post }) => {
                             <div className={`rightspan__items flex-col py-1 px-0-5${openOption ? ' active ' : ''}`}>
                                 <li className="flex flex-align-center" onClick={editModalToogle} >
                                     <BiCommentEdit size={24} style={{ color: '#4f46e5' }} />
+                                    Edit
                                 </li>
                                 <li className="flex flex-align-center">
                                     <MdDeleteOutline size={24} style={{ color: '#4f46e5' }} onClick={deletePostHandler} />
+                                    Delete
                                 </li>
                             </div>
                         </span>
@@ -99,7 +98,7 @@ export const Postcard = ({ post }) => {
                 <div className="postcard__footer my-0-75 flex px-0-25">
                     <div className="footer-left flex flex-align-center">
                         <span className="flex-center" onClick={commentHandler}>
-                            {comments?.length>0 ? <BsFillChatLeftDotsFill style={{ color: '#818cf8' }} size={22} /> : <FaRegCommentDots style={{ color: '#818cf8' }} size={23} />}
+                            {comments?.length > 0 ? <BsFillChatLeftDotsFill style={{ color: '#818cf8' }} size={22} /> : <FaRegCommentDots style={{ color: '#818cf8' }} size={23} />}
                             <span className="count ml-0-25">{comments?.length > 0 && `${comments?.length} ${comments?.length === 1 ? "comment" : "comments"}`}</span>
                         </span>
                         <span className="flex-center" onClick={() => likeHandler()}>
@@ -115,14 +114,13 @@ export const Postcard = ({ post }) => {
                 </div>
                 {commentblock && <>
                     <div className="postcard__comments flex flex-align-center p-0-75">
-                        <span className="comment-img">
-                            <img src={userInfo?.profileImg} className="responsive-img" />
-                        </span>
-                        <input type="text" value={commentData} placeholder="Add a comment..." onChange={(e)=>setCommentData(e.target.value)} />
-
-                        <button className="comment-btn" onClick={addCommentHandler}>
-                            Post
-                        </button>
+                        <Avatar details={userInfo} className="sm"/>
+                        <div className="comment_box flex flex-align-center">
+                            <input type="text" value={commentData} placeholder="Add a comment..." onChange={(e) => setCommentData(e.target.value)} />
+                            <span className="search-form__icon px-1 flex flex-align-center">
+                                <MdAddComment style={{ color: '#818cf8' }} size={20} onClick={addCommentHandler} />
+                            </span>
+                        </div>
                     </div>
                     {comments?.map((comment) => (
                         <Comment key={comment._id} comment={comment} />

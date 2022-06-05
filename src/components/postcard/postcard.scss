@@ -13,9 +13,10 @@
 
         .leftspan {
             gap: 10px;
+            width: 100%;
 
             span {
-                gap: 8px;
+                gap: 4px;
 
                 h4 {
                     color: $textColor;
@@ -44,16 +45,16 @@
             }
 
             &__items {
-                width: max-content;
-                height: fit-content;
+                width:7rem;
+               height:fit-content;
                 position: absolute;
-                border-radius: 3rem;
+                border-radius: 5px;
                 right: 1px;
                 top: 1.6rem;
                 opacity: 0;
                 visibility: hidden;
                 transition: 0.4s;
-                background-color: $blue-1;
+                background-color: white;
                 gap: 7px;
                 cursor: pointer;
 
@@ -117,35 +118,30 @@
     &__comments {
         gap: 10px;
 
-        .comment-img {
-            width: 2.5rem;
-            height: 2.5rem;
+    }
 
-            img {
-                border-radius: 50%;
-            }
-        }
-
+    .comment_box {
+        width: 90%;
+        height: 2.5rem;
+        border-radius: 3px;
+        border: 1px solid $blue-2;
         input {
             width: 100%;
-            padding: 7px;
-            font-size: 0.9rem;
-            font-family: 'Poppins', sans-serif;
-            border: 2px solid $lightBg;
-            border-radius: 3px;
+            height: 100%;
+            border: none;
+            font-size: 1rem;
+            padding-left: 7px;
+            background-color: transparent;
 
             &:focus {
                 outline: none;
             }
         }
 
-        .comment-btn {
-            border: none;
-            background-color: transparent;
-            font-size: 1.1rem;
-            color: $blue-5;
-            font-family: 'Poppins', sans-serif;
+        @include smMinBreakPoint {
+            width: 70%;
         }
     }
+
 
 }

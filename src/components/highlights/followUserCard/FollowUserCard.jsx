@@ -1,12 +1,11 @@
 import React from 'react'
 import "./followUserCard.scss";
+import {Avatar} from "../../index";
 export const FollowUserCard = ({userDetail}) => {
   return (
     <div className="user_card flex flex-align-center  mb-0-5 px-0-5" key={userDetail.id}>
             <div className="flex user-details flex-align-center">
-            <span className="follow-img">
-            <img src={userDetail?.profileImg} className="responsive-img"/>
-            </span>
+            <Avatar details={userDetail} className="md" clickRequired="true"/>
             <div>
               <span>
               <p className="user-title">{userDetail?.firstName.concat(" ", userDetail?.lastName)}</p>

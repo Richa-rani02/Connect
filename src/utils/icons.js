@@ -1,4 +1,4 @@
-export {MdOutlineClose,MdNotifications,MdFeedback,MdLocationPin,MdDeleteOutline} from "react-icons/md";
+export {MdOutlineClose,MdNotifications,MdFeedback,MdLocationPin,MdDeleteOutline,MdAddComment} from "react-icons/md";
 export {FaUserCircle} from "react-icons/fa";
 export {AiFillLike,AiOutlineHeart,AiFillHeart,AiFillClockCircle} from "react-icons/ai";
 export {FiHash} from "react-icons/fi";

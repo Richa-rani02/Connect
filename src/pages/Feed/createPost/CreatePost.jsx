@@ -8,7 +8,7 @@ export const CreatePost = ({userDetails,postContent,setPostContent,postHandler})
   return (
     <form className="create-form flex-col px-1 py-0-25">
                     <div className="flex create-form__container">
-                        <Avatar details={userDetails} className="md" />
+                        <Avatar details={userDetails} className="md"/>
                         <textarea
                             value={postContent.content}
                             type="text"
