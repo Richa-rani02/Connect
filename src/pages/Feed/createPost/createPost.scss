@@ -1,7 +1,8 @@
 @import "../../../sassStyles/global";
 .create-form {
     background-color: white;
-    border-radius: 10px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
     height: auto;
     min-height: 4rem;
   
@@ -72,27 +73,3 @@
     font-size: 1.2rem;
   }
   
-  .post-header {
-    background-color: white;
-    border-radius: 7px;
-    justify-content: space-around;
-    gap: 3px;
-  
-    h4 {
-      color: $textColor;
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 3px;
-      border-radius: 7px;
-      gap: 5px;
-      cursor: pointer;
-    }
-  
-    .icon {
-      margin-left: auto;
-      color: $blue-5;
-    }
-  }

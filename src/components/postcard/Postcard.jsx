@@ -74,8 +74,8 @@ export const Postcard = ({ post }) => {
                                     <BiCommentEdit size={24} style={{ color: '#4f46e5' }} />
                                     Edit
                                 </li>
-                                <li className="flex flex-align-center">
-                                    <MdDeleteOutline size={24} style={{ color: '#4f46e5' }} onClick={deletePostHandler} />
+                                <li className="flex flex-align-center" onClick={deletePostHandler} >
+                                    <MdDeleteOutline size={24} style={{ color: '#4f46e5' }} />
                                     Delete
                                 </li>
                             </div>

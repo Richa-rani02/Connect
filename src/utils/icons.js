@@ -2,7 +2,7 @@ export {MdOutlineClose,MdNotifications,MdFeedback,MdLocationPin,MdDeleteOutline,
 export {FaUserCircle} from "react-icons/fa";
 export {AiFillLike,AiOutlineHeart,AiFillHeart,AiFillClockCircle} from "react-icons/ai";
 export {FiHash} from "react-icons/fi";
-export {FcPicture} from "react-icons/fc";
+export {FcPicture,FcRightUp,FcGenericSortingAsc,FcGenericSortingDesc} from "react-icons/fc";
 export {FaRegCommentDots} from "react-icons/fa";
 export {ImSpinner3} from "react-icons/im";
 export {BiCommentEdit} from "react-icons/bi";

@@ -8,10 +8,8 @@
   border-radius:10px ;
 }
 .post-header {
-  background-color: white;
-  border-radius: 7px;
   justify-content: space-around;
-  gap: 3px;
+  background-color: white;
 
   h4 {
     color: $textColor;
@@ -21,7 +19,6 @@
     justify-content: center;
     width: 100%;
     padding: 3px;
-    border-radius: 7px;
     gap: 5px;
     cursor: pointer;
   }
