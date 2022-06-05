@@ -1,107 +1,12 @@
 @import "../../sassStyles/global";
-
-.main-container {
-
-  min-height: calc(100vh - 9rem);
-  position: relative;
-  margin: 2rem 0 0 0;
-
-  @include mdMinBreakPoint {
-    margin: 0;
-  }
+.main-section{
+  width: 100%;
+  background-color: $blue-1;
+  height: 100%;
+  overflow: hidden;
+  gap: 1rem;
+  border-radius:10px ;
 }
-
-.main-section {
-  width: 46%;
-  border-radius: 6px;
-
-  @include mdMinBreakPoint {
-    width: 95%;
-    padding: 0.75rem;
-  }
-}
-
-.create-form {
-  background-color: white;
-  border-radius: 10px;
-  height: auto;
-  min-height: 4rem;
-
-  &__container {
-    gap: 1rem;
-    max-height: auto;
-  }
-
-  textarea {
-    width: 90%;
-    height: auto;
-    border: none;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  .post-btn {
-    text-align: center;
-    border: none;
-    border-radius: 3rem;
-    color: white;
-    font-size: 1rem;
-    background-color: $blue-7;
-    background-image: $primaryGradient;
-  }
-}
-
-.profile-img {
-  height: 3rem;
-  width: 3rem;
-
-  img {
-    border-radius: 50%;
-  }
-}
-
-.footer-icons {
-  border-top: 1px solid $borderColor;
-  position: relative;
-
-  &__left {
-    width: 90%;
-    gap: 1rem;
-
-
-    span {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      color: $textColor;
-      cursor: pointer;
-
-      .icon-title {
-
-        @include smMinBreakPoint {
-          display: none;
-        }
-      }
-    }
-  }
-
-  &__right {
-    margin-left: auto;
-  }
-
-  @include smMinBreakPoint {
-    flex-direction: column;
-  }
-}
-
-.emoji {
-  font-size: 1.2rem;
-}
-
 .post-header {
   background-color: white;
   border-radius: 7px;
@@ -124,5 +29,14 @@
   .icon {
     margin-left: auto;
     color: $blue-5;
+  }
+}
+.post-list{
+  width: 100%;
+  overflow:scroll;
+  border-radius: 1rem;
+  background-color: white;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }

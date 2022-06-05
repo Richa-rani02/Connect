@@ -1,14 +1,10 @@
 @import "../../sassStyles/global";
+
 .user-suggested{
-    width: 24%;
-    min-height: 20%;
-    max-height: 80%;
-    background-color: white;
-    position: fixed;
-    right: 1rem;
     font-size: 0.9rem;
-    border-radius: 7px;
-    overflow: scroll;
+    height: 100%;
+    overflow: hidden;
+    gap: 1rem;
 
     &__title{
        color:$black
@@ -18,56 +14,38 @@
         display: none;
       }
 
-    .user_card{
-        width: 90%;
-        min-height:6rem;
-        max-height: auto;
-        justify-content: space-between;
-        border-top: 2px solid $lightBg;
-        flex-wrap: wrap;
-
-        .user-details{
-            gap:0.8rem;
-
-            span{
-
-               .user-title {
-                color: $textColor;
-                font-weight: bold;
-                    font-size: 0.8rem;
-            }
-
-            p {
-                color: $textLight1Color;
-                font-size: 12px;
-            }
-        }
-        }
-
-        .follow-img{
-            width: 3.3rem;
-            height: 3.3rem;
-            border-radius: 50%;
-            img{
-                border-radius: 50%;
-            }
-        }
-
-        .follow-btn{
-            background-color: $blue-7;
-            background-image: $primaryGradient;
-            border: none;
-            color: white;
-            font-size: 1rem;
-            font-family: inherit;
-            border-radius: 3rem;
-            margin-top: 5px;
-            
-        }
-
-    }
-
     @include mdMinBreakPoint {
        display: none;
     }
+}
+.search-form {
+    width:19rem;
+    height: 2.5rem;
+    border-radius: 5rem;
+    background-color: $blue-1;
+    color: white;
+
+    &__input {
+        width: 100%;
+        height: 100%;
+        border: none;
+        font-size: 1rem;
+        color: white;
+        background-color:transparent;
+
+        &:focus{
+            outline: none;
+        }
+    }
+
+    &__icon {
+        height: 100%;
+    }
+}
+.user-list{
+    width: 100%;
+    overflow: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+      }
 }
