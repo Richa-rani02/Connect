@@ -88,12 +88,12 @@ export const Postcard = ({ post }) => {
 
                     {/* commented for further implementation */}
 
-                    {/* {
-                        pic &&
+                    {
+                        pic && 
                         <div className="image_content">
                             <img className="responsive-img mt-0-25" src={pic} />
                         </div>
-                    } */}
+                    }
                 </div>
                 <div className="postcard__footer my-0-75 flex px-0-25">
                     <div className="footer-left flex flex-align-center">

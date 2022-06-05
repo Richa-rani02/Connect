@@ -41,7 +41,12 @@
       border-radius: 50%;
     }
   }
-  
+  .post-img{
+    width: 16rem;
+    height: 10rem;
+    border-radius: 7px;
+    background-color: yellow;
+  }
   .footer-icons {
     border-top: 1px solid $borderColor;
     position: relative;

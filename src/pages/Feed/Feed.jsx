@@ -15,7 +15,6 @@ export const Feed = () => {
     const { userDetails } = useSelector((state) => state.auth);
     const [feedPost, setFeedPost] = useState([]);
     const [trendingPost, setTrendingPost] = useState({ isTrending: false, posts: [] });
-    //const filterText = useRef(true);
     const [filterText, setFilterText] = useState("");
     const [postContent, setPostContent] = useState(
         {
