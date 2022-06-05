@@ -1,18 +1,21 @@
-import { Navbar, Sidebar, Highlights, Postcard, Loader, EmojisPicker,Avatar } from "../../components";
+import { Navbar, Sidebar, Highlights, Postcard, Loader, EmojisPicker, Avatar, SideContainer, BirthdayCard } from "../../components";
 import "./feed.scss";
+import { Empty } from "../index";
+import { useLocation } from "react-router-dom";
 import { getAllPost, addPost } from "../../redux/postSlice";
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FcPicture, CgSandClock} from "../../utils/icons";
+import { FcRightUp, FcGenericSortingAsc, FcGenericSortingDesc } from "../../utils/icons";
+import { MainContainer } from "../mainContainer/MainContainer";
+import { CreatePost } from "./createPost/CreatePost";
 export const Feed = () => {
-
-    const [emojiPickerActive, setEmojiPickerActive] = useState(false);
     const dispatch = useDispatch();
+    const location = useLocation();
     const { allPosts, isLoading, postStatus } = useSelector((state) => state.post);
     const { userDetails } = useSelector((state) => state.auth);
     const [feedPost, setFeedPost] = useState([]);
     const [trendingPost, setTrendingPost] = useState({ isTrending: false, posts: [] });
-    const filterText=useRef(true);
+    const [filterText, setFilterText] = useState("");
     const [postContent, setPostContent] = useState(
         {
             content: "",
@@ -29,7 +32,7 @@ export const Feed = () => {
         if (allPosts) {
             setFeedPost(allPosts?.filter((post) => post.username === userDetails.username ||
                 userDetails?.following?.find((ele) => post?.username === ele?.username))
-                .sort((a,b)=>new Date(b.createdAt) - new Date(a.createdAt))
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             )
         }
     }, [userDetails, allPosts])
@@ -44,82 +47,61 @@ export const Feed = () => {
         setTrendingPost((prev) => ({
             ...prev, isTrending: true, posts: [...feedPost]
                 ?.filter((post) => post.likes.likeCount > 0)
-                ?.sort((a, b) => b?.likes?.likeCount+ b?.comments?.length - a?.likes?.likeCount+a?.comments?.length)
+                ?.sort((a, b) => b?.likes?.likeCount + b?.comments?.length - a?.likes?.likeCount + a?.comments?.length)
         }))
     }
 
-    const latestHandler=(e)=>{
-        setTrendingPost((prev)=>({...prev,isTrending:false}));
-        if(filterText.current){
-            setFeedPost(feedPost?.sort((a,b)=>new Date(b.createdAt) - new Date(a.createdAt)));
-            filterText.current=false;
-        }else{
-            setFeedPost(feedPost?.sort((a,b)=>new Date(a.createdAt) - new Date(b.createdAt)));
-            filterText.current=true;
-        }
+    const latestHandler = () => {
+        setTrendingPost((prev) => ({ ...prev, isTrending: false }));
+        setFeedPost(feedPost?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
     }
+    const oldestHandler = () => {
+        setTrendingPost((prev) => ({ ...prev, isTrending: false }));
+        setFeedPost(feedPost?.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)));
+    }
+
     return (
         <div className="feed">
             <Navbar />
-            <div className="main-container flex flex-justify-around">
-                <Sidebar />
-                <section className="main-section px-1">
-                    <form className="create-form flex-col px-1 py-0-25">
-                        <div className="flex create-form__container">
-                            <Avatar details={userDetails} className="md"/>
-                            <textarea
-                                value={postContent.content}
-                                type="text"
-                                placeholder="What's on your mind ?"
-                                name=""
-                                rows="3"
-                                onChange={(e) => setPostContent({ ...postContent, content: e.target.value })}
-                            />
+            <MainContainer leftchild={
+                <>
+                    <Sidebar />
+                    <SideContainer />
+                </>
+            } mainchild={
+                <section className="main-section flex flex-col">
+                    <article className="">
+                        <CreatePost userDetails={userDetails} postContent={postContent} setPostContent={setPostContent} postHandler={postHandler} />
+
+                        <div className="post-header flex py-0-75">
+                            <h4 onClick={trendHandler}><span><FcRightUp size={20} /></span>Trending</h4>
+                            <h4 onClick={oldestHandler}><span><FcGenericSortingAsc size={20} /></span>Oldest</h4>
+                            <h4 onClick={latestHandler}><span><FcGenericSortingDesc size={20} /></span>Latest</h4>
                         </div>
-                        <div className="footer-icons py-0-75 flex">
-                            <div className="footer-icons__left flex px-1">
+                    </article>
+                    <article className="post-list px-1-5 py-0-75">
 
-                                {/* for further implementation
+                        {isLoading ?
+                            <Loader /> : trendingPost.isTrending ? (
+                                <>
+                                    {trendingPost.length > 0 ? (
+                                        [...trendingPost.posts].map((posts) => <Postcard key={posts.id} post={posts} />)
+                                    ) : <Empty path="/liked"/>}
+                                </>
+                            ) :
+                                <>
+                                    {feedPost.length !== 0 ? (
+                                        feedPost?.map((posts) => (
+                                            <Postcard key={posts.id} post={posts} setPostContent={setPostContent} postContent={postContent} />
+                                        ))
+                                    ) : <Empty path={location.pathname}/>}
 
-                                <input
-                          className='cursor-pointer absolute w-28 opacity-0'
-                          accept='image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/jpg,image/webp'
-                          type='file'
-                          onChange="{onFileChange}"
-                        /> */}
-                                <span><FcPicture size={24} /><span className="icon-title">Images</span></span>
-                                <span onClick={() => setEmojiPickerActive((prev) => !prev)}><span className="emoji">🙂</span><span className="icon-title">Emojis</span></span>
-                                <EmojisPicker emojiActive={emojiPickerActive} setPostContent={setPostContent} postContent={postContent} />
-                            </div>
-                            <div className="footer-icons__right">
-                                <button className="post-btn px-1-5 py-0-5" onClick={postHandler}>Post</button>
-                            </div>
-                        </div>
-                    </form>
-
-                    <div className="post-header flex my-2 flex-align-center px-1 py-0-5">
-                        <h4 onClick={trendHandler}><span>🔥</span>Trending</h4>
-                        <h4 onClick={latestHandler}><span><CgSandClock size={20} /></span>{filterText.current?'Latest':'Oldest'}</h4>
-                    </div>
-                    {isLoading ?
-                        <Loader /> : trendingPost.isTrending ? (
-                            <>
-                                {trendingPost.length !== 0 ? (
-                                    [...trendingPost.posts].map((posts) => <Postcard key={posts.id} post={posts} />)
-                                ) : <></>}
-                            </>
-                        ) :
-                            <>
-                                {feedPost.length !== 0 ? (
-                                    feedPost?.map((posts) => (
-                                        <Postcard key={posts.id} post={posts} setPostContent={setPostContent} postContent={postContent} />
-                                    ))
-                                ) : <></>}
-
-                            </>}
+                                </>}
+                    </article>
                 </section>
-                <Highlights />
-            </div>
+
+
+            } rightchild={<Highlights />} />
         </div>
     )
 }

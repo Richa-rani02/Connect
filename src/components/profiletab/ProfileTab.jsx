@@ -8,6 +8,8 @@ import Tab from "@material-ui/core/Tab";
 import { useState} from "react";
 import { Postcard } from "../index";
 import { useSelector } from "react-redux";
+import {Empty} from "../../pages/index";
+import "./profileTab.scss";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -32,11 +34,6 @@ TabPanel.propTypes = {
 };
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: "fit-content",
-    backgroundColor: "transparent",
-    color: 'black',
-  },
   labeltext: {
     color: "#818cf8",
     fontSize: '16px',
@@ -65,7 +62,7 @@ export const ProfileTab = ({ userDetails }) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
   return (
-    <div className={classes.root}>
+    <div className="tab-container">
       <Tabs
         className={classes.tabpanel}
         value={value}
@@ -81,22 +78,27 @@ export const ProfileTab = ({ userDetails }) => {
         <Tab className={classes.labeltext} label="LIKED" {...a11yProps(2)} />
       </Tabs>
       <TabPanel className={classes.tab} value={value} index={0}>
-        {
-          [...allPosts.filter((ele) => ele.username === userDetails?.username)]?.map((post) => (
-            <Postcard key={post.id} post={post} />
-          ))
+        { [...allPosts.filter((ele) => ele.username === userDetails?.username)].length>0? 
+        [...allPosts.filter((ele) => ele.username === userDetails?.username)]?.map((post) => (
+          <Postcard key={post.id} post={post} />
+        ))
+        :<Empty path="/feed"/>
+        
+          
         }
       </TabPanel>
       <TabPanel className={classes.tab} value={value} index={1}>
-        {bookmark?.map((posts) => (
+        { bookmark.length>0 ? bookmark?.map((posts) => (
           <Postcard key={posts._id} post={posts} />
-        ))}
+        )) :<Empty path="/bookmark"/>}
       </TabPanel>
       <TabPanel className={classes.tab} value={value} index={2}>
-        {[...allPosts.filter((post) => post.likes.likedBy.some((ele) => ele.username === userDetails?.username))]
+        {[...allPosts.filter((post) => post.likes.likedBy.some((ele) => ele.username === userDetails?.username))].length>0 ?
+        [...allPosts.filter((post) => post.likes.likedBy.some((ele) => ele.username === userDetails?.username))]
           ?.map((posts) => (
             <Postcard key={posts._id} post={posts} />
-          ))}
+          )):<Empty path="/liked"/>
+        }
       </TabPanel>
     </div>
   )

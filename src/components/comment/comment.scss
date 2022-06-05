@@ -2,16 +2,6 @@
 
  .replies{
      gap: 10px;
-
-    &__img{
-        width: 3.3rem;
-        height: 3.3rem;
-
-        img{
-            border-radius: 50%;
-        }
-    }
-
     &__text-container{
          background-color: $blue-1;
          width: 90%;
