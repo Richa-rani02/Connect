@@ -7,7 +7,7 @@ export const Highlights = () => {
   const { userDetails } = useSelector((state) => state.auth);
   const suggestedUser = allUsers
     .filter((user) => user.username != userDetails.username)
-    .filter((user) => !userDetails.following.find((ele) => ele._id === user._id))
+   .filter((user) => !userDetails.following.find((ele) => ele._id === user._id))
   return (
     <section className="user-suggested  flex flex-col flex-align-center">
       <article className="search-bar">

@@ -1,10 +1,11 @@
 import React from 'react'
-import {useDispatch} from "react-redux";
+import {useDispatch,useSelector} from "react-redux";
 import "./followUserCard.scss";
 import {Avatar} from "../../index";
 import {followUnfollowUser} from "../../../pages/profile/userSlice";
 export const FollowUserCard = ({userDetail}) => {
   const dispatch=useDispatch();
+  const { userDetails } = useSelector((state) => state.auth);
   return (
     <div className="user_card flex flex-align-center  mb-0-5 px-0-5" key={userDetail.id}>
             <div className="flex user-details flex-align-center">
