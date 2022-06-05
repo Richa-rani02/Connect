@@ -1,10 +1,11 @@
-import { Navbar, Avatar, Banner, ProfileTab, FollowModal, EditProfileModal } from "../../components/index";
+import { Navbar, Avatar, Banner, ProfileTab, FollowModal, EditProfileModal,Sidebar,Highlights } from "../../components/index";
 import "./profile.scss";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../auth/authSlice";
 import { useState, useEffect } from "react";
 import { followUnfollowUser } from "./userSlice";
+import {MainContainer} from "../mainContainer/MainContainer";
 import { getUserHandlerServices } from "../../services/index";
 
 export const Profile = () => {
@@ -39,7 +40,8 @@ export const Profile = () => {
     return (
         <>
             <Navbar />
-            <div className="profile flex flex-col flex-align-center">
+            <MainContainer leftchild={<Sidebar />} mainchild={
+                <div className="profile flex flex-col flex-align-center">
                 <section className="profile-container flex flex-justify-center">
                     <Banner />
                 </section>
@@ -77,9 +79,10 @@ export const Profile = () => {
                 <section className="profile-activity flex flex-center">
                     <ProfileTab userDetails={user} />
                 </section>
-
-
             </div>
+
+            } rightchild={<Highlights />}/>
+            
             {openFollow.modalOpen ? <FollowModal isOpen={openFollow.modalOpen} onClose={followModalToogle} userDetail={user} modalData={openFollow} /> : null}
             {openProfileModal ? <EditProfileModal isOpen={openProfileModal} onClose={profileModalToogle} /> : null}
         </>

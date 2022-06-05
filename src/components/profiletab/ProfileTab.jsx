@@ -8,6 +8,7 @@ import Tab from "@material-ui/core/Tab";
 import { useState} from "react";
 import { Postcard } from "../index";
 import { useSelector } from "react-redux";
+import "./profileTab.scss";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -32,11 +33,6 @@ TabPanel.propTypes = {
 };
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: "fit-content",
-    backgroundColor: "transparent",
-    color: 'black',
-  },
   labeltext: {
     color: "#818cf8",
     fontSize: '16px',
@@ -65,7 +61,7 @@ export const ProfileTab = ({ userDetails }) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
   return (
-    <div className={classes.root}>
+    <div className="tab-container">
       <Tabs
         className={classes.tabpanel}
         value={value}
