@@ -1,4 +1,4 @@
-import { Navbar, Sidebar, Highlights, Postcard, Loader, EmojisPicker, Avatar } from "../../components";
+import { Navbar, Sidebar, Highlights, Postcard, Loader, EmojisPicker, Avatar,SideContainer,BirthdayCard } from "../../components";
 import "./feed.scss";
 import { getAllPost, addPost } from "../../redux/postSlice";
 import { useEffect, useState, useRef } from "react";
@@ -61,7 +61,12 @@ export const Feed = () => {
     return (
         <div className="feed">
             <Navbar />
-            <MainContainer leftchild={<Sidebar />} mainchild={
+            <MainContainer leftchild={
+                <>
+                <Sidebar />
+                <SideContainer/>
+                </>
+            } mainchild={
                 <section className="main-section flex flex-col">
                     <article className="">
                         <CreatePost userDetails={userDetails} postContent={postContent} setPostContent={setPostContent} postHandler={postHandler} />

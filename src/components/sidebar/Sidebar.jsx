@@ -22,8 +22,6 @@ export const Sidebar=()=>{
            <span className="navlink__title">{item.title}</span>
            </NavLink>
             ))} 
-        
-    
         </aside>
     )
 }
