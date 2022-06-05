@@ -76,8 +76,9 @@
         min-height: 4rem;
         margin-left: 4rem;
 
+
         .image_content {
-            width: 80%;
+            width:16rem;
             height: 14rem;
 
             @include smMinBreakPoint {
@@ -142,6 +143,5 @@
             width: 70%;
         }
     }
-
 
 }

@@ -83,15 +83,15 @@ export const Postcard = ({ post }) => {
                     }
 
                 </div>
-                <div className="postcard__content p-0-25">
+                <div className="postcard__content flex flex-col p-0-25">
                     <p>{content}</p>
 
                     {/* commented for further implementation */}
 
                     {
                         pic && 
-                        <div className="image_content">
-                            <img className="responsive-img mt-0-25" src={pic} />
+                        <div className="image_content mt-0-5">
+                            <img className="responsive-img" src={pic} />
                         </div>
                     }
                 </div>
