@@ -16,6 +16,14 @@ export const Empty=({path})=>{
                 image="../Assets/no_result.png";
                 message = "Post something !!!"
             }
+            break;
+        case "/liked":
+            {
+                image="../Assets/noliked.png";
+                message = "You have not liked any post !!!"
+            }
+
+            
     }
     return(
         <div className="empty-page flex-center flex-col">

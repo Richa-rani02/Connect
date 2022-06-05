@@ -1,4 +1,4 @@
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import "./highlights.scss";
 import { BsSearch } from "../../utils/icons";
 import { FollowUserCard } from "./followUserCard/FollowUserCard";
@@ -7,7 +7,7 @@ export const Highlights = () => {
   const { userDetails } = useSelector((state) => state.auth);
   const suggestedUser = allUsers
     .filter((user) => user.username != userDetails.username)
-   .filter((user) => !userDetails.following.find((ele) => ele._id === user._id))
+    .filter((user) => !userDetails.following.find((ele) => ele._id === user._id))
   return (
     <section className="user-suggested  flex flex-col flex-align-center">
       <article className="search-bar">
@@ -21,19 +21,20 @@ export const Highlights = () => {
       <h3>
         Suggestion for You
       </h3>
-      <article className="user-list">
-        {suggestedUser.length > 0 ?
-          suggestedUser?.map((user) => (
+      {suggestedUser.length > 0 ?
+        <article className="user-list">
+          {suggestedUser?.map((user) => (
             <FollowUserCard userDetail={user} />
-          )) :
-          <>
-          <div>
-            <img src="../Assets/no_result.png" className="responsive-img">
-            </img>
-          </div>
-          </>
-        }
-      </article>
+          ))
+          }
+        </article>
+        :
+        <div className="nouser">
+          <img src="../Assets/nouser.png" className="responsive-img">
+          </img>
+        </div>
+      }
+
     </section>
   )
 }

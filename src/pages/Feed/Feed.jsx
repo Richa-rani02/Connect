@@ -1,5 +1,7 @@
 import { Navbar, Sidebar, Highlights, Postcard, Loader, EmojisPicker, Avatar,SideContainer,BirthdayCard } from "../../components";
 import "./feed.scss";
+import {Empty} from "../index";
+import { useLocation } from "react-router-dom";
 import { getAllPost, addPost } from "../../redux/postSlice";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +10,7 @@ import { MainContainer } from "../mainContainer/MainContainer";
 import { CreatePost } from "./createPost/CreatePost";
 export const Feed = () => {
     const dispatch = useDispatch();
+    const location=useLocation();
     const { allPosts, isLoading, postStatus } = useSelector((state) => state.post);
     const { userDetails } = useSelector((state) => state.auth);
     const [feedPost, setFeedPost] = useState([]);
@@ -91,7 +94,9 @@ export const Feed = () => {
                                         feedPost?.map((posts) => (
                                             <Postcard key={posts.id} post={posts} setPostContent={setPostContent} postContent={postContent} />
                                         ))
-                                    ) : <></>}
+                                    ) : <Empty path={location.pathname}>
+
+                                    </Empty>}
 
                                 </>} 
                     </article>
