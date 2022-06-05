@@ -73,7 +73,7 @@ export const Feed = () => {
                     <article className="">
                         <CreatePost userDetails={userDetails} postContent={postContent} setPostContent={setPostContent} postHandler={postHandler} />
 
-                        <div className="post-header flex py-0-75">
+                        <div className="post-header flex py-0-5">
                             <h4 onClick={trendHandler}><span><FcRightUp size={20} /></span>Trending</h4>
                             <h4 onClick={oldestHandler}><span><FcGenericSortingAsc size={20} /></span>Oldest</h4>
                             <h4 onClick={latestHandler}><span><FcGenericSortingDesc size={20} /></span>Latest</h4>

@@ -1,10 +1,5 @@
 import { MdFeedback, BsBookmarkFill, FiHash, FaUserCircle } from "../../utils/icons";
 export const navItems = [
-    // {
-    //     icons: FaUserCircle,
-    //     title: 'Profile',
-    //     path: '/profile/:userHandler'
-    // },
     {
         icons: MdFeedback,
         title: 'Feed',
