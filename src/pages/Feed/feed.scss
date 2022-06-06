@@ -1,9 +1,7 @@
 @import "../../sassStyles/global";
 .main-section{
   width: 100%;
-  background-color: $blue-1;
   height: 100%;
-  overflow: hidden;
   gap: 1rem;
   border-radius:10px ;
 }
@@ -30,10 +28,4 @@
 }
 .post-list{
   width: 100%;
-  overflow:scroll;
-  border-radius: 1rem;
-  background-color: white;
-  &::-webkit-scrollbar {
-    display: none;
-  }
 }

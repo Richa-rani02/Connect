@@ -14,5 +14,3 @@ export {Banner} from "./banner/Banner";
 export {ProfileTab} from "./profiletab/ProfileTab";
 export {FollowModal} from "./followModal/FollowModal";
 export {EditProfileModal} from "./editProfileModal/EditProfileModal";
-export {SideContainer} from "./sideContainer/SideContainer";
-export {BirthdayCard} from "./birthdayContainer/BirthdayCard";

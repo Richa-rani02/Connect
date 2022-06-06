@@ -1,8 +1,8 @@
 @import "../../../sassStyles/global";
 .create-form {
     background-color: white;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     height: auto;
     min-height: 4rem;
   
@@ -45,7 +45,6 @@
     width: 16rem;
     height: 10rem;
     border-radius: 7px;
-    background-color: yellow;
   }
   .footer-icons {
     border-top: 1px solid $borderColor;

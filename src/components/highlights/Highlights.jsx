@@ -12,8 +12,6 @@ export const Highlights = () => {
     .filter((user) => user.username != userDetails.username)
     .filter((user) => !userDetails.following.find((ele) => ele._id === user._id));
  const filteredUser=searchUser(suggestedUser,searchText);
- console.log(suggestedUser);
- console.log(filteredUser);
   return (
     <section className="user-suggested  flex flex-col flex-align-center">
       <article className="search-bar">

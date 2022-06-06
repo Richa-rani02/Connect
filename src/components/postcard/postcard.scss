@@ -2,9 +2,10 @@
 
 .postcard {
     width: 100%;
-    background-color: #F8F7FD;
-    border-radius: 7px;
+    background-color: white;
+    border-radius: 6px;
     height: auto;
+    border: 1.7px solid #DBD4D4;
 
 
     &__header {
@@ -45,21 +46,27 @@
             }
 
             &__items {
-                width:7rem;
-               height:fit-content;
+                width:7.5rem;
+                height:fit-content;
                 position: absolute;
                 border-radius: 5px;
-                right: 1px;
-                top: 1.6rem;
+                top: 2rem;
+                left: -6rem;
                 opacity: 0;
                 visibility: hidden;
                 transition: 0.4s;
-                background-color: white;
+                background-color: $lightColor;
                 gap: 7px;
                 cursor: pointer;
+                border: 1.7px solid #DBD4D4;
 
                 li {
                     gap: 7px;
+                    padding: 6px;
+
+                    &:hover{
+                        background-color: #DBD4D4;
+                    }
                 }
 
             }
@@ -92,7 +99,10 @@
     }
 
     &__footer {
-        margin-left: 4rem;
+        border-top: 1.7px solid #DBD4D4;
+        height: 100%;
+        margin-top: 10px;
+        background-color: $lightColor;
 
         .footer-left {
             gap: 1rem;
@@ -109,6 +119,7 @@
 
         .footer-right {
             margin-left: auto;
+           
         }
 
         @include smMinBreakPoint {

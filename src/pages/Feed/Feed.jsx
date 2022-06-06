@@ -59,15 +59,12 @@ export const Feed = () => {
         setTrendingPost((prev) => ({ ...prev, isTrending: false }));
         setFeedPost(feedPost?.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)));
     }
-
     return (
         <div className="feed">
             <Navbar />
             <MainContainer leftchild={
-                <>
-                    <Sidebar />
-                    <SideContainer />
-                </>
+
+                <Sidebar />
             } mainchild={
                 <section className="main-section flex flex-col">
                     <article className="">
@@ -79,14 +76,14 @@ export const Feed = () => {
                             <h4 onClick={latestHandler}><span><FcGenericSortingDesc size={20} /></span>Latest</h4>
                         </div>
                     </article>
-                    <article className="post-list px-1-5 py-0-75">
+                    <article className="post-list">
 
                         {isLoading ?
                             <Loader /> : trendingPost.isTrending ? (
                                 <>
-                                    {trendingPost.length > 0 ? (
+                                    {trendingPost.posts.length > 0 ? (
                                         [...trendingPost.posts].map((posts) => <Postcard key={posts.id} post={posts} />)
-                                    ) : <Empty path="/liked"/>}
+                                    ) : <Empty path="/liked" />}
                                 </>
                             ) :
                                 <>
@@ -94,7 +91,7 @@ export const Feed = () => {
                                         feedPost?.map((posts) => (
                                             <Postcard key={posts.id} post={posts} setPostContent={setPostContent} postContent={postContent} />
                                         ))
-                                    ) : <Empty path={location.pathname}/>}
+                                    ) : <Empty path={location.pathname} />}
 
                                 </>}
                     </article>

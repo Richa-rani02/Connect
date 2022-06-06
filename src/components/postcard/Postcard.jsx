@@ -57,7 +57,7 @@ export const Postcard = ({ post }) => {
     }
     return (
         <>
-            <div className="postcard mb-1-5 p-0-25">
+            <div className="postcard mb-1-5">
                 <div className="postcard__header flex flex-align-center">
                     <div className="leftspan flex px-0-75">
                         <Avatar details={userInfo} className="md"/>
@@ -69,7 +69,7 @@ export const Postcard = ({ post }) => {
                     {userDetails.username === post.username &&
                         <span className="rightspan px-0-5 flex-center">
                             <BsThreeDots size={22} onClick={() => setOpenOption((val) => !val)} />
-                            <div className={`rightspan__items flex-col py-1 px-0-5${openOption ? ' active ' : ''}`}>
+                            <div className={`rightspan__items flex-col py-0-25  ${openOption ? ' active ' : ''}`}>
                                 <li className="flex flex-align-center" onClick={editModalToogle} >
                                     <BiCommentEdit size={24} style={{ color: '#4f46e5' }} />
                                     Edit
@@ -83,7 +83,7 @@ export const Postcard = ({ post }) => {
                     }
 
                 </div>
-                <div className="postcard__content flex flex-col p-0-25">
+                <div className="postcard__content flex flex-col">
                     <p>{content}</p>
 
                     {
@@ -93,7 +93,7 @@ export const Postcard = ({ post }) => {
                         </div>
                     }
                 </div>
-                <div className="postcard__footer my-0-75 flex px-0-25">
+                <div className="postcard__footer flex py-0-5 px-0-75">
                     <div className="footer-left flex flex-align-center">
                         <span className="flex-center" onClick={commentHandler}>
                             {comments?.length > 0 ? <BsFillChatLeftDotsFill style={{ color: '#818cf8' }} size={22} /> : <FaRegCommentDots style={{ color: '#818cf8' }} size={23} />}

@@ -6,18 +6,18 @@ export const Sidebar=()=>{
     const getActiveNavStyle = ({ isActive }) =>
     isActive
         ? {
-             background: '#ebefff',
-            color:"#4f46e5",
+             background: '#4f46e5',
+            color:"#ffffff",
         }
         : {
-            background: '#ffffff',
+            background: null,
             color:'#42474c'
         } 
           
     return(
-        <aside className="sidebar p-1-5 flex flex-col">
+        <aside className="sidebar p-1 flex flex-col">
          {navItems.map((item,index)=>(
-            <NavLink key={index} to={`${item.path}`} className="navlink flex flex-align-center p-1 my-1" style={( getActiveNavStyle)}>
+            <NavLink key={index} to={`${item.path}`} className="navlink flex flex-align-center p-0-75 my-0-5" style={( getActiveNavStyle)}>
            <item.icons size={22} className="navlink__icon"/>
            <span className="navlink__title">{item.title}</span>
            </NavLink>
