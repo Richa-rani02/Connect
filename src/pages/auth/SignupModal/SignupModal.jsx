@@ -13,7 +13,7 @@ export const SignupModal = ({ isOpen, onClose }) => {
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
-    fullName: ""
+    fullName: "",
   });
   const navigate=useNavigate();
   const dispatch=useDispatch();
@@ -28,8 +28,6 @@ export const SignupModal = ({ isOpen, onClose }) => {
       : error.includes('422')
       ? "Unprocessable Entity. Username Already Exists."
       : "Signup failed!"
-
-console.log(token);
   const{fullName,email,password}=formValues;
   const signupHandler = () => {
     errorMsg=='';

@@ -37,6 +37,10 @@ export const signupHandler = function (schema, request) {
       username,
       password,
       ...rest,
+      userHandler: username.split('@')[0],
+      bio: "",
+      portfolioLink: "",
+      profileImg: "https://res.cloudinary.com/dgomw715r/image/upload/v1654585086/ProjectImages/avatar2_cpccbi.png",
       followers: [],
       following: [],
       bookmarks: [],
@@ -100,8 +104,8 @@ export const loginHandler = function (schema, request) {
       500,
       {},
       {
-        error:[
-          
+        error: [
+
         ],
       }
     );

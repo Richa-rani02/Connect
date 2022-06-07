@@ -6,12 +6,10 @@ import { getAllUsers } from "./pages/profile/userSlice";
 import "./App.scss";
 function App() {
   const dispatch=useDispatch();
-  const { allUsers } = useSelector((state) => state.user);
-  
-  console.log(allUsers);
+  const {token}=useSelector((state)=>state.auth);
   useEffect(() => {
     dispatch(getAllUsers());
-}, [dispatch])
+}, [dispatch,token])
   return (
     <div className="App">
       <ToastWrapper/>

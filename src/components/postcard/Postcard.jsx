@@ -2,7 +2,7 @@ import "./postcard.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers } from "../../pages/profile/userSlice";
 import { deletePost, LikeDislike, addRemoveBookmark, addComment } from "../../redux/postSlice";
-import {useState } from "react";
+import { useState } from "react";
 import { EditPostModal, Comment, Avatar } from "../index";
 import { BsThreeDots, MdAddComment, BiCommentEdit, AiFillHeart, AiOutlineHeart, BsFillChatLeftDotsFill, BsBookmark, FaRegCommentDots, BsEmojiSmile, MdDeleteOutline, BsBookmarkFill } from "../../utils/icons";
 export const Postcard = ({ post }) => {
@@ -14,6 +14,7 @@ export const Postcard = ({ post }) => {
         likes: { likeCount, likedBy, dislikedBy },
         comments,
     } = post;
+    console.log(post);
 
     const [openOption, setOpenOption] = useState(false);
     const dispatch = useDispatch();
@@ -26,7 +27,6 @@ export const Postcard = ({ post }) => {
     const isBookmarked = bookmark?.some((bookmarkpost) => bookmarkpost._id === _id);
     const [editModalActive, setEditModalActive] = useState(false);
     const [commentData, setCommentData] = useState("");
-
     const deletePostHandler = (e) => {
         e.preventDefault();
         dispatch(deletePost(_id, token));
@@ -55,7 +55,7 @@ export const Postcard = ({ post }) => {
             <div className="postcard mb-1-5">
                 <div className="postcard__header flex flex-align-center">
                     <div className="leftspan flex px-0-75">
-                        <Avatar details={userInfo} className="md"/>
+                        <Avatar details={userInfo} className="md" />
                         <span className="flex flex-align-center flex-col">
                             <h4>{userInfo?.firstName.concat(" ", userInfo?.lastName)}</h4>
                             <p>@{userInfo?.userHandler}</p>
@@ -82,7 +82,7 @@ export const Postcard = ({ post }) => {
                     <p>{content}</p>
 
                     {
-                        pic && 
+                        pic &&
                         <div className="image_content mt-0-5">
                             <img className="responsive-img" src={pic} />
                         </div>
@@ -107,7 +107,7 @@ export const Postcard = ({ post }) => {
                 </div>
                 {commentblock && <>
                     <div className="postcard__comments flex flex-align-center p-0-75">
-                        <Avatar details={userInfo} className="sm"/>
+                        <Avatar details={userInfo} className="sm" />
                         <div className="comment_box flex flex-align-center">
                             <input type="text" value={commentData} placeholder="Add a comment..." onChange={(e) => setCommentData(e.target.value)} />
                             <span className="search-form__icon px-1 flex flex-align-center">
