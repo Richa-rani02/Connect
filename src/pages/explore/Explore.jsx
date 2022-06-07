@@ -10,7 +10,7 @@ export const Explore=()=>{
         <Navbar />
           
             <MainContainer leftchild={<Sidebar />} mainchild={
-                <section className="explore-section p-1 ">
+                <section className="explore-section">
                 {isLoading ?
                             <Loader /> : <>
                                 {allPosts?.map((posts) => (

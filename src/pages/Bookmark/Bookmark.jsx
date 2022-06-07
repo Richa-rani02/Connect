@@ -11,7 +11,7 @@ export const Bookmark = () => {
       <div className="bookmark">
          <Navbar />
          <MainContainer leftchild={<Sidebar />} mainchild={
-            <section className="bookmark-section p-1 ">{
+            <section className="bookmark-section">{
                bookmark.length>0 ?
                bookmark.map((posts) => (
                   <Postcard key={posts._id} post={posts} />

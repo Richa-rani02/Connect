@@ -13,7 +13,7 @@ export const SignupModal = ({ isOpen, onClose }) => {
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
-    fullName: "",
+    fullName: ""
   });
   const navigate=useNavigate();
   const dispatch=useDispatch();

@@ -67,10 +67,7 @@
     &__right {
       margin-left: auto;
     }
-  
-    @include smMinBreakPoint {
-      flex-direction: column;
-    }
+
   }
   
   .emoji {

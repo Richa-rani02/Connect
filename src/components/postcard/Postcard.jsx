@@ -2,7 +2,7 @@ import "./postcard.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers } from "../../pages/profile/userSlice";
 import { deletePost, LikeDislike, addRemoveBookmark, addComment } from "../../redux/postSlice";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import { EditPostModal, Comment, Avatar } from "../index";
 import { BsThreeDots, MdAddComment, BiCommentEdit, AiFillHeart, AiOutlineHeart, BsFillChatLeftDotsFill, BsBookmark, FaRegCommentDots, BsEmojiSmile, MdDeleteOutline, BsBookmarkFill } from "../../utils/icons";
 export const Postcard = ({ post }) => {
@@ -26,11 +26,6 @@ export const Postcard = ({ post }) => {
     const isBookmarked = bookmark?.some((bookmarkpost) => bookmarkpost._id === _id);
     const [editModalActive, setEditModalActive] = useState(false);
     const [commentData, setCommentData] = useState("");
-
-
-    useEffect(() => {
-        dispatch(getAllUsers());
-    }, [])
 
     const deletePostHandler = (e) => {
         e.preventDefault();

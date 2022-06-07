@@ -43,8 +43,8 @@ export const CreatePost = ({ userDetails, postContent, setPostContent, postHandl
             <div className="footer-icons py-0-75 flex">
                 <div className="footer-icons__left flex px-1">
 
-                    <span onClick={() => fileInput.current.click()}><FcPicture size={24} /><input ref={fileInput} type="file" style={{display:'none'}} onChange={imageUpload}/>Images</span>
-                    <span onClick={() => setEmojiPickerActive((prev) => !prev)}><span className="emoji">🙂</span><span className="icon-title">Emojis</span></span>
+                    <span onClick={() => fileInput.current.click()}><FcPicture size={24} /><input ref={fileInput} type="file" style={{display:'none'}} onChange={imageUpload}/></span>
+                    <span onClick={() => setEmojiPickerActive((prev) => !prev)}><span className="emoji">🙂</span></span>
                     <EmojisPicker emojiActive={emojiPickerActive} setPostContent={setPostContent} postContent={postContent} />
                 </div>
                 <div className="footer-icons__right">

@@ -24,7 +24,7 @@
 .main__wrapper {
     flex: 1;
     display: flex;
-    gap: 5rem;
+    gap: 3.5rem;
     justify-content: space-between;
 
     @include mdMinBreakPoint {
