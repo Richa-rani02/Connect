@@ -23,8 +23,11 @@ const initialState = {
     error: "",
     isLoggedIn: localStorage.getItem("userId") === null ? false : true,
     user: {},
+    token:localStorage.getItem("userId") ?? "",
     allUsers: [],
-    userProfileDetails: {}
+    userProfileDetails: {},
+    getUsersStatus: "idle",
+    getCurrentUserStatus:"idle",
 }
 
 export const SignUpUser = createAsyncThunk(
@@ -60,15 +63,45 @@ export const loginUser = createAsyncThunk(
             const data = await signInWithEmailAndPassword(auth, email, password);
             const userDoc = await getDoc(doc(db, "users", data.user.uid));
             localStorage.setItem("userId", userDoc.data().id);
-            console.log(userDoc);
-            console.log(userDoc.data());
-
             return userDoc.data();
         } catch (error) {
             return rejectWithValue(error.code);
         }
     }
 )
+
+export const getAllUsers=createAsyncThunk(
+    "auth/getAllUsers",async(_, { rejectWithValue })=>{
+        try {
+            const q = query(collection(db, "users"));
+            const querySnapshot = await getDocs(q);
+             const users= querySnapshot.docs.map(doc =>({
+              ...doc.data(),
+              id:doc.id
+            }));
+            return users;
+          } catch (error) {
+            return rejectWithValue(error.code);
+          }
+        } 
+)
+
+export const getUserData = createAsyncThunk(
+    "auth/getUserData",
+    async (_, { rejectWithValue }) => {
+      try {
+        const UserId = localStorage.getItem("userId");
+        if (UserId) {
+          const userRef = await getDoc(doc(db, "users", UserId));
+          return userRef.data();
+        } else {
+          return false;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  );
 
 const authSlice = createSlice({
     name: 'auth',
@@ -94,6 +127,7 @@ const authSlice = createSlice({
             state.authStatus = "Success";
             state.isLoading = false;
             state.isUserLoggedIn = true;
+            state.token=action.payload;
             toast.success("Account created successfully", {
                 id: toastId,
             });
@@ -115,9 +149,10 @@ const authSlice = createSlice({
 
         },
         [loginUser.fulfilled]: (state, action) => {
-            state.authStatus = "Success";
+            state.authStatus = "success";
             state.isLoading = false;
             state.isUserLoggedIn = true;
+            state.token=action.payload.id;
             state.user = action.payload;
             toast.success(`Hello, ${state.user.firstName}. Welcome back!`, {
                 id: toastId,
@@ -133,6 +168,38 @@ const authSlice = createSlice({
             });
 
         },
+        
+        [getAllUsers.pending]: (state, action) => {
+            state.getUsersStatus="pending";
+        },
+
+        [getAllUsers.fulfilled]: (state, action) => {
+            state.getUsersStatus="success";
+            state.users = action.payload;
+        },
+        [getAllUsers.rejected]: (state, action) => {
+            state.getUsersStatus="failed";
+            state.error = action.payload;
+        },
+        [getUserData.pending]: (state) => {
+            state.getCurrentUserStatus="pending";
+        },
+
+        [getUserData.fulfilled]: (state, action) => {
+            state.getCurrentUserStatus="success";
+            if(action.payload){
+                state.isLoggedIn=true;
+              state.user={...action.payload}
+            }else{
+                state.isLoggedIn=false;
+                state.user={};
+            }
+        },
+        [getUserData.rejected]: (state, action) => {
+            state.getCurrentUserStatus="failed",
+            state.error = action.payload;
+        },
+
 
     }
 });
