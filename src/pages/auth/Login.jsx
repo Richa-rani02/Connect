@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./auth.scss";
-import { loginUser } from "./authSlice";
+// import { loginUser } from "./authSlice";
+import { loginUser } from '../../redux/authSlice';
 import { useDispatch, useSelector } from "react-redux";
 import { InputBox } from "../../components/index";
 import { ImSpinner3 } from "../../utils/icons";
@@ -14,7 +15,7 @@ export const Login = () => {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading, error, token } = useSelector((state) => state.auth);
+  const { isLoading, error, isLoggedIn } = useSelector((state) => state.auth);
   const [signupActive, setSignupActive] = useState(false);
   const handleSignupToogle = () => setSignupActive((prev) => !prev);
   const changeHandler = (e) => {
@@ -25,22 +26,19 @@ export const Login = () => {
     if (formValues.email && formValues.password !== '') {
       dispatch(loginUser(formValues));
     }
-
+    setFormValues({
+      email: "",
+    password: "",
+    })
   }
   const loadtestData = () => {
     setFormValues({
-      email: "test@gmail.com",
-      password: "Test123@",
+      email: "testuser@gmail.com",
+      password: "Test1234@",
     })
   }
 
-  const errorMsg =
-    error === ""
-      ? ""
-      : error?.includes('404')
-        ? "User not found"
-        : "login failed!"
-  useEffect(() => token && navigate("/feed"), [token]);
+  // useEffect(() => token && navigate("/feed"), [token]);
   return (
     <>
       <div className="login-page">
@@ -55,8 +53,8 @@ export const Login = () => {
             <img src="../Assets/logosm.png" />
           </div>
           <h2 className="login-page__login-title">Welcome to connect ...</h2>
-          {errorMsg ? <div className="error-msg mt-1 px-0-75 py-0-5">
-            {errorMsg}
+          {error? <div className="error-msg mt-1 px-0-75 py-0-5">
+            {error}
           </div> :
             null}
 

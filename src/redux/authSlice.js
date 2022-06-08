@@ -29,30 +29,46 @@ const initialState = {
 
 export const SignUpUser = createAsyncThunk(
     "auth/SignUpUser",
-    async ({ firstName, lastName, userName, email, password,profileImg }, { rejectWithValue }) => {
+    async ({ firstName, lastName, userName, email, password, profileImg }, { rejectWithValue }) => {
         try {
             const { user } = await createUserWithEmailAndPassword(auth, email, password);
-            await setDoc(doc(db, "users",user.uid), {
+            await setDoc(doc(db, "users", user.uid), {
                 firstName,
                 lastName,
                 fullName: firstName + " " + lastName,
                 userName,
                 email,
-                bio:"",
-                website:"",
+                bio: "",
+                website: "",
                 followers: [],
                 following: [],
                 id: user.uid,
-                profileImg:(profileImg ||  "https://res.cloudinary.com/dgomw715r/image/upload/v1654585086/ProjectImages/avatar2_cpccbi.png"),
+                profileImg: (profileImg || "https://res.cloudinary.com/dgomw715r/image/upload/v1654585086/ProjectImages/avatar2_cpccbi.png"),
             });
             localStorage.setItem("userId", user.uid);
             return user.uid;
 
         } catch (error) {
-             return rejectWithValue(error.code);
+            return rejectWithValue(error.code);
         }
     }
 );
+
+export const loginUser = createAsyncThunk(
+    "auth/loginUser", async ({ email, password }, { rejectWithValue }) => {
+        try {
+            const data = await signInWithEmailAndPassword(auth, email, password);
+            const userDoc = await getDoc(doc(db, "users", data.user.uid));
+            localStorage.setItem("userId", userDoc.data().id);
+            console.log(userDoc);
+            console.log(userDoc.data());
+
+            return userDoc.data();
+        } catch (error) {
+            return rejectWithValue(error.code);
+        }
+    }
+)
 
 const authSlice = createSlice({
     name: 'auth',
@@ -78,7 +94,6 @@ const authSlice = createSlice({
             state.authStatus = "Success";
             state.isLoading = false;
             state.isUserLoggedIn = true;
-            console.log(action.payload);
             toast.success("Account created successfully", {
                 id: toastId,
             });
@@ -90,7 +105,33 @@ const authSlice = createSlice({
             toast.error("Some error occured in Signup. Try Again:(", {
                 id: toastId,
             });
-            
+
+        },
+        [loginUser.pending]: (state, action) => {
+            state.authStatus = "loading";
+            state.isLoading = true;
+            state.error = "";
+            toastId = toast.loading("logging in...");
+
+        },
+        [loginUser.fulfilled]: (state, action) => {
+            state.authStatus = "Success";
+            state.isLoading = false;
+            state.isUserLoggedIn = true;
+            state.user = action.payload;
+            toast.success(`Hello, ${state.user.firstName}. Welcome back!`, {
+                id: toastId,
+                icon: "👋",
+            });
+        },
+        [loginUser.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.authStatus = "failed";
+            state.error = action.payload;
+            toast.error("Some error occured in login. Try Again:(", {
+                id: toastId,
+            });
+
         },
 
     }

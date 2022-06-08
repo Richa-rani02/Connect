@@ -1,9 +1,9 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 export const ProtectedRoutes=({children})=>{
-    const {token}=useSelector((state)=>state.auth);
+    const {isLoggedIn } = useSelector((state) => state.auth);
     const location = useLocation();
-    return token?(
+    return isLoggedIn?(
     children
     ):(
         <Navigate to="/" state={{ from: location }} replace />
