@@ -1,7 +1,7 @@
 import "./inputBox.scss";
 export const InputBox=({labelName,placeholder,type,value,name,...other})=>{
     return(
-        <div className="input-group mb-1">
+        <div className="input-group mb-0-75">
             <label className="input-group__label" htmlFor={name}><span className="label__content">
               {labelName}
             </span></label>

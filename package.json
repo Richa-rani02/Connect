@@ -15,6 +15,7 @@
     "axios": "^0.22.0",
     "dayjs": "^1.10.7",
     "emoji-picker-react": "^3.5.1",
+    "firebase": "^9.8.2",
     "framer-motion": "^6.3.3",
     "icons": "^1.0.0",
     "jwt-decode": "^3.1.2",

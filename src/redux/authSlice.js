@@ -1,106 +1,100 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { loginService, signupService,addBookmarkServices,removeBookmarkServices} from "../services";
 import toast from "react-hot-toast";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+    doc,
+    setDoc,
+    collection,
+    query,
+    where,
+    getDoc,
+    getDocs,
+    updateDoc,
+    deleteDoc,
+    arrayUnion,
+    arrayRemove,
+} from "firebase/firestore";
+import { db, auth } from "../firebase/config";
+
+let toastId;
 const initialState = {
-    authStatus: '',
+    authStatus: "",
     isLoading: false,
     error: "",
-    token: localStorage.getItem("connect-token") ?? "",
-    userDetails: JSON.parse(localStorage.getItem("connect-user")) || "",
-};
+    isLoggedIn: localStorage.getItem("userId") === null ? false : true,
+    user: {},
+    allUsers: [],
+    userProfileDetails: {}
+}
 
-export const loginUser = createAsyncThunk(
-    "auth/loginUser", async (userDetails, { rejectWithValue }) => {
+export const SignUpUser = createAsyncThunk(
+    "auth/SignUpUser",
+    async ({ firstName, lastName, userName, email, password,profileImg }, { rejectWithValue }) => {
         try {
-            const { data } = await loginService(userDetails);
-            return data;
+            const { user } = await createUserWithEmailAndPassword(auth, email, password);
+            await setDoc(doc(db, "users",user.uid), {
+                firstName,
+                lastName,
+                fullName: firstName + " " + lastName,
+                userName,
+                email,
+                bio:"",
+                website:"",
+                followers: [],
+                following: [],
+                id: user.uid,
+                profileImg:(profileImg ||  "https://res.cloudinary.com/dgomw715r/image/upload/v1654585086/ProjectImages/avatar2_cpccbi.png"),
+            });
+            localStorage.setItem("userId", user.uid);
+            return user.uid;
+
         } catch (error) {
-            return rejectWithValue(error.message);
+             return rejectWithValue(error.code);
         }
     }
-)
-
-export const SignupUser = createAsyncThunk(
-    "auth/signupUser", async (userDetails, { rejectWithValue }) => {
-        try {
-            const { data } = await signupService(userDetails);
-            return data;
-        } catch (error) {
-            return rejectWithValue(error.message);
-        }
-    }
-)
+);
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
         logoutUser: (state) => {
-            state.isLoading = false;
-            state.error = "";
-            state.token = "";
-            state.userDetails = "";
-            localStorage.removeItem("connect-token");
-            localStorage.removeItem("connect-user");
+            state.isLoggedIn = false;
+            state.user = {};
+            localStorage.removeItem("userId");
+            state.allUsers = [];
+            state.userProfileDetails = {}
 
         }
-    },
-    extraReducers: (builder) => {
-        let toastId;
-        builder
-            .addCase(loginUser.pending, (state) => {
-                state.authStatus = "pending";
-                state.isLoading = true;
-                state.error="";
-                toastId = toast.loading("Logging in...");
-            })
-            .addCase(loginUser.fulfilled, (state, action) => {
-                state.isLoading=false;
-                state.error="";
-                state.token=action.payload.encodedToken;
-                state.userDetails=action.payload.foundUser;
-                localStorage.setItem("connect-token", state.token);
-                localStorage.setItem("connect-user",JSON.stringify(state.userDetails) );
-                toast.success(`Hello, ${state.userDetails.firstName}. Welcome back!`, {
-                    id: toastId,
-                    icon: "👋",
-                });
-            })
-            .addCase(loginUser.rejected,(state,action)=>{
-                state.isLoading=false;
-                state.error=action.payload;
-                toast.error("Some error occured in login. Try Again:( ", {
-                    id: toastId,
-                });
-            })
-            .addCase(SignupUser.pending,(state)=>{
-                state.authStatus='pending';
-                state.isLoading=true;
-                state.error="",
-                toastId = toast.loading("Creating new Account...");
-            })
-            .addCase(SignupUser.fulfilled,(state,action)=>{
-                state.isLoading=false,
-                state.error="",
-                state.token=action.payload.encodedToken;
-                state.userDetails=action.payload.createdUser;
-                localStorage.setItem("connect-token", state.token);
-                localStorage.setItem("connect-user",JSON.stringify(state.userDetails) );
-                toast.success("Account created Successfully", {
-                    id: toastId,
-                });
-            })
-            .addCase(SignupUser.rejected,(state,action)=>{
-                state.isLoading=false;
-                state.error=action.payload;
-                toast.error("Some error occured in signup. Try Again:( ", {
-                    id: toastId,
-                });
-            })
-    
-    }
+    }, extraReducers: {
+        [SignUpUser.pending]: (state, action) => {
+            state.authStatus = "loading";
+            state.isLoading = true;
+            state.error = "";
+            toastId = toast.loading("creating account...");
 
-})
-export const {logoutUser} =authSlice.actions;
-export const authReducer=authSlice.reducer;
- 
+        },
+        [SignUpUser.fulfilled]: (state, action) => {
+            state.authStatus = "Success";
+            state.isLoading = false;
+            state.isUserLoggedIn = true;
+            console.log(action.payload);
+            toast.success("Account created successfully", {
+                id: toastId,
+            });
+        },
+        [SignUpUser.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.authStatus = "failed";
+            state.error = action.payload;
+            toast.error("Some error occured in Signup. Try Again:(", {
+                id: toastId,
+            });
+            
+        },
+
+    }
+});
+
+export const { logoutUser } = authSlice.actions;
+export const authReducer = authSlice.reducer;
