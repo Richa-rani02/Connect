@@ -12,9 +12,10 @@ export const Feed = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const {posts,statusAllPost } = useSelector((state) => state.post);
+    const userId=localStorage.getItem("userId");
     const { userDetails } = useSelector((state) => state.auth);
     const { user} = useSelector((state) => state.auth);
-    const [feedPost, setFeedPost] = useState([]);
+    const myFeedPosts=posts.filter((post)=>post.userId===userId);
     const [trendingPost, setTrendingPost] = useState({ isTrending: false, posts: [] });
     const [filterText, setFilterText] = useState("");
     const [createPostActive , setCreatePostActive]=useState(false);
@@ -97,8 +98,8 @@ export const Feed = () => {
                                 </>
                             ) :
                                 <> */}
-                                    {posts.length !== 0 ? (
-                                        posts?.map((post) => (
+                                    {myFeedPosts.length !== 0 ? (
+                                        myFeedPosts?.map((post) => (
                                             <Postcard key={post.id} allPost={post}/>
                                         ))
                                     ) : <Empty path={location.pathname} />}
