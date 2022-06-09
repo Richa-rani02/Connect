@@ -18,7 +18,7 @@ export const Feed = () => {
     const [feedPost, setFeedPost] = useState([]);
     const [trendingPost, setTrendingPost] = useState({ isTrending: false, posts: [] });
     const [filterText, setFilterText] = useState("");
-    const [createPostActive , setCreatePostActive]=useState(true);
+    const [createPostActive , setCreatePostActive]=useState(false);
     // const [postContent, setPostContent] = useState(
     //     {
     //         content: "",

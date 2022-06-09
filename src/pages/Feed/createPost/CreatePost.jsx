@@ -3,23 +3,30 @@ import { EmojisPicker, Modal } from "../../../components/index";
 import { FcPicture } from "../../../utils/icons";
 import Avatar from "@mui/material/Avatar";
 import { useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import {addPost} from "../../../redux/postSlice";
 import "./createPost.scss";
 export const CreatePost = ({isOpen, onClose }) => {
+    const dispatch=useDispatch();
     const { user} = useSelector((state) => state.auth);
     const [emojiPickerActive, setEmojiPickerActive] = useState(false);
     const fileInput = useRef(null);
-    
+    let currentDate = new Date().toLocaleDateString();
+    const userId = localStorage.getItem("userId");
     const [postContent, setPostContent] = useState(
         {
-            content: "",
-            pic: "",
+            postText: "",
+            postPicUrl: "",
+            userId:userId,
+            createdAt:currentDate
+
         });
 
     const postHandler = (e) => {
         e.preventDefault();
-        // dispatch(addPost({ ...postContent }));
-        setPostContent({ content: "", pic: "" });
+         dispatch(addPost(postContent));
+        setPostContent({ postText: "", postPicUrl: "" });
+        onClose();
     }    
 
     const imageUpload = async (e) => {
@@ -33,7 +40,7 @@ export const CreatePost = ({isOpen, onClose }) => {
             });
 
         let base64File = await toBase64(file);
-        setPostContent({ ...postContent, pic: base64File });
+        setPostContent({ ...postContent, postPicUrl: base64File });
     };
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -41,18 +48,20 @@ export const CreatePost = ({isOpen, onClose }) => {
                 <div className='form-header flex'>
                     <Avatar sx={{ height: '52px', width: '52px', backgroundColor: '#818cf8' }} src={user?.profileImg || user?.firstName?.charAt(0)} alt={user?.firstName} />
                     <textarea
-                        value={postContent.content}
+                        value={postContent.postText}
                         type="text"
                         name=""
                         rows={2}
-                     onChange={(e) => setPostContent({ ...postContent, content: e.target.value })}
+                     onChange={(e) => setPostContent({ ...postContent, postText: e.target.value })}
                     />
                 </div>
+                {postContent.postPicUrl &&
                 <div className='form-image'>
-                    <img src='../Assets/no_result.png' className='responsive-img'>
+                    <img src={postContent?.postPicUrl} className='responsive-img'>
                     </img>
 
                 </div>
+                }
                 <div className='form-footer flex flex-align-center'>
                   <div className="footer-icons__left flex px-1">
                   {/* onClick={() => fileInput.current.click()} */}
