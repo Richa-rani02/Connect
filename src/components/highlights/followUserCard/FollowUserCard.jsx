@@ -1,21 +1,22 @@
 import React from 'react'
 import {useDispatch,useSelector} from "react-redux";
 import "./followUserCard.scss";
-import {Avatar} from "../../index";
+// import {Avatar} from "../../index";
+import Avatar from "@mui/material/Avatar";
 import {followUnfollowUser} from "../../../pages/profile/userSlice";
 export const FollowUserCard = ({userDetail}) => {
   const dispatch=useDispatch();
-  const { userDetails } = useSelector((state) => state.auth);
+  // const { userDetails } = useSelector((state) => state.auth);
   return (
     <div className="user_card flex flex-align-center  mb-0-5 px-0-5" key={userDetail.id}>
             <div className="flex user-details flex-align-center">
-            <Avatar details={userDetail} className="md" clickRequired="true"/>
+            <Avatar sx={{ height: '45px', width: '45px', backgroundColor:'#818cf8'}} src={userDetail?.profileImg || userDetail?.firstName?.charAt(0)} alt={userDetail?.firstName} />
             <div>
               <span>
               <p className="user-title">{userDetail?.firstName.concat(" ", userDetail?.lastName)}</p>
               </span>
               <span>
-               <p className="user-handler">@{userDetail?.userHandler}</p>
+               <p className="user-handler">@{userDetail?.userName}</p>
               </span>
               </div>
               </div>

@@ -66,38 +66,38 @@ export const Feed = () => {
 
                 <Sidebar />
             } mainchild={
-                <section className="main-section flex flex-col">
-                    <article className="">
-                        <CreatePost userDetails={userDetails} postContent={postContent} setPostContent={setPostContent} postHandler={postHandler} />
+                // <section className="main-section flex flex-col">
+                //     <article className="">
+                //         <CreatePost userDetails={userDetails} postContent={postContent} setPostContent={setPostContent} postHandler={postHandler} />
 
-                        <div className="post-header flex py-0-5">
-                            <h4 onClick={trendHandler}><span><FcRightUp size={20} /></span>Trending</h4>
-                            <h4 onClick={oldestHandler}><span><FcGenericSortingAsc size={20} /></span>Oldest</h4>
-                            <h4 onClick={latestHandler}><span><FcGenericSortingDesc size={20} /></span>Latest</h4>
-                        </div>
-                    </article>
-                    <article className="post-list">
+                //         <div className="post-header flex py-0-5">
+                //             <h4 onClick={trendHandler}><span><FcRightUp size={20} /></span>Trending</h4>
+                //             <h4 onClick={oldestHandler}><span><FcGenericSortingAsc size={20} /></span>Oldest</h4>
+                //             <h4 onClick={latestHandler}><span><FcGenericSortingDesc size={20} /></span>Latest</h4>
+                //         </div>
+                //     </article>
+                //     <article className="post-list">
 
-                        {isLoading ?
-                            <Loader /> : trendingPost.isTrending ? (
-                                <>
-                                    {trendingPost.posts.length > 0 ? (
-                                        [...trendingPost.posts].map((posts) => <Postcard key={posts.id} post={posts} />)
-                                    ) : <Empty path="/liked" />}
-                                </>
-                            ) :
-                                <>
-                                    {feedPost.length !== 0 ? (
-                                        feedPost?.map((posts) => (
-                                            <Postcard key={posts.id} post={posts} setPostContent={setPostContent} postContent={postContent} />
-                                        ))
-                                    ) : <Empty path={location.pathname} />}
+                //         {isLoading ?
+                //             <Loader /> : trendingPost.isTrending ? (
+                //                 <>
+                //                     {trendingPost.posts.length > 0 ? (
+                //                         [...trendingPost.posts].map((posts) => <Postcard key={posts.id} post={posts} />)
+                //                     ) : <Empty path="/liked" />}
+                //                 </>
+                //             ) :
+                //                 <>
+                //                     {feedPost.length !== 0 ? (
+                //                         feedPost?.map((posts) => (
+                //                             <Postcard key={posts.id} post={posts} setPostContent={setPostContent} postContent={postContent} />
+                //                         ))
+                //                     ) : <Empty path={location.pathname} />}
 
-                                </>}
-                    </article>
-                </section>
+                //                 </>}
+                //     </article>
+                // </section>
 
-
+<></>
             } rightchild={<Highlights />} />
         </div>
     )

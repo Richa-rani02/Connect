@@ -24,7 +24,7 @@ export const SignupModal = ({ isOpen, onClose }) => {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading, error, isLoggedIn } = useSelector((state) => state.auth);
+  const { isLoading, error, token } = useSelector((state) => state.auth);
   const changeHandler = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
   }
@@ -49,8 +49,7 @@ export const SignupModal = ({ isOpen, onClose }) => {
       profileImg:"",
     })
   }
-  // useEffect(()=>token && setAvatarActive(true),[token]);
-  useEffect(() => isLoggedIn && navigate("/"), [isLoggedIn]);
+  useEffect(() => token && navigate("/feed"), [token]);
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>

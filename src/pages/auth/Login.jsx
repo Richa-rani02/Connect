@@ -15,7 +15,7 @@ export const Login = () => {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading, error, isLoggedIn } = useSelector((state) => state.auth);
+  const { isLoading, error, token} = useSelector((state) => state.auth);
   const [signupActive, setSignupActive] = useState(false);
   const handleSignupToogle = () => setSignupActive((prev) => !prev);
   const changeHandler = (e) => {
@@ -38,7 +38,7 @@ export const Login = () => {
     })
   }
 
-  // useEffect(() => token && navigate("/feed"), [token]);
+  useEffect(() => token && navigate("/feed"), [token]);
   return (
     <>
       <div className="login-page">

@@ -98,7 +98,7 @@ export const getUserData = createAsyncThunk(
           return false;
         }
       } catch (error) {
-        console.error(error);
+        return rejectWithValue(error.code);
       }
     }
   );
@@ -112,6 +112,7 @@ const authSlice = createSlice({
             state.user = {};
             localStorage.removeItem("userId");
             state.allUsers = [];
+            state.token="";
             state.userProfileDetails = {}
 
         }
@@ -175,7 +176,7 @@ const authSlice = createSlice({
 
         [getAllUsers.fulfilled]: (state, action) => {
             state.getUsersStatus="success";
-            state.users = action.payload;
+            state.allUsers = action.payload;
         },
         [getAllUsers.rejected]: (state, action) => {
             state.getUsersStatus="failed";
