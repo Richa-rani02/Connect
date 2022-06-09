@@ -5,6 +5,18 @@
   gap: 1rem;
   border-radius:10px ;
 }
+.input-click-container{
+  gap: 1rem;
+  background-color: white;
+  border-radius: 4px;
+  
+}
+.input-click{
+  width: 100%;
+  border: 1px solid $borderColor;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .post-header {
   justify-content: space-around;
   background-color: white;

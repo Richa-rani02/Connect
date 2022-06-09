@@ -2,14 +2,13 @@
 
 .emojipicker{
     position: absolute;
-    left: -0.75rem;
     display: block;
     visibility: hidden;
     transition: 0.4s;
-    top: 3rem;
     opacity: 0;
+    // top: 1rem;
     @include smMinBreakPoint {
-        top: 5rem;
+        // top: 5rem;
       }
 
 }
