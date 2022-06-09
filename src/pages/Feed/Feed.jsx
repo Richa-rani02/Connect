@@ -2,7 +2,6 @@ import { Navbar, Sidebar, Highlights, Postcard, Loader, EmojisPicker, SideContai
 import "./feed.scss";
 import { Empty } from "../index";
 import { useLocation } from "react-router-dom";
-import { getAllPost, addPost } from "../../redux/postSlice";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
@@ -12,7 +11,7 @@ import { CreatePost } from "./createPost/CreatePost";
 export const Feed = () => {
     const dispatch = useDispatch();
     const location = useLocation();
-    const { allPosts, isLoading, postStatus } = useSelector((state) => state.post);
+    const {posts,statusAllPost } = useSelector((state) => state.post);
     const { userDetails } = useSelector((state) => state.auth);
     const { user} = useSelector((state) => state.auth);
     const [feedPost, setFeedPost] = useState([]);
@@ -25,20 +24,20 @@ export const Feed = () => {
     //         pic: "",
     //     });
 
-    useEffect(() => {
-        if (postStatus == 'idle') {
-            dispatch(getAllPost());
-        }
-    }, [allPosts]);
+    // useEffect(() => {
+    //     if (postStatus == 'idle') {
+    //         dispatch(getAllPost());
+    //     }
+    // }, [allPosts]);
 
-    useEffect(() => {
-        if (allPosts) {
-            setFeedPost(allPosts?.filter((post) => post.username === userDetails.username ||
-                userDetails?.following?.find((ele) => post?.username === ele?.username))
-                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            )
-        }
-    }, [userDetails, allPosts])
+    // useEffect(() => {
+    //     if (allPosts) {
+    //         setFeedPost(allPosts?.filter((post) => post.username === userDetails.username ||
+    //             userDetails?.following?.find((ele) => post?.username === ele?.username))
+    //             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    //         )
+    //     }
+    // }, [userDetails, allPosts])
     const handlecreatePostToogle = () => setCreatePostActive((prev) => !prev);
 
     // const postHandler = (e) => {
@@ -47,22 +46,22 @@ export const Feed = () => {
     //     setPostContent({ content: "", pic: "" });
     // }
 
-    const trendHandler = () => {
-        setTrendingPost((prev) => ({
-            ...prev, isTrending: true, posts: [...feedPost]
-                ?.filter((post) => post.likes.likeCount > 0)
-                ?.sort((a, b) => b?.likes?.likeCount + b?.comments?.length - a?.likes?.likeCount + a?.comments?.length)
-        }))
-    }
+    // const trendHandler = () => {
+    //     setTrendingPost((prev) => ({
+    //         ...prev, isTrending: true, posts: [...feedPost]
+    //             ?.filter((post) => post.likes.likeCount > 0)
+    //             ?.sort((a, b) => b?.likes?.likeCount + b?.comments?.length - a?.likes?.likeCount + a?.comments?.length)
+    //     }))
+    // }
 
-    const latestHandler = () => {
-        setTrendingPost((prev) => ({ ...prev, isTrending: false }));
-        setFeedPost(feedPost?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-    }
-    const oldestHandler = () => {
-        setTrendingPost((prev) => ({ ...prev, isTrending: false }));
-        setFeedPost(feedPost?.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)));
-    }
+    // const latestHandler = () => {
+    //     setTrendingPost((prev) => ({ ...prev, isTrending: false }));
+    //     setFeedPost(feedPost?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+    // }
+    // const oldestHandler = () => {
+    //     setTrendingPost((prev) => ({ ...prev, isTrending: false }));
+    //     setFeedPost(feedPost?.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)));
+    // }
     return (
         <>
         <div className="feed">
@@ -87,9 +86,9 @@ export const Feed = () => {
                             <h4 onClick={latestHandler}><span><FcGenericSortingDesc size={20} /></span>Latest</h4>
                         </div> */}
                     </article>
-                    {/* <article className="post-list">
+                    <article className="post-list">
 
-                        {isLoading ?
+                        {/* {isLoading ?
                             <Loader /> : trendingPost.isTrending ? (
                                 <>
                                     {trendingPost.posts.length > 0 ? (
@@ -97,15 +96,16 @@ export const Feed = () => {
                                     ) : <Empty path="/liked" />}
                                 </>
                             ) :
-                                <>
-                                    {feedPost.length !== 0 ? (
-                                        feedPost?.map((posts) => (
-                                            <Postcard key={posts.id} post={posts} setPostContent={setPostContent} postContent={postContent} />
+                                <> */}
+                                    {posts.length !== 0 ? (
+                                        posts?.map((post) => (
+                                            <Postcard key={post.id} allPost={post}/>
                                         ))
                                     ) : <Empty path={location.pathname} />}
 
-                                </>}
-                    </article> */}
+                                {/* </>
+                                } */}
+                    </article>
                 </section>
 // {/* <></> */}
 

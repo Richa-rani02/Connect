@@ -4,9 +4,9 @@ import { FcPicture } from "../../../utils/icons";
 import Avatar from "@mui/material/Avatar";
 import { useState, useRef } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import {addPost} from "../../../redux/postSlice";
+import {addPost,editPost} from "../../../redux/postSlice";
 import "./createPost.scss";
-export const CreatePost = ({isOpen, onClose }) => {
+export const CreatePost = ({isOpen, onClose,postData,editModalActive}) => {
     const dispatch=useDispatch();
     const { user} = useSelector((state) => state.auth);
     const [emojiPickerActive, setEmojiPickerActive] = useState(false);
@@ -15,8 +15,8 @@ export const CreatePost = ({isOpen, onClose }) => {
     const userId = localStorage.getItem("userId");
     const [postContent, setPostContent] = useState(
         {
-            postText: "",
-            postPicUrl: "",
+            postText: postData?.postText,
+            postPicUrl: postData?.postPicUrl,
             userId:userId,
             createdAt:currentDate
 
@@ -24,7 +24,14 @@ export const CreatePost = ({isOpen, onClose }) => {
 
     const postHandler = (e) => {
         e.preventDefault();
-         dispatch(addPost(postContent));
+       // editModalActive ? dispatch(editPost({...postContent,id:postData.id})) : dispatch(addPost(postContent))
+        dispatch(addPost(postContent));
+        setPostContent({ postText: "", postPicUrl: "" });
+        onClose();
+    }  
+    const editPostHandler = (e) => {
+        e.preventDefault();
+       dispatch(editPost({...postContent,id:postData.id}))
         setPostContent({ postText: "", postPicUrl: "" });
         onClose();
     }    
@@ -64,12 +71,11 @@ export const CreatePost = ({isOpen, onClose }) => {
                 }
                 <div className='form-footer flex flex-align-center'>
                   <div className="footer-icons__left flex px-1">
-                  {/* onClick={() => fileInput.current.click()} */}
                   <span onClick={() => fileInput.current.click()}><FcPicture size={24} /><input ref={fileInput} type="file" style={{display:'none'}} onChange={imageUpload}/></span>
                   <span onClick={() => setEmojiPickerActive((prev) => !prev)}><span className="emoji">🙂</span></span>
                   <EmojisPicker emojiActive={emojiPickerActive} setPostContent={setPostContent} postContent={postContent} />
                   </div>
-                  <button className="post-btn px-1-5 py-0-5" onClick={postHandler}>Post</button>
+                  {editModalActive ?<button className="post-btn px-1-5 py-0-5" onClick={editPostHandler}>Update</button>:<button className="post-btn px-1-5 py-0-5" onClick={postHandler}>Post</button>}
                 </div>
 
             </form>

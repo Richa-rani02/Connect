@@ -17,7 +17,6 @@
             width: 100%;
 
             span {
-                gap: 4px;
 
                 h4 {
                     color: $textColor;
@@ -81,20 +80,20 @@
 
     &__content {
         min-height: 4rem;
-        margin-left: 4rem;
+        gap: 5px;
 
 
         .image_content {
-            width:16rem;
-            height: 14rem;
+            width:100%;
+            height: 15rem;
+            border-radius: 5px;
 
-            @include smMinBreakPoint {
-                width: 100%;
+            img{
+                border-radius: 5px;
             }
         }
-
         @include smMinBreakPoint {
-            margin-left: 10px;
+            margin-left: 0px;
         }
     }
 
@@ -102,7 +101,7 @@
         border-top: 1.7px solid #DBD4D4;
         height: 100%;
         margin-top: 10px;
-        background-color: $lightColor;
+         background-color: $lightColor;
 
         .footer-left {
             gap: 1rem;
@@ -123,7 +122,7 @@
         }
 
         @include smMinBreakPoint {
-            margin-left: 10px;
+            margin-left: 0;
         }
     }
 
@@ -155,4 +154,11 @@
         }
     }
 
+}
+
+.user-detail{
+    gap: 2px;
+}
+.post-date{
+    font-size: 12px;
 }

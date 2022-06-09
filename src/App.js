@@ -3,7 +3,8 @@ import {AllRoutes} from "./routes/AllRoutes";
 import {useEffect} from "react";
 import { useDispatch,useSelector } from "react-redux";
 // import { getAllUsers } from "./pages/profile/userSlice";
-import { getAllUsers,getUserData } from "./redux/authSlice";
+import { getAllUsers,getUserData} from "./redux/authSlice";
+import {getAllPosts } from "./redux/postSlice";
 import "./App.scss";
 function App() {
   const dispatch=useDispatch();
@@ -11,6 +12,7 @@ function App() {
   useEffect(() => {
     dispatch(getAllUsers());
     dispatch(getUserData());
+    dispatch(getAllPosts());
 }, [dispatch,token])
   return (
     <div className="App">
