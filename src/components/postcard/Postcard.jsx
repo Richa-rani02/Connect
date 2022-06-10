@@ -1,7 +1,7 @@
 import "./postcard.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers } from "../../pages/profile/userSlice";
-import { deletePost, LikeDislike, addRemoveBookmark, addComment } from "../../redux/postSlice";
+import { deletePost,likePost,dislikePost, addRemoveBookmark, addComment } from "../../redux/postSlice";
 import { useState,useRef } from "react";
 import {Comment } from "../index";
 import {CreatePost} from "../../pages/Feed/createPost/CreatePost";
@@ -28,7 +28,9 @@ export const Postcard = ({allPost}) => {
     // const { token, userDetails } = useSelector((state) => state.auth);
     // const { bookmark, allPosts } = useSelector((state) => state.post)
     // const userInfo = allUsers && allUsers?.find((user) => user.username === username);
-    // const isLiked = likedBy?.some((like) => like.username === userDetails.username);
+    const currentUserId=localStorage.getItem("userId"); 
+    //const isLiked = likes?.some((like) => like.userId === currentUserId);
+    const isLiked = likes.indexOf(currentUserId)>-1;
     // const isBookmarked = bookmark?.some((bookmarkpost) => bookmarkpost._id === _id);
      const [editModalActive, setEditModalActive] = useState(false);
     // const [commentData, setCommentData] = useState("");
@@ -49,7 +51,7 @@ export const Postcard = ({allPost}) => {
         setCommentBlock((val) => !val);
     }
     // const likeHandler = () => {
-    //     dispatch(LikeDislike({ postId: _id, doLike: isLiked ? false : true }))
+    //     dispatch(likePost({id,currentUserId}));
     // }
 
     // const addCommentHandler = () => {
@@ -106,14 +108,14 @@ export const Postcard = ({allPost}) => {
                             <span className="count ml-0-25">{comments?.length > 0 && `${comments?.length} ${comments?.length === 1 ? "comment" : "comments"}`}</span>
                         </span>
                         {/* onClick={() => likeHandler()} */}
+                        <span className="flex-center">
+                            {isLiked ? <AiFillHeart style={{ color: '#818cf8' }} size={23} onClick={()=>dispatch(dislikePost({id,currentUserId}))} /> : <AiOutlineHeart style={{ color: '#818cf8' }} size={23} onClick={()=>dispatch(likePost({id,currentUserId}))} />}
+                            <span className="count ml-0-25">{likes.length > 0 && `${likes.length} ${likes.length === 1 ? "Like" : "Likes"}`}</span>
+                        </span>
                         {/* <span className="flex-center" >
-                            {isLiked ? <AiFillHeart style={{ color: '#818cf8' }} size={23} /> : <AiOutlineHeart style={{ color: '#818cf8' }} size={23} />}
-                            <span className="count ml-0-25">{likeCount > 0 && `${likeCount} ${likeCount === 1 ? "Like" : "Likes"}`}</span>
-                        </span> */}
-                        <span className="flex-center" >
                            <AiOutlineHeart style={{ color: '#818cf8' }} size={23} />
                             <span className="count ml-0-25">like</span>
-                        </span>
+                        </span> */}
 
                     </div>
                     {/* <span className="footer-right">
