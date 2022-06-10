@@ -11,9 +11,6 @@ export const Comment = ({ comment }) => {
             <span className="replies__text-container px-0-5 py-0-25 flex flex-col ">
                 <div className="flex">
                     <h4>{userInfo?.firstName.concat(" ", userInfo?.lastName)}</h4>
-                    {/* <span className="comment_edit flex-center">
-                        <BsThreeDots size={20} onClick="{() => setOpenOption((val) => !val)}" />
-                    </span> */}
 
                 </div>
 

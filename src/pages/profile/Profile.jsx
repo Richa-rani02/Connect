@@ -24,7 +24,6 @@ export const Profile = () => {
     const profileModalToogle = () => {
         setOpenProfileModal(prev => !prev);
     }
-    console.log(user);
     useEffect(() => {
         setOpenFollow({ ...openFollow, modalOpen: false, type: "" });
         (async () => {

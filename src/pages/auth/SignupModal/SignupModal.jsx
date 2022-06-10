@@ -1,15 +1,11 @@
 import "../auth.scss";
-import { Modal, InputBox,AvatarModal } from "../../../components/index";
+import { Modal, InputBox} from "../../../components/index";
 import { ImSpinner3 } from "../../../utils/icons";
 import { SignupUser } from "../authSlice";
 import { useState,useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 export const SignupModal = ({ isOpen, onClose }) => {
-  const [avatarActive, setAvatarActive] = useState(false);
-  const handleAvatarToogle = () =>{
-    setAvatarActive((prev) => !prev);
-  } 
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
@@ -41,7 +37,6 @@ export const SignupModal = ({ isOpen, onClose }) => {
   }
 
 
-            // useEffect(()=>token && setAvatarActive(true),[token]);
              useEffect(() => token && navigate("/feed"), [token]);
   return (
     <>
@@ -67,7 +62,6 @@ export const SignupModal = ({ isOpen, onClose }) => {
         </form>
       </div>
     </Modal>
-     {avatarActive ? <AvatarModal isOpen={avatarActive} onClose={handleAvatarToogle} /> : null}
      </>
   )
 }

@@ -14,7 +14,6 @@ export const Postcard = ({ post }) => {
         likes: { likeCount, likedBy, dislikedBy },
         comments,
     } = post;
-    console.log(post);
 
     const [openOption, setOpenOption] = useState(false);
     const dispatch = useDispatch();

@@ -1,6 +1,5 @@
 export {InputBox} from "./inputBox/InputBox";
 export {Modal} from "./Modal/Modal";
-export {AvatarModal} from "./avatarModal/AvatarModal";
 export {Navbar} from "./navbar/Navbar";
 export {Sidebar} from "./sidebar/Sidebar";
 export {Highlights} from "./highlights/Highlights";
