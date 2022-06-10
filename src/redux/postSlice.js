@@ -195,9 +195,6 @@ const postSlice=createSlice({
            state.postStatus="fulfilled";
            state.isLoading=false;
            state.bookmark=action.payload;
-           toast.success("Post Bookmarked !!", {
-            id: toastId,
-        });
         })
         .addCase(addRemoveBookmark.rejected,(state,action)=>{
             state.postStatus="rejected";
@@ -214,9 +211,6 @@ const postSlice=createSlice({
            state.postStatus="fulfilled";
            state.isLoading=false;
           state.allPosts=action.payload.posts;
-           toast.success("Post liked !!", {
-            id: toastId,
-        });
         })
         .addCase(LikeDislike.rejected,(state,action)=>{
             state.postStatus="rejected";
