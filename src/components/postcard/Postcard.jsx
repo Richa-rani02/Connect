@@ -1,7 +1,7 @@
 import "./postcard.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers } from "../../pages/profile/userSlice";
-import { deletePost,likePost,dislikePost, addRemoveBookmark, addComment } from "../../redux/postSlice";
+import { deletePost,likePost,dislikePost,addToBookmark,removeFromBookmark} from "../../redux/postSlice";
 import { useState,useRef } from "react";
 import {Comment } from "../index";
 import {CreatePost} from "../../pages/Feed/createPost/CreatePost";
@@ -13,6 +13,7 @@ export const Postcard = ({allPost}) => {
         createdAt,
         comments,
         likes,
+        bookmark,
         postPicUrl,
         postText,
         user,
@@ -31,6 +32,7 @@ export const Postcard = ({allPost}) => {
     const currentUserId=localStorage.getItem("userId"); 
     //const isLiked = likes?.some((like) => like.userId === currentUserId);
     const isLiked = likes.indexOf(currentUserId)>-1;
+    const isSaved= bookmark.indexOf(currentUserId)>-1;
     // const isBookmarked = bookmark?.some((bookmarkpost) => bookmarkpost._id === _id);
      const [editModalActive, setEditModalActive] = useState(false);
     // const [commentData, setCommentData] = useState("");
@@ -118,14 +120,14 @@ export const Postcard = ({allPost}) => {
                         </span> */}
 
                     </div>
-                    {/* <span className="footer-right">
-                        {isBookmarked ? <BsBookmarkFill style={{ color: '#818cf8' }} size={21} onClick={() => bookmarkHandler()} /> :
-                            <BsBookmark style={{ color: '#818cf8' }} size={21} onClick={() => bookmarkHandler()} />}
-                    </span> */}
                     <span className="footer-right">
-                        <BsBookmarkFill style={{ color: '#818cf8' }} size={21} />
-                            {/* <BsBookmark style={{ color: '#818cf8' }} size={21}/>} */}
+                        {isSaved ? <BsBookmarkFill style={{ color: '#818cf8' }} size={21} onClick={()=>dispatch(removeFromBookmark({id,currentUserId}))}/> :
+                            <BsBookmark style={{ color: '#818cf8' }} size={21} onClick={()=>dispatch(addToBookmark({id,currentUserId}))} />}
                     </span>
+                    {/* <span className="footer-right">
+                        <BsBookmarkFill style={{ color: '#818cf8' }} size={21} />
+                            <BsBookmark style={{ color: '#818cf8' }} size={21}/>}
+                    </span> */}
                 </div>
                 {/* {commentblock && <>
                     <div className="postcard__comments flex flex-align-center p-0-75">

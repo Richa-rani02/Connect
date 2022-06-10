@@ -6,15 +6,17 @@ import { MainContainer } from "../mainContainer/MainContainer";
 import "./bookmark.scss";
 export const Bookmark = () => {
    const location = useLocation();
-   const { bookmark } = useSelector((state) => state.post);
+   const { posts } = useSelector((state) => state.post);
+   const currentUserId=localStorage.getItem("userId");
+   const bookmarkPost=posts.filter((post)=>post.bookmark.indexOf(currentUserId)>-1);
    return (
       <div className="bookmark">
          <Navbar />
          <MainContainer leftchild={<Sidebar />} mainchild={
             <section className="bookmark-section">{
-               bookmark.length>0 ?
-               bookmark.map((posts) => (
-                  <Postcard key={posts._id} post={posts} />
+               bookmarkPost.length>0 ?
+               bookmarkPost.map((posts) => (
+                  <Postcard key={posts._id} allPost={posts} />
                   ))
                 :<Empty path={location.pathname}/>
             }

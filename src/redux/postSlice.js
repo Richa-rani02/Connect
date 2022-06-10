@@ -26,6 +26,8 @@ const initialState = {
     statusDeletePost: "idle",
     statusLikePost: "idle",
     statusDislikePost: "idle",
+    statusAddBookmark:"idle",
+    statusRemoveBookmark:"idle",
 }
 
 export const addPost = createAsyncThunk("post/addPost", async (postData, { rejectWithValue }) => {
@@ -34,6 +36,7 @@ export const addPost = createAsyncThunk("post/addPost", async (postData, { rejec
             ...postData,
             likes: [],
             comments: [],
+            bookmark:[],
         });
         await updateDoc(postRef, { id: postRef.id });
         const postSnap = await getDoc(postRef);
@@ -116,7 +119,38 @@ export const dislikePost = createAsyncThunk(
         try {
             const postDocumentRef = doc(db, "posts", id);
             const postRef = await updateDoc(postDocumentRef, {
-                likes: arrayRemove(currentUserId),
+                likes:arrayRemove(currentUserId),
+            });
+            return { postId:id, userId: currentUserId };
+        } catch (error) {
+            return rejectWithValue(error.code);
+        }
+    }
+);
+
+export const addToBookmark = createAsyncThunk(
+    "post/addToBookmark",
+    async ({id,currentUserId},{ rejectWithValue }) => {
+
+        try {
+            const postDocumentRef = doc(db, "posts", id);
+            const postRef = await updateDoc(postDocumentRef, {
+                bookmark:arrayUnion(currentUserId),
+            });
+            return { postId:id, userId: currentUserId };
+        } catch (error) {
+            return rejectWithValue(error.code);
+        }
+    }
+);
+export const removeFromBookmark = createAsyncThunk(
+    "post/removeFromBookmark",
+    async ({id,currentUserId},{ rejectWithValue }) => {
+
+        try {
+            const postDocumentRef = doc(db, "posts", id);
+            const postRef = await updateDoc(postDocumentRef, {
+                bookmark: arrayRemove(currentUserId),
             });
             return { postId:id, userId: currentUserId };
         } catch (error) {
@@ -239,6 +273,42 @@ const postSlice = createSlice({
             });
         },
         [dislikePost.rejected]: (state, action) => {
+            state. statusDislikePost = "failed";
+            state.error = action.payload;
+
+        },
+
+        [addToBookmark.pending]: (state, action) => {
+            state.statusLikePost = "loading";
+            state.error = "";
+
+        },
+        [addToBookmark.fulfilled]: (state, action) => {
+            state.statusLikePost = "Success";
+            state.posts = state.posts.map((post) => post.id === action.payload.postId ? { ...post, bookmark: post.likes.concat(action.payload.userId) } : post)
+            toast.success("post saved !!", {
+                id: toastId,
+            });
+        },
+        [addToBookmark.rejected]: (state, action) => {
+            state.statusLikePost = "failed";
+            state.error = action.payload;
+
+        },
+
+        [removeFromBookmark.pending]: (state, action) => {
+            state. statusDislikePost = "loading";
+            state.error = "";
+
+        },
+        [removeFromBookmark.fulfilled]: (state, action) => {
+            state. statusDislikePost = "Success";
+            state.posts = state.posts.map((post) => post.id === action.payload.postId ? { ...post, bookmark: post.likes.filter((id)=>id!==action.payload.userId) } : post)
+            toast.success("post removed from bookmark list !!", {
+                id: toastId,
+            });
+        },
+        [removeFromBookmark.rejected]: (state, action) => {
             state. statusDislikePost = "failed";
             state.error = action.payload;
 
