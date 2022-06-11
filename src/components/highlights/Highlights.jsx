@@ -25,7 +25,7 @@ export const Highlights = () => {
         Suggestion for You
       </h3>
 
-      {getUsersStatus === "pending" ? <></>
+      {getUsersStatus === "loading" ? <><Loader/></>
         : filteredUser.length > 0 ?
           <article className="user-list">
             {filteredUser?.map((user) => (

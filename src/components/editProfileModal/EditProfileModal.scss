@@ -5,7 +5,14 @@
         margin-left: auto;
     }
 }
-
+.edit-avatar{
+    position: relative;
+}
+.edit-icon{
+    position: absolute;
+    top: 3.5rem;
+    left: 8.6rem;
+}
 .editprofile {
     gap: 1rem;
 

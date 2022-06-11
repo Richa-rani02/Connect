@@ -103,20 +103,20 @@ export const getUserData = createAsyncThunk(
     }
   );
 
-//   export const updateUserDetails = createAsyncThunk(
-//     "auth/updateUserDetails",
-//     async (userData, {rejectWithValue}) => {
-//       try {
-//         const userRef = doc(db, "users", currentUserId);
-//         await updateDoc(userRef, userData);
-//         const newUserData = await getDoc(userRef);
-//         return newUserData.data();
-//       } catch (error) {
-//         console.error(error);
-//         return Promise.reject(error);
-//       }
-//     }
-//   );
+  export const updateUser = createAsyncThunk(
+    "auth/updateUser",
+    async (userData, {rejectWithValue}) => {
+      const currentUserId=localStorage.getItem("userId");
+      try {
+        const userRef = doc(db, "users", currentUserId);
+        await updateDoc(userRef,userData);
+        const updatedUser = await getDoc(userRef);
+        return updatedUser.data();
+      } catch (error) {
+        return rejectWithValue(error.code);
+      }
+    }
+  );
 
   export const followUser = createAsyncThunk(
     "auth/followUser",
@@ -132,7 +132,6 @@ export const getUserData = createAsyncThunk(
         });
         return { followuserId, userId: currentUserId };
       } catch (error) {
-        console.error(error);
         return rejectWithValue(error.code);
       }
     }
@@ -151,7 +150,6 @@ export const getUserData = createAsyncThunk(
         });
         return { followuserId, userId: currentUserId };
       } catch (error) {
-        console.error(error);
         return rejectWithValue(error.code);
       }
     }
@@ -225,7 +223,7 @@ const authSlice = createSlice({
         },
         
         [getAllUsers.pending]: (state, action) => {
-            state.getUsersStatus="pending";
+            state.getUsersStatus="loading";
         },
 
         [getAllUsers.fulfilled]: (state, action) => {
@@ -236,6 +234,17 @@ const authSlice = createSlice({
             state.getUsersStatus="failed";
             state.error = action.payload;
         },
+        [updateUser.pending]: (state, action) => {
+          state.error ="";
+      },
+
+      [updateUser.fulfilled]: (state, action) => {
+          state.user = action.payload;
+          state.allUsers=state.allUsers.map((user)=>user.id===action.payload.id?action.payload:user);
+      },
+      [updateUser.rejected]: (state, action) => {
+          state.error = action.payload;
+      },
         [getUserData.pending]: (state) => {
             state.getCurrentUserStatus="pending";
         },
@@ -271,7 +280,6 @@ const authSlice = createSlice({
         },
 
         [unfollowUser.fulfilled]: (state, action) => {
-          console.log(action.payload);
              state.user.following=state.user.following.filter((userId)=>userId!==action.payload.followuserId);
              state.allUsers=state.allUsers.map((user)=>user.id===action.payload.userId?{...user,following:user.following.filter((id)=>id!==action.payload.followuserId)}:user);
              state.allUsers=state.allUsers.map((user)=>user.id===action.payload.followuserId?{...user,followers:user.followers.filter((id)=>id!==action.payload.userId)}:user);

@@ -1,25 +1,41 @@
-import { Modal, Avatar } from "../index";
+import { Modal} from "../index";
 import "./EditProfileModal.scss";
-import { useState } from "react";
+import { useState,useRef } from "react";
+import {FcCompactCamera} from "../../utils/icons";
+import Avatar from "@mui/material/Avatar";
 import { useDispatch,useSelector } from "react-redux";
-import { updateUser } from "../../pages/auth/authSlice";
+import { updateUser } from "../../redux/authSlice";
 export const EditProfileModal = ({ isOpen, onClose }) => {
-    const { userDetails } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-    console.log(userDetails);
+    const fileInput = useRef(null);
     const [profileContent, setProfileContent] = useState(
         {
-            profileImg: userDetails?.profileImg,
-            bio: userDetails?.bio,
-            portfolioLink: userDetails?.portfolioLink,
+            profileImg:  user?.profileImg,
+            bio: user?.bio,
+            website:  user?.website,
         });
+        const imageUpload = async (e) => {
+            const file = e.target.files[0];
+            const toBase64 = (file) =>
+                new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = (error) => reject(error);
+                });
+    
+            let base64File = await toBase64(file);
+            setProfileContent({ ...profileContent,  profileImg: base64File });
+        };
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <div className="flex flex-col profile-panel">
                 <span className="flex editprofile">
                     <h4>Avatar:</h4>
-                    <Avatar details={userDetails} className="sm" />
-
+                    <Avatar className="edit-avatar" sx={{ height: '70px', width: '70px', backgroundColor: '#818cf8' }} src={profileContent?.profileImg || user?.firstName?.charAt(0)} alt={user?.firstName}/>
+                    <span onClick={() => fileInput.current.click()}> <FcCompactCamera size={32} className="edit-icon"/><input ref={fileInput} type="file" style={{display:'none'}} onChange={imageUpload}/></span>
+                   
                 </span>
                 <span className="flex editprofile mt-0-75">
                     <h4>Bio:</h4>
@@ -30,17 +46,19 @@ export const EditProfileModal = ({ isOpen, onClose }) => {
                 </span>
                 <span className="flex editprofile mt-0-75">
                     <h4>Link:</h4>
-                    <input className="right-item p-0-5" value={profileContent.portfolioLink}
-                        onChange={(e) => setProfileContent({ ...profileContent, portfolioLink: e.target.value })}
+                    <input className="right-item p-0-5" value={profileContent.website}
+                        onChange={(e) => setProfileContent({ ...profileContent, website: e.target.value })}
                     >
                     </input>
                 </span>
-                <button className="mt-1 py-0-5 px-0-75 update-profile-btn" onClick={() => {
+                <button className="mt-1 py-0-5 px-0-75 update-profile-btn"
+                 onClick={() => {
               dispatch(
-                updateUser({ ...userDetails, ...profileContent })
+                updateUser(profileContent)
               );
               onClose();
-            }}>
+            }}
+            >
                     update
                 </button>
             </div>
