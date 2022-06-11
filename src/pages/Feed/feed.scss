@@ -38,6 +38,19 @@
     color: $blue-5;
   }
 }
+.filter-section{
+  margin-left: auto;
+}
+.filter-section select{
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid $blue-5;
+  &:focus{
+    outline: none;
+  }
+
+}
 .post-list{
   width: 100%;
 }
