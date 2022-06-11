@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import {
     query,
     orderBy,
@@ -69,8 +68,6 @@ export const getAllPosts = createAsyncThunk("post/getAllPosts", async (_, { reje
 });
 
 export const editPost = createAsyncThunk("post/editPost", async (postData, { rejectWithValue }) => {
-    // const newPostData = { ...postData };
-    // delete newPostData.user;
     const postDataRef = doc(db, "posts", postData.id);
     try {
         await updateDoc(postDataRef, postData);
@@ -85,7 +82,6 @@ export const editPost = createAsyncThunk("post/editPost", async (postData, { rej
 export const deletePost = createAsyncThunk(
     "post/deletePost",
     async (postId, { rejectWithValue }) => {
-        console.log(postId);
         const postDeleteRef = doc(db, "posts", postId);
         try {
             await deleteDoc(postDeleteRef);
@@ -158,6 +154,36 @@ export const removeFromBookmark = createAsyncThunk(
         }
     }
 );
+export const addComment = createAsyncThunk(
+    "post/addComment",
+    async ({postId,comment},{ rejectWithValue }) => {
+
+        try {
+            const postDocumentRef = doc(db, "posts", postId);
+            const postRef = await updateDoc(postDocumentRef, {
+                comments:arrayUnion(comment),
+            });
+            return { postId:postId,comment:comment};
+        } catch (error) {
+            return rejectWithValue(error.code);
+        }
+    }
+);
+
+export const deleteComment = createAsyncThunk(
+    "post/deleteComment",
+    async ({postId,comment},{ rejectWithValue }) => {
+        try {
+            const postDocumentRef = doc(db, "posts", postId);
+            const postRef = await updateDoc(postDocumentRef, {
+                comments:arrayRemove(comment),
+            });
+            return { postId:postId,commentId:comment.commentId};
+        } catch (error) {
+            return rejectWithValue(error.code);
+        }
+    }
+);
 
 const postSlice = createSlice({
     name: 'post',
@@ -180,7 +206,6 @@ const postSlice = createSlice({
         [addPost.rejected]: (state, action) => {
             state.statusAddPost = "failed";
             state.error = action.payload;
-            console.log(action.payload);
             toast.error(`${action.payload}`, {
                 id: toastId,
             });
@@ -277,39 +302,60 @@ const postSlice = createSlice({
             state.error = action.payload;
 
         },
-
         [addToBookmark.pending]: (state, action) => {
-            state.statusLikePost = "loading";
+            state.statusAddBookmark = "loading";
             state.error = "";
 
         },
         [addToBookmark.fulfilled]: (state, action) => {
-            state.statusLikePost = "Success";
+            state.statusAddBookmark = "Success";
             state.posts = state.posts.map((post) => post.id === action.payload.postId ? { ...post, bookmark: post.likes.concat(action.payload.userId) } : post)
             toast.success("post saved !!", {
                 id: toastId,
             });
         },
         [addToBookmark.rejected]: (state, action) => {
-            state.statusLikePost = "failed";
+            state.statusAddBookmark = "failed";
             state.error = action.payload;
 
         },
 
         [removeFromBookmark.pending]: (state, action) => {
-            state. statusDislikePost = "loading";
+            state.statusRemoveBookmark = "loading";
             state.error = "";
 
         },
         [removeFromBookmark.fulfilled]: (state, action) => {
-            state. statusDislikePost = "Success";
+            state.statusRemoveBookmark = "Success";
             state.posts = state.posts.map((post) => post.id === action.payload.postId ? { ...post, bookmark: post.likes.filter((id)=>id!==action.payload.userId) } : post)
             toast.success("post removed from bookmark list !!", {
                 id: toastId,
             });
         },
         [removeFromBookmark.rejected]: (state, action) => {
-            state. statusDislikePost = "failed";
+            state.statusRemoveBookmark = "failed";
+            state.error = action.payload;
+
+        },
+        [addComment.pending]: (state, action) => {
+            state.error = "";
+
+        },
+        [addComment.fulfilled]: (state, action) => {
+            state.posts = state.posts.map((post) => post.id === action.payload.postId ? { ...post, comments: post.comments.concat(action.payload.comment) } : post)
+        },
+        [addComment.rejected]: (state, action) => {
+            state.error = action.payload;
+
+        },
+        [deleteComment.pending]: (state, action) => {
+            state.error = "";
+
+        },
+        [deleteComment.fulfilled]: (state, action) => {
+            state.posts = state.posts.map((post) => post.id === action.payload.postId ? { ...post, comments: post.comments.filter((comment)=>comment.commentId!==action.payload.commentId) } : post)
+        },
+        [deleteComment.rejected]: (state, action) => {
             state.error = action.payload;
 
         },
