@@ -13,7 +13,8 @@ export const Feed = () => {
     const { posts, statusAllPost } = useSelector((state) => state.post);
     const userId = localStorage.getItem("userId");
     const { user } = useSelector((state) => state.auth);
-    const myFeedPosts = posts.filter((post) => post.userId === userId);
+    const myFeedPosts =user?.following && posts?.length>0 && 
+                        posts.filter((post) =>user?.following.includes(post?.userId) || post?.userId === user?.id);
     const [filterText, setFilterText] = useState("");
     const [createPostActive, setCreatePostActive] = useState(false);
     const handlecreatePostToogle = () => setCreatePostActive((prev) => !prev);
@@ -30,7 +31,6 @@ export const Feed = () => {
 
         }
     }
-    const filteredPost=applyFilter();
     return (
         <>
             <div className="feed">
@@ -66,8 +66,8 @@ export const Feed = () => {
                                 </>
                             ) :
                                 <> */}
-                            {myFeedPosts.length !== 0 ? (
-                                myFeedPosts?.map((post) => (
+                            {myFeedPosts?.length !== 0 ? (
+                               myFeedPosts?.map((post) => (
                                     <Postcard key={post.id} allPost={post} />
                                 ))
                             ) : <Empty path={location.pathname} />}

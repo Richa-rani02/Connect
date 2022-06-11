@@ -103,6 +103,60 @@ export const getUserData = createAsyncThunk(
     }
   );
 
+//   export const updateUserDetails = createAsyncThunk(
+//     "auth/updateUserDetails",
+//     async (userData, {rejectWithValue}) => {
+//       try {
+//         const userRef = doc(db, "users", currentUserId);
+//         await updateDoc(userRef, userData);
+//         const newUserData = await getDoc(userRef);
+//         return newUserData.data();
+//       } catch (error) {
+//         console.error(error);
+//         return Promise.reject(error);
+//       }
+//     }
+//   );
+
+  export const followUser = createAsyncThunk(
+    "auth/followUser",
+    async ({followuserId,currentUserId},{rejectWithValue}) => {
+      try {
+        const userRef = doc(db, "users", currentUserId);
+        await updateDoc(userRef, {
+          following: arrayUnion(followuserId),
+        });
+        const followerUserRef = doc(db, "users", followuserId);
+        await updateDoc(followerUserRef, {
+          followers: arrayUnion(currentUserId),
+        });
+        return { followuserId, userId: currentUserId };
+      } catch (error) {
+        console.error(error);
+        return rejectWithValue(error.code);
+      }
+    }
+  );
+  export const unfollowUser = createAsyncThunk(
+    "auth/unfollowUser",
+    async ({followuserId,currentUserId},{rejectWithValue}) => {
+      try {
+        const userDataRef = doc(db, "users", currentUserId);
+         await updateDoc(userDataRef, {
+          following: arrayRemove(followuserId),
+        });
+        const followerUserRef = doc(db, "users", followuserId);
+        await updateDoc(followerUserRef, {
+          followers: arrayRemove(currentUserId),
+        });
+        return { followuserId, userId: currentUserId };
+      } catch (error) {
+        console.error(error);
+        return rejectWithValue(error.code);
+      }
+    }
+  );
+  
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -198,6 +252,31 @@ const authSlice = createSlice({
         },
         [getUserData.rejected]: (state, action) => {
             state.getCurrentUserStatus="failed",
+            state.error = action.payload;
+        },
+        [followUser.pending]: (state) => {
+            state.error="";
+        },
+
+        [followUser.fulfilled]: (state, action) => {
+            state.user.following=state.user.following.concat(action.payload.followuserId);
+            state.allUsers=state.allUsers.map((user)=>user.id===action.payload.userId?{...user,following:[...user.following,action.payload.followuserId]}:user);
+            state.allUsers=state.allUsers.map((user)=>user.id===action.payload.followuserId?{...user,followers:[...user.followers,action.payload.userId]}:user);
+        },
+        [followUser.rejected]: (state, action) => {
+            state.error = action.payload;
+        },
+        [unfollowUser.pending]: (state) => {
+            state.error="";
+        },
+
+        [unfollowUser.fulfilled]: (state, action) => {
+          console.log(action.payload);
+             state.user.following=state.user.following.filter((userId)=>userId!==action.payload.followuserId);
+             state.allUsers=state.allUsers.map((user)=>user.id===action.payload.userId?{...user,following:user.following.filter((id)=>id!==action.payload.followuserId)}:user);
+             state.allUsers=state.allUsers.map((user)=>user.id===action.payload.followuserId?{...user,followers:user.followers.filter((id)=>id!==action.payload.userId)}:user);
+        },
+        [unfollowUser.rejected]: (state, action) => {
             state.error = action.payload;
         },
 

@@ -1,13 +1,18 @@
 import React from 'react'
-import {useDispatch} from "react-redux";
+import {useDispatch,useSelector} from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import "./followUserCard.scss";
 import Avatar from "@mui/material/Avatar";
-import {followUnfollowUser} from "../../../pages/profile/userSlice";
+import { followUser,unfollowUser } from '../../../redux/authSlice';
 export const FollowUserCard = ({userDetail}) => {
   const dispatch=useDispatch();
   const navigate=useNavigate();
-  // const { userDetails } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
+  const currentUserId=localStorage.getItem("userId");
+  const isFollowing=user?.following?.indexOf(userDetail?.id)>-1;
+  const followUnfollowHandler=()=>{
+    isFollowing?dispatch(unfollowUser({followuserId:userDetail.id,currentUserId:currentUserId})):dispatch(followUser({followuserId:userDetail.id,currentUserId:currentUserId}))
+  }
   return (
     <div className="user_card flex flex-align-center  mb-0-5 px-0-5" key={userDetail.id}>
             <div className="flex user-details flex-align-center">
@@ -21,7 +26,7 @@ export const FollowUserCard = ({userDetail}) => {
               </span>
               </div>
               </div>
-              <button className="follow-btn px-1 py-0-25"  onClick={()=>dispatch(followUnfollowUser({userId:userDetail._id,dispatch:dispatch,isFollowing:false}))}>Follow</button>
+              <button className="follow-btn px-1 py-0-25"  onClick={followUnfollowHandler}>{isFollowing?'Unfollow':'Follow'}</button>
         </div>
   )
 }

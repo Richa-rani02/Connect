@@ -8,7 +8,7 @@ import { useState } from "react";
 export const Highlights = () => {
   const { allUsers, getUsersStatus, user } = useSelector((state) => state.auth);
   const [searchText, setSearchText] = useState("");
-  const suggestedUser = allUsers.filter((userDetails) => userDetails.email !== user.email);
+  const suggestedUser = allUsers.filter((userDetails) => userDetails.id !== user.id);
   const filteredUser = searchUser(suggestedUser, searchText);
   return (
     <section className="suggestion-container p-0-75">
