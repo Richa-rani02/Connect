@@ -21,15 +21,6 @@
     min-width: 40%;
     border: 1.9px solid $blue-2;
 
-    .profile-img {
-        width: 40%;
-        height: 100%;
-
-        @include mdMinBreakPoint {
-            width: 100%;
-        }
-    }
-
     @include mdMinBreakPoint {
         width: 100%;
     }

@@ -6,6 +6,7 @@ import { Comment } from "../index";
 import { CreatePost } from "../../pages/Feed/createPost/CreatePost";
 import Avatar from "@mui/material/Avatar";
 import { v4 as uuid } from 'uuid';
+import { useNavigate } from "react-router-dom";
 import { BsThreeDots, MdAddComment, BiCommentEdit, AiFillHeart, AiOutlineHeart, BsFillChatLeftDotsFill, BsBookmark, FaRegCommentDots, BsEmojiSmile, MdDeleteOutline, BsBookmarkFill } from "../../utils/icons";
 export const Postcard = ({ allPost }) => {
     const {
@@ -21,6 +22,7 @@ export const Postcard = ({ allPost }) => {
     } = allPost;
     const { token } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
+    const navigate=useNavigate();
     const [openOption, setOpenOption] = useState(false);
     const [commentblock, setCommentBlock] = useState(false);
     const currentUserId = localStorage.getItem("userId");
@@ -52,7 +54,7 @@ export const Postcard = ({ allPost }) => {
             <div className="postcard mb-1-5 px-0-5">
                 <div className="postcard__header flex flex-align-center">
                     <div className="leftspan flex">
-                        <Avatar sx={{ height: '52px', width: '52px', backgroundColor: '#818cf8' }} src={user?.profileImg || user?.firstName?.charAt(0)} alt={user?.firstName} />
+                        <Avatar sx={{ height: '52px', width: '52px', backgroundColor: '#818cf8' }} src={user?.profileImg || user?.firstName?.charAt(0)} alt={user?.firstName} onClick={() => navigate(`/profile/${userId}`)} />
                         <span className="flex flex-col">
                             <span className="flex user-detail">
                                 <h4>{user?.firstName.concat(" ", user?.lastName)}</h4>

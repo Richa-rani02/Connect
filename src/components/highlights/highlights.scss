@@ -1,10 +1,15 @@
 @import "../../sassStyles/global";
-
+.suggestion-container{
+    background-color: white;
+    height: 100%;
+    width: 100%;
+}
 .user-suggested{
     font-size: 0.9rem;
     height: 100%;
     overflow: hidden;
     gap: 1rem;
+
 
     &__title{
        color:$black

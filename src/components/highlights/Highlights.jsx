@@ -6,15 +6,12 @@ import { searchUser } from "./helper";
 import { Loader } from "../index";
 import { useState } from "react";
 export const Highlights = () => {
-  // const { allUsers } = useSelector((state) => state.user);
   const { allUsers, getUsersStatus, user } = useSelector((state) => state.auth);
   const [searchText, setSearchText] = useState("");
   const suggestedUser = allUsers.filter((userDetails) => userDetails.email !== user.email);
-  //   const suggestedUser = allUsers
-  //     .filter((user) => user.username != userDetails.username)
-  //     .filter((user) => !userDetails.following.find((ele) => ele._id === user._id));
   const filteredUser = searchUser(suggestedUser, searchText);
   return (
+    <section className="suggestion-container p-0-75">
     <section className="user-suggested  flex flex-col flex-align-center">
       <article className="search-bar">
         <form action="" className="search-form flex">
@@ -43,6 +40,7 @@ export const Highlights = () => {
           </div>
       }
 
+    </section>
     </section>
   )
 }

@@ -9,7 +9,7 @@ export const MainContainer = ({ leftchild, mainchild, rightchild }) => {
                 <div className="content__wrapper">
                     {mainchild}
                 </div>
-                <div className="right__wrapper p-0-75">
+                <div className="right__wrapper">
                     {rightchild}
                 </div>
             </div>

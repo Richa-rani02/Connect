@@ -22,7 +22,7 @@ export const AllRoutes = () => {
           <Bookmark />
         </ProtectedRoutes>
       } />
-      <Route path="/profile/:userHandler" element={
+      <Route path="/profile/:userId" element={
         <ProtectedRoutes>
           <Profile />
         </ProtectedRoutes>

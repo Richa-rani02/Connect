@@ -1,9 +1,5 @@
 import { Fade } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
-import Banner1 from "../../assets/bannersocial1.jpg";
-import Banner2 from "../../assets/bannersocial2.jpg";
-import Banner3 from "../../assets/bannersocial3.jpg";
-import Banner4 from "../../assets/bannersocial4.jpg";
 import "./Banner.scss";
 export const Banner=()=>{
     const properties = {
@@ -12,7 +8,7 @@ export const Banner=()=>{
         easing: "ease",
         arrows:false,
       };
-     const fadeImages = [Banner1, Banner2, Banner3, Banner4];
+     const fadeImages = ["https://res.cloudinary.com/dgomw715r/image/upload/v1654945620/ProjectImages/73ac4cd80aa7c1affab4e1482a567190_flxzml.jpg", "https://res.cloudinary.com/dgomw715r/image/upload/v1654945314/ProjectImages/32_u3mwlx.gif", "https://res.cloudinary.com/dgomw715r/image/upload/v1654945304/ProjectImages/pngtree-purple-gradient-background-image_63081_xamqoq.jpg", "https://res.cloudinary.com/dgomw715r/image/upload/v1654945287/ProjectImages/SL_060521_43530_09_wsr5s7.jpg"];
     return (
         <div className="banner_container">
             <Fade {...properties}>

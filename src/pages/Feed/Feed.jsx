@@ -1,7 +1,7 @@
 import { Navbar, Sidebar, Highlights, Postcard, Loader, EmojisPicker, SideContainer, BirthdayCard } from "../../components";
 import "./feed.scss";
 import { Empty } from "../index";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
@@ -9,6 +9,7 @@ import { MainContainer } from "../mainContainer/MainContainer";
 import { CreatePost } from "./createPost/CreatePost";
 export const Feed = () => {
     const location = useLocation();
+    const navigate=useNavigate();
     const { posts, statusAllPost } = useSelector((state) => state.post);
     const userId = localStorage.getItem("userId");
     const { user } = useSelector((state) => state.auth);
@@ -41,7 +42,7 @@ export const Feed = () => {
                     <section className="main-section flex flex-col">
                         <article className="">
                             <div className="input-click-container flex flex-align-center p-0-25">
-                                <Avatar sx={{ height: '52px', width: '52px', backgroundColor: '#818cf8' }} src={user?.profileImg || user?.firstName?.charAt(0)} alt={user?.firstName} />
+                                <Avatar sx={{ height: '52px', width: '52px', backgroundColor: '#818cf8' }} src={user?.profileImg || user?.firstName?.charAt(0)} alt={user?.firstName} onClick={() => navigate(`/profile/${user?.id}`)}/>
                                 <div className="input-click p-0-5" onClick={() => setCreatePostActive(true)}>
                                     What's on your mind ?
                                 </div>
