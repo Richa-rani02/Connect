@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {logoutUser} from "../../redux/authSlice";
 import { useState} from "react";
 import Avatar from "@mui/material/Avatar";
+import { followUser,unfollowUser } from '../../redux/authSlice';
 import {MainContainer} from "../mainContainer/MainContainer";
 
 export const Profile = () => {
@@ -25,6 +26,9 @@ export const Profile = () => {
     const profileModalToogle = () => {
         setOpenProfileModal(prev => !prev);
     }
+    const followUnfollowHandler=()=>{
+        isFollowing?dispatch(unfollowUser({followuserId:userId,currentUserId:currentUserId})):dispatch(followUser({followuserId:userId,currentUserId:currentUserId}))
+      }
     return (
         <>
             <Navbar />
@@ -42,8 +46,7 @@ export const Profile = () => {
                             <p>{userDetails?.fullName}</p>
                             {isCurrentUser ?
                                 <button className="p-0-5 edit-btn" onClick={() => setOpenProfileModal(true)}>Edit Profile</button>
-                                : isFollowing?<button className="p-0-5 edit-btn" >Following</button>
-                                              :<button className="p-0-5 edit-btn">Follow</button>
+                                :<button className="p-0-5 edit-btn" onClick={followUnfollowHandler} >{isFollowing?'following':'Follow'}</button> 
                             }
                         </span>
 
