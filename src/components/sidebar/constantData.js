@@ -1,4 +1,4 @@
-import { MdFeedback, BsBookmarkFill, FiHash, FaUserCircle } from "../../utils/icons";
+import { MdFeedback, BsBookmarkFill, FiHash} from "../../utils/icons";
 export const navItems = [
     {
         icons: MdFeedback,
@@ -15,6 +15,5 @@ export const navItems = [
         title: 'Bookmarks',
         path: '/bookmark'
     }
-
 
 ]

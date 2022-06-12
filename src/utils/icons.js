@@ -1,5 +1,5 @@
 export {MdOutlineClose,MdNotifications,MdFeedback,MdLocationPin,MdDeleteOutline,MdAddComment} from "react-icons/md";
-export {FaUserCircle} from "react-icons/fa";
+export {FaUserCircle,FaUsers} from "react-icons/fa";
 export {AiFillLike,AiOutlineHeart,AiFillHeart,AiFillClockCircle} from "react-icons/ai";
 export {FiHash} from "react-icons/fi";
 export {FcPicture,FcRightUp,FcGenericSortingAsc,FcGenericSortingDesc,FcCompactCamera} from "react-icons/fc";
