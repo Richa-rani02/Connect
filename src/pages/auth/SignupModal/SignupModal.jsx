@@ -61,7 +61,7 @@ export const SignupModal = ({ isOpen, onClose }) => {
           <form className="signup-form mt-0-5" onSubmit={e => e.preventDefault()}>
             <div className="mb-0-5 flex-center">
             <IconButton onClick={() => setAvatarActive(true)}>
-              <Avatar sx={{ height: '50px', width: '50px' }} src="https://res.cloudinary.com/dgomw715r/image/upload/v1654585086/ProjectImages/avatar2_cpccbi.png" alt="choose image" />
+              <Avatar sx={{ height: '50px', width: '50px' }} src={formValues?.profileImg ||"https://res.cloudinary.com/dgomw715r/image/upload/v1654585086/ProjectImages/avatar2_cpccbi.png"} alt="choose image" />
             </IconButton>
             </div>
             
