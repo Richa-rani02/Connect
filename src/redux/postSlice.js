@@ -43,7 +43,6 @@ export const addPost = createAsyncThunk("post/addPost", async (postData, { rejec
         const userSnap = await getDoc(doc(db, "users", post.userId));
         return { ...post, id: postSnap.id, user: userSnap.data() };
     } catch (error) {
-        console.log(error);
         return rejectWithValue(error.code);
     }
 });

@@ -18,7 +18,7 @@ export const Bookmark = () => {
                <>
                {bookmarkPost.length>0 ?
                bookmarkPost.map((posts) => (
-                  <Postcard key={posts._id} allPost={posts} />
+                  <Postcard key={posts.id} allPost={posts} />
                   ))
                 :<Empty path={location.pathname}/>
             }

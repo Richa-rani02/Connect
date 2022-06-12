@@ -97,7 +97,7 @@ export const ProfileTab = ({ProfileUserId}) => {
         {posts.filter((post) => post.likes.indexOf(ProfileUserId) > -1).length > 0 ?
           posts.filter((post) => post.likes.indexOf(ProfileUserId) > -1)
             ?.map((post) => (
-              <Postcard key={posts._id} allPost={post} />
+              <Postcard key={posts.id} allPost={post} />
             )) : <Empty path="/liked" />
         }
       </TabPanel>

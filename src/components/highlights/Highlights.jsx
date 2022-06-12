@@ -29,7 +29,7 @@ export const Highlights = () => {
         : filteredUser.length > 0 ?
           <article className="user-list">
             {filteredUser?.map((user) => (
-              <FollowUserCard userDetail={user} />
+              <FollowUserCard userDetail={user} key={user.id} />
             ))
             }
           </article>
