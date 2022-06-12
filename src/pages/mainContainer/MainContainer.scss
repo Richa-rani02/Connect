@@ -27,7 +27,7 @@
     gap: 5rem;
     justify-content: space-between;
 
-    @include mdMinBreakPoint {
+    @include lgMinBreakPoint {
         padding: 10px;
      }
 }
@@ -35,8 +35,8 @@
 .left__wrapper {
     flex-basis: 15rem;
     height: fit-content; 
-    
-    @include mdMinBreakPoint {
+     
+    @include lgMinBreakPoint {
        position: fixed;
        bottom: 0;
        height: 4rem;
@@ -48,7 +48,7 @@
 .content__wrapper {
     flex: 1;
 
-    @include mdMinBreakPoint {
+    @include lgMinBreakPoint {
         width: 100%;
         height: calc(100% - 4rem);
      }
@@ -59,7 +59,7 @@
     height: 100%;
     border-radius: 7px;
 
-    @include mdMinBreakPoint {
+    @include lgMinBreakPoint {
        display: none;
     }
 }
