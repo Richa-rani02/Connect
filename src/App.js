@@ -2,7 +2,6 @@ import {ToastWrapper} from "./utils/ToastWrapper";
 import {AllRoutes} from "./routes/AllRoutes";
 import {useEffect} from "react";
 import { useDispatch,useSelector } from "react-redux";
-// import { getAllUsers } from "./pages/profile/userSlice";
 import { getAllUsers,getUserData} from "./redux/authSlice";
 import {getAllPosts } from "./redux/postSlice";
 import "./App.scss";

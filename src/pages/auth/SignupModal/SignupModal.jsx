@@ -3,7 +3,6 @@ import { Modal, InputBox, AvatarModal } from "../../../components/index";
 import { ImSpinner3 } from "../../../utils/icons";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
-// import { SignupUser } from "../authSlice";
 import { SignUpUser } from "../../../redux/authSlice";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

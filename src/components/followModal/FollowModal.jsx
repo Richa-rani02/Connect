@@ -1,6 +1,5 @@
 import "./followModal.scss";
 import { Modal } from "../index";
-import { followUnfollowUser } from "../../pages/profile/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
 export const FollowModal = ({ isOpen, onClose, userDetails, modalData }) => {

@@ -1,5 +1,4 @@
 import EmojiPicker from 'emoji-picker-react';
-import {useState} from "react";
 import "./emojiPicker.scss";
 export const EmojisPicker=({emojiActive,setPostContent,postContent})=>{
   const onEmojiClick = (event,emojiObject) => {
