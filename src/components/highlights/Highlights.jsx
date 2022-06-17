@@ -5,11 +5,13 @@ import { FollowUserCard } from "./followUserCard/FollowUserCard";
 import { searchUser } from "./helper";
 import { Loader } from "../index";
 import { useState } from "react";
+import useDebounce from "../../hooks/useDebounce";
 export const Highlights = () => {
   const { allUsers, getUsersStatus, user } = useSelector((state) => state.auth);
   const [searchText, setSearchText] = useState("");
+  const debouncedSearchText = useDebounce(searchText, 600);
   const suggestedUser = allUsers.filter((userDetails) => userDetails.id !== user.id);
-  const filteredUser = searchUser(suggestedUser, searchText);
+  const filteredUser = searchUser(suggestedUser, debouncedSearchText);
   return (
     <section className="suggestion-container p-0-75">
     <section className="user-suggested  flex flex-col flex-align-center">
