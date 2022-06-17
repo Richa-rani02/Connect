@@ -204,6 +204,7 @@ const postSlice = createSlice({
         },
         [addPost.rejected]: (state, action) => {
             state.statusAddPost = "failed";
+            console.log(action.payload);
             state.error = action.payload;
             toast.error(`${action.payload}`, {
                 id: toastId,
@@ -234,8 +235,7 @@ const postSlice = createSlice({
         },
         [editPost.fulfilled]: (state, action) => {
             state.statusEditPost = "Success";
-            state.posts = state.posts.map((post) => post.id === action.payload.id ? { ...post, ...action.payload } : post);
-            state.posts = action.payload;
+             state.posts = state.posts.map((post) => post.id === action.payload.id ? { ...post, ...action.payload } : post);
             toast.success("Post updated", {
                 id: toastId,
             });

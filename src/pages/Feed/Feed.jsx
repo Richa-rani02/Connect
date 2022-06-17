@@ -13,9 +13,10 @@ export const Feed = () => {
     const { posts, statusAllPost } = useSelector((state) => state.post);
     const userId = localStorage.getItem("userId");
     const { user } = useSelector((state) => state.auth);
-    const myFeedPosts = posts?.filter((post) => user?.following.includes(post?.userId) || post?.userId === user?.id);
+    const myFeedPosts = posts?.filter((post) => user?.following?.includes(post?.userId) || post?.userId === user?.id);
     const [filterText, setFilterText] = useState("");
     const [createPostActive, setCreatePostActive] = useState(false);
+    
     const handlecreatePostToogle = () => setCreatePostActive((prev) => !prev);
     const applyFilter = () => {
         switch (filterText) {

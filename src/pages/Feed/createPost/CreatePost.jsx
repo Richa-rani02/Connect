@@ -10,27 +10,25 @@ export const CreatePost = ({isOpen, onClose,postData,editModalActive}) => {
     const dispatch=useDispatch();
     const { user} = useSelector((state) => state.auth);
     const fileInput = useRef(null);
-    let currentDate = new Date().toLocaleDateString();
+    let currentDate = new Date().toLocaleString();
     const userId = localStorage.getItem("userId");
     const [postContent, setPostContent] = useState(
         {
             postText: postData?.postText,
-            postPicUrl: postData?.postPicUrl,
+            postPicUrl: postData?.postPicUrl || "" ,
             userId:userId,
             createdAt:currentDate
-
         });
-
     const postHandler = (e) => {
         e.preventDefault();
         dispatch(addPost(postContent));
-        setPostContent({ postText: "", postPicUrl: "" });
+        setPostContent({ postText: "", postPicUrl: "",userId:userId,createdAt:currentDate });
         onClose();
     }  
     const editPostHandler = (e) => {
         e.preventDefault();
        dispatch(editPost({...postContent,id:postData.id}))
-        setPostContent({ postText: "", postPicUrl: "" });
+        setPostContent({ postText: "", postPicUrl: "",userId:userId,createdAt:currentDate });
         onClose();
     }    
 
