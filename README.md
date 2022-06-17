@@ -1,56 +1,47 @@
 <div align="center">
-
-<img alt="logo" src="public/Assets/ConnectLogo.png" width="150px" height="150px" />
-
-## Connect
-
-This application can be  accessed using the link  [Connect](https://social-connect-temp.vercel.app/).
-
+  <img src="https://res.cloudinary.com/dgomw715r/image/upload/v1655047061/ProjectImages/connectlogo1_p9smei.png" height="100" width="100" alt="logo"/>
+  
+# Connect
+  A Social Media App 
+  [Connect](https://social-connect-temp.vercel.app/)
 </div>
 
----
+## **How to install and run locally ?**
 
-## Table of Contents
+```
+$ git clone https://github.com/Richa-rani02/Connect.git
+$ cd Connect
+$ npm install
+$ npm start
+```
+## **Features -**
 
-- [About](#-about)
-- [Features](#-features)
+- Authentication
+  - Signup
+  - Choose profile Avatar
+  - Signin
+  - Logout  
+- Feed Posts (user's post and to whom user is following )
+- Explore 
+- Add , Update & Delete Post
+- Add & Delete Comment
+- Add delete bookmark
+- User Profile Page
+- Follow / Unfollow
+- Search User
+- Like/unlike and Comment on Post
+- Post,Likes and saved post on user profile page
+- User suggestion panel
+- Responsive
 
----
+## **Tech Stack -**
 
-## About
+- React JS
+- Redux Toolkit 
+- React Router v6
+- Scss
+- Firebase
 
-Connect is a social media Application where we can connect with several people.
+## **Demo -**
+![connect](public/Assets/Socialdemo.gif)
 
----
-
-## Features
-
-**Home**
-
-- user can login/signup on this page
-
-**Feed**
-
-- user can see their posts as well as well as to whom user is following
-- Can sort feed according to trending/latest and oldest
-- user can follow suggested user from right panel
-- Can create/edit/delete post
-
-**Explore**
-
-- can see all the posts 
-
-**Bookmark**
-
-- user can see all the saved post
-
-**Profile**
-
-- user Details (profile image,Details),follow,unfollow user
-- Follower,following Modal
-- user can see created post,saved post and liked post
-
-
-## 404 Error Page
-## Empty state image for all the activity
-## Taost and loader
