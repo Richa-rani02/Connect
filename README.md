@@ -14,7 +14,7 @@ $ cd Connect
 $ npm install
 $ npm start
 ```
-## **Features **
+## **Features**
 
 - Authentication
   - Signup
@@ -34,7 +34,7 @@ $ npm start
 - User suggestion panel
 - Responsive
 
-## **Tech Stack **
+## **Tech Stack**
 
 - React JS
 - Redux Toolkit 
@@ -42,6 +42,6 @@ $ npm start
 - Scss
 - Firebase
 
-## **Demo **
+## **Demo**
 ![connect](public/Assets/Socialdemo.gif)
 
