@@ -16,7 +16,7 @@ export const FollowUserCard = ({userDetail}) => {
   return (
     <div className="user_card flex flex-align-center  mb-0-5 px-0-5" key={userDetail.id}>
             <div className="flex user-details flex-align-center">
-            <Avatar sx={{ height: '45px', width: '45px', backgroundColor:'#818cf8'}} src={userDetail?.profileImg || userDetail?.firstName?.charAt(0)} alt={userDetail?.firstName} onClick={() => navigate(`/profile/${userDetail?.id}`)} />
+            <Avatar sx={{ height: '45px', width: '45px', backgroundColor:'#818cf8',cursor:"pointer"}} src={userDetail?.profileImg || userDetail?.firstName?.charAt(0)} alt={userDetail?.firstName} onClick={() => navigate(`/profile/${userDetail?.id}`)} />
             <div>
               <span>
               <p className="user-title">{userDetail?.firstName.concat(" ", userDetail?.lastName)}</p>

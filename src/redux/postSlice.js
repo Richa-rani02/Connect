@@ -14,7 +14,6 @@ import {
     arrayRemove,
 } from "firebase/firestore";
 import { db, auth } from "../firebase/config";
-
 let toastId;
 const initialState = {
     posts: [],
@@ -28,7 +27,6 @@ const initialState = {
     statusAddBookmark:"idle",
     statusRemoveBookmark:"idle",
 }
-
 export const addPost = createAsyncThunk("post/addPost", async (postData, { rejectWithValue }) => {
     try {
         const postRef = await addDoc(collection(db, "posts"), {
@@ -204,12 +202,11 @@ const postSlice = createSlice({
         },
         [addPost.rejected]: (state, action) => {
             state.statusAddPost = "failed";
-            console.log(action.payload);
             state.error = action.payload;
-            toast.error(`${action.payload}`, {
-                id: toastId,
-            });
-
+            console.log(action.payload);
+                toast.error(`${action.payload}`, {
+                    id: toastId,
+                });
         },
         [getAllPosts.pending]: (state, action) => {
             state.statusAllPost = "loading";
@@ -357,7 +354,7 @@ const postSlice = createSlice({
         [deleteComment.rejected]: (state, action) => {
             state.error = action.payload;
 
-        },
+        }
     }
 
 })

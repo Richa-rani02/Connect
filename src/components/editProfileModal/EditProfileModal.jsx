@@ -16,24 +16,27 @@ export const EditProfileModal = ({ isOpen, onClose }) => {
             website:  user?.website,
         });
         const imageUpload = async (e) => {
-            const file = e.target.files[0];
-            const toBase64 = (file) =>
-                new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = () => resolve(reader.result);
-                    reader.onerror = (error) => reject(error);
-                });
+            const formData = new FormData();
+          formData.append("file", e.target.files[0]);
+          formData.append("upload_preset", "kj8awleh");
     
-            let base64File = await toBase64(file);
-            setProfileContent({ ...profileContent,  profileImg: base64File });
+          const res = await fetch(
+            "https://api.cloudinary.com/v1_1/dgomw715r/image/upload",
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+          const data = await res.json();
+          console.log(data);
+          setProfileContent({ ...profileContent,profileImg: data.secure_url });
         };
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <div className="flex flex-col profile-panel">
                 <span className="flex editprofile">
                     <h4>Avatar:</h4>
-                    <Avatar className="edit-avatar" sx={{ height: '70px', width: '70px', backgroundColor: '#818cf8' }} src={profileContent?.profileImg || user?.firstName?.charAt(0)} alt={user?.firstName}/>
+                    <Avatar className="edit-avatar" sx={{ height: '70px', width: '70px', backgroundColor: '#818cf8',cursor:"pointer" }} src={profileContent?.profileImg || user?.firstName?.charAt(0)} alt={user?.firstName}/>
                     <span onClick={() => fileInput.current.click()}> <FcCompactCamera size={32} className="edit-icon"/><input ref={fileInput} type="file" style={{display:'none'}} onChange={imageUpload}/></span>
                    
                 </span>
