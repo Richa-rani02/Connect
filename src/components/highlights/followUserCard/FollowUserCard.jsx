@@ -26,7 +26,7 @@ export const FollowUserCard = ({userDetail}) => {
               </span>
               </div>
               </div>
-              <button className="follow-btn px-1 py-0-25"  onClick={followUnfollowHandler}>{isFollowing?'Unfollow':'Follow'}</button>
+              <button className="follow-btn px-1 py-0-25 pointer"  onClick={followUnfollowHandler}>{isFollowing?'Unfollow':'Follow'}</button>
         </div>
   )
 }

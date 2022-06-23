@@ -17,7 +17,6 @@ export const Feed = () => {
     
     const [filterText, setFilterText] = useState("");
     const [createPostActive, setCreatePostActive] = useState(false);
-    
     const handlecreatePostToogle = () => setCreatePostActive((prev) => !prev);
     const applyFilter = () => {
         switch (filterText) {
@@ -33,6 +32,7 @@ export const Feed = () => {
         }
     }
     const filteredPost = applyFilter();
+
     return (
         <>
             <div className="feed">
