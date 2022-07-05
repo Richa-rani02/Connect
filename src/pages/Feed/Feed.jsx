@@ -31,8 +31,7 @@ export const Feed = () => {
 
         }
     }
-    const filteredPost = applyFilter();
-
+    let filteredPost = applyFilter();
     return (
         <>
             <div className="feed">
