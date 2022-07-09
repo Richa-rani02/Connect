@@ -1,7 +1,7 @@
 import reactDom from "react-dom";
 import { MdOutlineClose } from "../../utils/icons";
 import "./modal.scss";
-export const Modal = ({ isOpen, onClose, children }) => {
+export const Modal = ({ isOpen, onClose, children}) => {
     if (!isOpen) return null;
     return reactDom.createPortal(
         <div className="modal-overlay flex-center">

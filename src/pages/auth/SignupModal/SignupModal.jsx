@@ -4,10 +4,9 @@ import { ImSpinner3 } from "../../../utils/icons";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import { SignUpUser } from "../../../redux/authSlice";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 export const SignupModal = ({ isOpen, onClose }) => {
   const [avatarActive, setAvatarActive] = useState(false);
   const handleAvatarToogle = () => {

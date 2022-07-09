@@ -57,6 +57,7 @@ export const CreatePost = ({isOpen, onClose,postData,editModalActive}) => {
                         value={postContent.postText}
                         type="text"
                         name=""
+                        placeholder="what's on your mind?"
                         rows={2}
                      onChange={(e) => setPostContent({ ...postContent, postText: e.target.value })}
                     />
